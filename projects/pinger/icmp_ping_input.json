@@ -1,0 +1,25 @@
+{
+  "applications" : {
+      "name" : "ICMP Ping",
+      "icmp_ping" : {
+         "pings" : {
+            "google" : {
+            "packets_count" : 10,
+            "name" : "Google",
+            "packets_rate" : 0,
+            "address" : "https://www.google.com/",
+            "packets_timeout" : 3,
+            "items" : {
+                  "packet_loss" : {
+                  "name" : "packet loss %"
+            },
+            "rtt" : {
+            "name" : "packet round trip time"
+            }
+        }
+        }
+    }
+    }
+}
+}
+            
