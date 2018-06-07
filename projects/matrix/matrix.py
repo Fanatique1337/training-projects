@@ -1,42 +1,53 @@
 #!/usr/bin/env python
 
-def main():
-    cSize1 = input("How many columns would you like the first matrix to have?: ")
-    while not cSize1.isdigit() or cSize1 == 0:
-        cSize1 = input("Please enter a correct number for the column count of matrix 1: ")
+class bcolor:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-    rSize1 = input("How many rows would you like the first matrix to have?: ")
+
+def main():
+    cSize1 = input(bcolor.OKBLUE + "How many columns would you like the first matrix to have?: " + bcolor.ENDC)
+    while not cSize1.isdigit() or cSize1 == 0:
+        cSize1 = input(bcolor.FAIL + "Please enter a correct number for the column count of matrix 1: " + bcolor.ENDC)
+
+    rSize1 = input(bcolor.OKBLUE + "How many rows would you like the first matrix to have?: " + bcolor.ENDC)
     while not rSize1.isdigit() or rSize1 == 0:
-        rSize1 = input("Please enter a correct number for the row count of matrix 1: ")
+        rSize1 = input(bcolor.FAIL + "Please enter a correct number for the row count of matrix 1: " + bcolor.ENDC)
 
     cSize1 = int(cSize1)
     rSize1 = int(rSize1)
     one = [[0 for el in range(cSize1)] for ele in range(rSize1)]
 
-    cSize2 = input("How many columns would you like the second matrix to have?: ")
+    cSize2 = input(bcolor.OKBLUE + "How many columns would you like the second matrix to have?: " + bcolor.ENDC)
     while not cSize2.isdigit() or cSize2 == 0:
-        cSize2 = input("Please enter a correct number for the column count of matrix 2: ")
+        cSize2 = input(bcolor.FAIL + "Please enter a correct number for the column count of matrix 2: " + bcolor.ENDC)
 
-    rSize2 = input("How many rows would you like the second matrix to have?: ")
+    rSize2 = input(bcolor.OKBLUE + "How many rows would you like the second matrix to have?: " + bcolor.ENDC)
     while not rSize2.isdigit() or rSize2 == 0:
-        rSize2 = input("Please enter a correct number for the row count of matrix 2: ")
+        rSize2 = input(bcolor.FAIL + "Please enter a correct number for the row count of matrix 2: " + bcolor.ENDC)
 
     cSize2 = int(cSize2)
     rSize2 = int(rSize2)
     two = [[0 for el2 in range(cSize2)] for ele2 in range(rSize2)]
     
-    print("First matrix:")
+    print("\033[93mFirst matrix:\033[0m")
     for r in range(rSize1):
         print(one[r])
-    print("Second matrix:")
+    print("\033[93mSecond matrix:\033[0m")
     for r2 in range(rSize2):
         print(two[r2])
 
     for row in range(rSize1):
         for column in range(cSize1):
-            temp = input("Enter row {} column {} element of matrix 1: ".format(row+1, column+1))
+            temp = input("\033[95mEnter \033[94mrow \033[92m{} \033[94mcolumn \033[92m{} \033[95melement of \033[94mmatrix \033[92m1: \033[0m".format(row+1, column+1))
             while not temp.isdigit():
-                temp = input("Please enter a correct number for row {} column {} of matrix 1: ".format(row+1, column+1))
+                temp = input("\033[95mPlease enter a correct number for \033[94mrow \033[92m{} \033[94mcolumn \033[92m{} of \033[94m'matrix \033[92m1: \033[0m".format(row+1, column+1))
 
             temp = int(temp)
             one[row][column] = temp
@@ -46,9 +57,9 @@ def main():
 
     for row in range(rSize2):
         for  column in range(cSize2):
-            temp = input("Enter row {} column {} element of matrix 2: ".format(row+1, column+1))
+            temp = input("\033[95mEnter \033[94mrow \033[92m{} \033[94mcolumn \033[92m{} \033[95melement of \033[94mmatrix \033[92m2: \033[0m".format(row+1, column+1))
             while not temp.isdigit():
-                temp = input("Please enter a correct number for row {} column {} of matrix 2: ".format(row+1, column+1))
+                temp = input("\033[95mPlease enter a correct number for \033[94mrow \033[92m{} \033[94mcolumn \033[92m{} of \033[94m'matrix \033[92m2: \033[0m".format(row+1, column+1))
         
             temp = int(temp)
             two[row][column] = temp
@@ -58,15 +69,15 @@ def main():
 
     choice = 0
 
-    print("1. matrix1 + matrix2")
-    print("2. matrix1 - matrix2")
-    print("3. matrix2 - matrix1")
+    print("\033[93m1. Matrix #1 + Matrix #2")
+    print("2. Matrix #1 - Matrix #2")
+    print("3. Matrix #2 - Matrix #1")
     if(cSize1 == rSize2):
-        print("4. matrix1 x matrix2")
-        print("5. matrix2 x matrix1")
-    choice = input("Choose the operation (from 1 to 5): ")
+        print("4. Matrix #1 x Matrix #2")
+        print("5. Matrix #2 x Matrix #1\033[0m")
+    choice = input("\033[1mChoose the operation (from 1 to 5): \033[0m")
     while int(choice) < 1 or int(choice) > 5 or not choice.isdigit():
-        choice = input("Wrong input. Please choose a number from 1 to 5: ")
+        choice = input("\033[91mWrong input. Please choose a number from 1 to 5: \033[0m")
 
     choice = int(choice)
     getchoice(choice, one, two, rSize1, rSize2, cSize1, cSize2)
