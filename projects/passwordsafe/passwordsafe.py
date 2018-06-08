@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
-import blowfish
+# Needed library imports
 
-from os import urandom
+import blowfish # import the blowfish module for encryption 
+from os import urandom # import urandom for vector initialization
+# from pg import db # import database API for PostgreSQL (for later updates)
 
 
 class TestIt(object):
@@ -24,8 +26,34 @@ class TestIt(object):
 		print(enc)
 		dec = b"".join(cipher.decrypt_cfb(enc, iv))
 		print(dec)
+		return enc
 
-crypt = "Test test 1 2 3".encode('utf-8')
-tester = TestIt()
-tester.setUpClass()
-tester.encryptit(crypt)
+# Define the main function.
+
+def main():
+
+	# Initialize all variables that need to be used.
+	database = []
+	filepath = "pwdb.dat"
+
+	tmpsite = input("Website the password is for: ")
+	tmppassword = input("The password is: ").encode('utf-8')
+
+	handler = TestIt()
+	handler.setUpClass()
+	tmppassword = handler.encryptit(tmppassword)
+	seq = (tmpsite, str(tmppassword))
+	database = ",".join(seq)
+	with open(filepath, "wb") as fileh:
+		for entry in database:
+			fileh.write(entry.encode('utf-8'))
+			fileh.write('\n')
+	fileh.close()
+
+
+
+if __name__ == "__main__":
+	main()
+
+
+
