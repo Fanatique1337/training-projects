@@ -240,4 +240,10 @@ def getchoice(choice, one, two, r1, r2, c1, c2):
 
 
 main()
-# Finished ?
+
+"""
+<> To do:
+<1> Add comments for better understanding
+<2> Add classes to use in other projects
+<3> Complete the implementation and add new modes (normal use or implementation in other projects)
+"""
