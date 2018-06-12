@@ -3,7 +3,7 @@
 # Import needed libraries
 
 import sys, subprocess, psutil, getopt
-sys.tracebacklimit = 0
+sys.tracebacklimit = 4
 #########################################
 
 # Parse the arguments
@@ -31,6 +31,7 @@ def load_service(service, cfg):
 	file = open(cfg, "r")
 	for line in file:
 		service.append(line)
+	file.close()
 	return service
 
 # Gather information for the services
@@ -61,15 +62,15 @@ def check_info():
 	# A cycle to get all the information needed for the daemons into our variables
 
 	serviceTotal = str(subprocess.check_output("systemctl list-units --all | grep 'loaded units listed'", shell=True))
-	serviceTotal = serviceTotal[2:-24].strip()
+	serviceTotal = serviceTotal[:-21].strip()
 	serviceTotal = [int(number) for number in serviceTotal.split() if number.isdigit()]
 	serviceTotal = int(''.join(map(str, serviceTotal)))
 	serviceNumActive = str(subprocess.check_output("systemctl list-units --type service | grep 'loaded units listed'", shell=True))
-	serviceNumActive = serviceNumActive[2:-74].strip()
+	serviceNumActive = serviceNumActive[:-71].strip()
 	serviceNumActive = [int(number) for number in serviceNumActive.split() if number.isdigit()]
 	serviceNumActive = int(''.join(map(str, serviceNumActive)))
 	serviceNumFailed = str(subprocess.check_output("systemctl --failed | grep 'loaded units listed'", shell=True))
-	serviceNumFailed = serviceNumFailed[2:-74].strip()
+	serviceNumFailed = serviceNumFailed[:-71].strip()
 	serviceNumFailed = [int(number) for number in serviceNumFailed.split() if number.isdigit()]
 	serviceNumFailed = int(''.join(map(str, serviceNumFailed)))
 
