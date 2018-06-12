@@ -36,3 +36,4 @@ def main():
 	minimal, cfg = parse_args()
 	services = []
 	services = load_services(services, cfg)
+	
