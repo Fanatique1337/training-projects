@@ -6,7 +6,7 @@ import subprocess
 import time
 import getopt
 import psutil
-sys.tracebacklimit = 5000
+sys.tracebacklimit = 1000
 # Get arguments and set configuration
 
 def parse_args():
