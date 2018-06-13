@@ -6,7 +6,7 @@ import subprocess
 import time
 import getopt
 import psutil
-
+sys.tracebacklimit = 5000
 # Get arguments and set configuration
 
 def parse_args():
@@ -35,7 +35,7 @@ def load_services(handlerlist, cfg):
 def read_stats(ss, cpudic):
 	cpudic = {}
 	for pid in ss:
-		with open(os.path.join('/proc/', pid, '/stat'), 'r') as pfile:
+		with open(os.path.join('/proc/', pid, 'stat'), 'r') as pfile:
 			pidtimes = pfile.readline().split(' ')
 			utime = int(pidtimes[13])
 			stime = int(pidtimes[14])
@@ -44,21 +44,24 @@ def read_stats(ss, cpudic):
 		with open('/proc/stat', 'r') as cfile:
 			cputimes = cfile.readline().split(' ')
 			cputotal = 0
-			for int(integ) in cputimes[2:]:
+			for integ in cputimes[2:]:
+				integ = int(integ)
 				cputotal = cputotal + integ
 
 		cpudic[str(pid)] = str((pidtotal / cputotal) * 100)
 	return cpudic
 
 def get_pid(slist):
+	pidchecks = []
 	for svc in slist:
 		cpuusage = 0
-		mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*'"))
+		mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*'".format(svc), shell=True))
 		mainproc = psutil.Process(mainpid)
 		mparent = mainproc.parent()
 		mchildren = mparent.children(recursive=True)
-		pidchecks = mchildren.append(mparent)
-		return pidchecks
+		for child in mchildren:
+			pidchecks = pidchecks.append(child.pid)
+	return pidchecks
 
 def main():
 	minimal, cfg = parse_args()
@@ -66,5 +69,7 @@ def main():
 	services = load_services(services, cfg)
 	pidlist = get_pid(services)
 	cpudic = {}
+	cpudic = read_stats(pidlist, cpudic)
+	print(cpudic)
 
-
+main()
