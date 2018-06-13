@@ -3,7 +3,7 @@
 # Import needed libraries
 
 import sys, subprocess, psutil, getopt
-sys.tracebacklimit = 4
+
 #########################################
 
 # Parse the arguments
