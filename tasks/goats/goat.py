@@ -14,8 +14,6 @@ for g in range(goatnum):
 	goatw.append(int(input("Enter the weight of goat #{}: ".format(g+1))))
 
 goatw = sorted(goatw, reverse=True)
-goatw1 = goatw[:len(goatw)/2]
-goatw2 = goatw[len(goatw)/2:]
 goats = sum(goatw)
 result = []
 permlen = len(goatw)/courses
@@ -27,6 +25,6 @@ while not result:
 	else:
 		break
 
-print("Result: {}".format(result))
+#print("Result: {}".format(result))
 print(goats/courses)
 
