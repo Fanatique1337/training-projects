@@ -1,0 +1,4 @@
+Zabbix agent конфигурация:
+Обяснение за различните файлове и пример, metadata, project-params.. etc.
+
+
