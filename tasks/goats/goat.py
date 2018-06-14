@@ -18,13 +18,15 @@ goatw1 = goatw[:len(goatw)/2]
 goatw2 = goatw[len(goatw)/2:]
 goats = sum(goatw)
 result = []
+permlen = len(goatw)/courses
 while not result:
-	result = [seq for i in range(len(goatw), 0, -1) for seq in itertools.permutations(goatw, i) if sum(seq) == int(sum(goatw)/2)]
+	result = [seq for i in range(len(goatw), 0, -1) for seq in itertools.permutations(goatw, permlen) if sum(seq) == int(goats/courses)]
 	if not result:
 		goats += 1
+		permlen += 1
 	else:
 		break
 
 print("Result: {}".format(result))
-print(int(goats/2))
+print(goats/courses)
 
