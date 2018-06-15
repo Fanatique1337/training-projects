@@ -16,7 +16,7 @@ def parse_args():
 		try:
 			opts, args = getopt.getopt(sys.argv[1:], 'mc:', ['minimal=', 'config='])
 		except getopt.GetoptError:
-			print("An error occured while parsing your arguments.")
+			print("An error occured while parsing your arguments. Check the proper usage of the script.")
 			sys.exit(6)
 		for opt, arg in opts:
 			if opt in ('-m', '--minimal'):
@@ -32,12 +32,15 @@ def load_services(handlerlist, cfg):
 			handlerlist.append(line.strip())
 	return handlerlist
 
-def read_stats(ss, cpudic):
-	cpudic = {}
+def read_stats(ss):
+	cpud = {}
+	memd = {}
 	for pid in ss:
 		with open(os.path.join('/proc/', str(pid), 'stat'), 'r') as pfile:
 			pidtimes = pfile.read().split(' ')
-			print(pidtimes)
+			#print(pidtimes)
+			pname = str(pidtimes[1])[1:-1]
+			#print(pname)
 			utime = int(pidtimes[13])
 			stime = int(pidtimes[14])
 			pidtotal = utime - stime
@@ -51,19 +54,29 @@ def read_stats(ss, cpudic):
 		usg = (pidtotal / cputotal) * 100
 		if usg < 0:
 			usg = 0
-		cpudic[str(pid)] = str(usg)
-	return cpudic
+		cpud[pname] = str(usg)
+
+		phandler = psutil.Process(pid)
+		pmem = phandler.memory_percent()
+		memd[pname] = str(pmem)
+
+	return cpud, memd
 
 def get_pid(slist):
 	pidchecks = []
 	for svc in slist:
 		cpuusage = 0
 		mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*' | head -n 1".format(svc), shell=True))
-		mainproc = psutil.Process(mainpid)
-		mchildren = mainproc.children(recursive=True)
-		pidchecks.append(mainpid)
-		for child in mchildren:
-			pidchecks.append(child.pid)
+		try:
+			mainproc = psutil.Process(mainpid)
+			mchildren = mainproc.children(recursive=True)
+			pidchecks.append(mainpid)
+			for child in mchildren:
+				pidchecks.append(child.pid)
+		except psutil._exceptions.NoSuchProcess:
+			print("No running process with pid {}. Probably the service isn't working.".format(str(mainpid)))
+		except psutil._exceptions.ZombieProcess:
+			print("The process with pid {} is a zombie process".format(str(mainpid)))
 	return pidchecks
 
 def main():
@@ -72,9 +85,11 @@ def main():
 	services = load_services(services, cfg)
 	pidlist = get_pid(services)
 	cpudic = {}
-	cpudic = read_stats(pidlist, cpudic)
+	memdic = {}
+	cpudic, memdic = read_stats(pidlist)
 	for (entry, usg) in cpudic.items():
-		print("CPU usage of process {}: {}%".format(psutil.Process(int(entry)).name(), usg))
-
+		print("CPU usage of process {}: {}%".format(entry, usg))
+		print("Memory usage of process {}: {}%".format(entry, memdic[entry]))
+		print("")
 
 main()
