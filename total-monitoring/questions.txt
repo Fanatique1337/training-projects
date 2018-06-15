@@ -10,4 +10,10 @@ IO Stats Notes:
 Automatic monitoring:
 Скрипта за чистене на логове целия ли спира, ако срещне несъществуващ log файл (т.е. някой е объркал path/logfilename...) 
 
+OS time monitoring:
+Как е направен to-do?
+
+Zabbix agent monitoring:
+Как zabbix server-a получава тези данни за ICMP ping packet loss, ако се изпращат от agent-a и loss e 100%?
+
 
