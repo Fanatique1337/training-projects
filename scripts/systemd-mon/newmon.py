@@ -66,7 +66,10 @@ def get_pid(slist):
 	pidchecks = []
 	for svc in slist:
 		cpuusage = 0
-		mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*' | head -n 1".format(svc), shell=True))
+		try:
+			mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*' | head -n 1".format(svc), shell=True))
+		except ValueError as e:
+			pass
 		try:
 			mainproc = psutil.Process(mainpid)
 			mchildren = mainproc.children(recursive=True)
@@ -74,9 +77,9 @@ def get_pid(slist):
 			for child in mchildren:
 				pidchecks.append(child.pid)
 		except psutil._exceptions.NoSuchProcess:
-			print("No running process with pid {}. Probably the service isn't working.".format(str(mainpid)))
+			print("No running process with pid {} ({}). Probably the service isn't working.\n".format(str(mainpid), svc))
 		except psutil._exceptions.ZombieProcess:
-			print("The process with pid {} is a zombie process".format(str(mainpid)))
+			print("The process with pid {} ({}) is a zombie process\n".format(str(mainpid), svc))
 	return pidchecks
 
 def main():
@@ -89,7 +92,6 @@ def main():
 	cpudic, memdic = read_stats(pidlist)
 	for (entry, usg) in cpudic.items():
 		print("CPU usage of process {}: {}%".format(entry, usg))
-		print("Memory usage of process {}: {}%".format(entry, memdic[entry]))
-		print("")
+		print("Memory usage of process {}: {}%\n".format(entry, memdic[entry]))
 
 main()
