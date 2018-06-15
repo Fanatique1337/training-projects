@@ -60,19 +60,21 @@ def get_pid(slist):
 		cpuusage = 0
 		mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*' | head -n 1".format(svc), shell=True))
 		mainproc = psutil.Process(mainpid)
-		mparent = mainproc.parent()
-		mchildren = mparent.children(recursive=True)
+		mchildren = mainproc.children(recursive=True)
+		pidchecks.append(mainpid)
 		for child in mchildren:
 			pidchecks.append(child.pid)
 	return pidchecks
 
 def main():
 	minimal, cfg = parse_args()
-	services = ['ssh']
+	services = []
 	services = load_services(services, cfg)
 	pidlist = get_pid(services)
 	cpudic = {}
 	cpudic = read_stats(pidlist, cpudic)
-	print(cpudic)
+	for (entry, usg) in cpudic.items():
+		print("CPU usage of process {}: {}%".format(psutil.Process(int(entry)).name(), usg))
+
 
 main()
