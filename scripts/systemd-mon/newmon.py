@@ -6,8 +6,10 @@ import subprocess
 import time
 import getopt
 import psutil
+from datetime import datetime
 sys.tracebacklimit = 1000
 # Get arguments and set configuration
+startTime = datetime.now()
 
 def parse_args():
 	cfgfile = 'smon.conf'
@@ -95,3 +97,6 @@ def main():
 		print("Memory usage of process {}: {}%\n".format(entry, memdic[entry]))
 
 main()
+
+
+#print("Time ran: {}".format(datetime.now() - startTime))
