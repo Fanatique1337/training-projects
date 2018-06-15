@@ -16,4 +16,10 @@ OS time monitoring:
 Zabbix agent monitoring:
 Как zabbix server-a получава тези данни за ICMP ping packet loss, ако се изпращат от agent-a и loss e 100%?
 
+VMware VM Guests CPU (esxtop):
+RGS на клъстери - нямаме достъп до тяхното vSphere API? Какво ще рече това
+
+conf settings:
+Какъв тип disk provisioning се ползва
+
 
