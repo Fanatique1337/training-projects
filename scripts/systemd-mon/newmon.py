@@ -2,7 +2,7 @@
 
 # Exit codes:
 # 6	:	Getopt Error. Probably wrong argument or misspell.
-# 7 : 	TBA
+# 7	: 	TBA
 # 8	:	TBA
 
 import sys
