@@ -8,13 +8,15 @@
 import sys
 import os
 import subprocess
-import time
+#import time
 import getopt
 import psutil
 from datetime import datetime
+from pathlib import Path
+from os import listdir
 sys.tracebacklimit = 1000
 # Get arguments and set configuration
-startTime = datetime.now()
+#startTime = datetime.now()
 
 def parse_args():
 	cfgfile = 'smon.conf'
@@ -74,9 +76,23 @@ def get_pid(slist):
 	for svc in slist:
 		cpuusage = 0
 		try:
-			mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*' | head -n 1".format(svc), shell=True))
-		except ValueError as e:
-			pass
+			pidfpath = '/var/run/{}/{}.pid'.format(svc, svc)
+			if not Path(pidfpath).exists():
+				pidfpath = '/var/run/{}.pid'.format(svc)
+				if not Path(pidfpath).exists():
+					pidfolder = '/var/run/{}'.format(svc)
+					tmpc = listdir(pidfolder)
+					for f in tmpc:
+						f = str(f)
+						if 'pid' in f:
+							pidfpath = pidfolder + '/' + f
+			with open(pidfpath, 'r') as pidf:
+				mainpid = int(pidf.readline().strip())
+		except Exception:
+			try:
+				mainpid = int(subprocess.check_output("systemctl status {} | grep 'Main PID: ' | grep -Eo '[[:digit:]]*' | head -n 1".format(svc), shell=True))
+			except ValueError as e:
+				pass
 		try:
 			mainproc = psutil.Process(mainpid)
 			mchildren = mainproc.children(recursive=True)
