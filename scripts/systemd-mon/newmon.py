@@ -78,10 +78,12 @@ def read_stats(ss):
 		if usg < 0: # Deny negative values
 			usg = 0
 
-		cpud[pname] = str(usg) # A major bug here. Have to fix. For each PID it rewrites the usage..
+		newusg = int(cpud[pname]) + usg
+		cpud[pname] = str(newusg) # Calculate the usage and add to it.
 		phandler = psutil.Process(pid) # Generate a process class for the given PID.
 		pmem = phandler.memory_percent() # Get memory usage in percents of services.
-		memd[pname] = str(pmem)
+		newpmem = float(memd[pname]) + pmem
+		memd[pname] = str(newpmem)
 
 	return cpud, memd
 
@@ -98,13 +100,15 @@ def get_pid(slist):
 			pidfpath = '/var/run/{}/{}.pid'.format(svc, svc)
 			if not Path(pidfpath).exists(): # Most services have a /var/run/service/service.pid file.
 				pidfpath = '/var/run/{}.pid'.format(svc)
-				if not Path(pidfpath).exists(): # Others have a /var/run/service.pid file.
-					pidfolder = '/var/run/{}'.format(svc)
-					tmpc = os.listdir(pidfolder)
-					for f in tmpc: # And others have various pidfiles like /var/run/service/pid.
-						f = str(f)
-						if 'pid' in f:
-							pidfpath = pidfolder + '/' + f # Add the file to the dir path. 
+				if not Path(pidfpath).exists(): # Some services use 'd' after their names for daemon.
+					pidfpath = '/var/run/{}.pid'.format(svc + 'd')
+					if not Path(pidfpath).exists(): # Others have a /var/run/service.pid file.
+						pidfolder = '/var/run/{}'.format(svc)
+						tmpc = os.listdir(pidfolder)
+						for f in tmpc: # And others have various pidfiles like /var/run/service/pid.
+							f = str(f)
+							if 'pid' in f:
+								pidfpath = pidfolder + '/' + f # Add the file to the dir path. 
 
 			with open(pidfpath, 'r') as pidf:
 				mainpid = int(pidf.readline().strip()) # Read the PID number. Not sure if strip is needed. Have to check.
