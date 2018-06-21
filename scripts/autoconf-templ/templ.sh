@@ -1,6 +1,6 @@
 #/bin/bash -e
 #Install necessary packages
-sudo apt-get install curl dnsmasq postfix tcpdump vim debsums
+sudo apt-get install curl dnsmasq tcpdump vim debsums
 
 #Add Google Chrome repo
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
