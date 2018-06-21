@@ -57,6 +57,15 @@ def read_stats(ss):
 
 	for pid in ss:
 
+		with open(os.path.join('/proc/', str(pid), 'stat'), 'r') as pfile: 
+			pidtimes = pfile.read().split(' ')
+			pname = str(pidtimes[1])[1:-1]
+
+		cpud[pname] = '0'
+		memd[pname] = '0'
+
+	for pid in ss:
+
 		# CPU times and usage can be found in the /proc/ filesystem in stat files.
 
 		with open(os.path.join('/proc/', str(pid), 'stat'), 'r') as pfile: 
