@@ -6,9 +6,5 @@ import sys
 
 perms = str(sys.argv[1])
 filepath = str(sys.argv[2])
-print(filepath)
-print(perms)
-perms = oct(perms)
-print(perms)
-
+perms = int(perms, 8)
 os.chmod(filepath, perms)

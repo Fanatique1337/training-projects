@@ -2,7 +2,7 @@
 
 # Exit codes:
 # 6	:	Getopt Error. Probably wrong argument or misspell.
-# 7	: 	TBA
+# 7	: 	Global exception caught. Could be anything.
 # 8	:	TBA
 
 # Import default system libraries.
@@ -153,7 +153,11 @@ def main():
 		print("CPU usage of process {}: {}%".format(entry, usg))
 		print("Memory usage of process {}: {}%\n".format(entry, memdic[entry]))
 
-main() # No need for main module check.
-
+try:
+	main() # No need for main module check.
+except Exception as err:
+	print("A global exception has occured.")
+	print(err)
+	sys.exit(7)
 
 # print("Time ran: {}".format(datetime.now() - startTime)) # Uncomment if going to benchmark.
