@@ -3,7 +3,6 @@
 # Exit codes:
 # 6	:	Getopt Error. Probably wrong argument or misspell.
 # 7	: 	Global exception caught. Could be anything.
-# 8	:	TBA
 
 # Import default system libraries.
 
@@ -24,29 +23,30 @@ from pathlib import Path
 
 def parse_args():
 	cfgfile = 'smon.conf'
-	minimal = False
 
 	if len(sys.argv) > 1:
 		try:
-			opts, args = getopt.getopt(sys.argv[1:], 'mc:', ['minimal=', 'config='])
+			opts, args = getopt.getopt(sys.argv[1:], 'c:', ['config='])
 		except getopt.GetoptError:
 			print("An error occured while parsing your arguments. Check the proper usage of the script.")
 			sys.exit(6)
 
 		for opt, arg in opts:
-			if opt in ('-m', '--minimal'):
-				minimal = True
 			if opt in ('-c', '--config'):
 				cfgfile = str(arg)
 
-	return minimal, cfgfile
+	return cfgfile
 
 # Read services from the configuration file and add them into a list.
 
 def load_services(handlerlist, cfg):
-	with open(cfg, "r") as servfile:
-		for line in servfile:
-			handlerlist.append(line.strip())
+	try:
+		with open(cfg, "r") as servfile:
+			for line in servfile:
+				handlerlist.append(line.strip())
+	except:
+		print("The file {} most probably does not exist. ".format(cfg))
+
 	return handlerlist
 
 # Read CPU and Memory usage of the processes.
@@ -142,7 +142,7 @@ def get_pid(slist):
 	return pidchecks
 
 def main():
-	minimal, cfg = parse_args() # Get arguments for minimal mode and for the configuration file.
+	cfg = parse_args() # Get arguments for minimal mode and for the configuration file.
 	services = [] # Predefine the services list.
 	services = load_services(services, cfg) # Get the services into the list by using the cfg file.
 	pidlist = get_pid(services) # Get PIDs of the services' processes.
