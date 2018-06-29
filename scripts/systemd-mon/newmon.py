@@ -26,34 +26,31 @@ PROC_STIME = 14
 
 # Other constants
 
-BENCHMARK = False
 CONFIG = 'smon.conf'
 
 def parse_arg():
 	"""Get arguments and set configuration."""
 
-	if len(sys.argv) > 1:
-		try:
-			parser = argparse.ArgumentParser(description="systemd service monitor")
-			parser.add_argument("-c", 
-								"--config", 
-								help="Use a different configuration file, not default ({})".format(CONFIG), 
-								type=str,
-								default=CONFIG)
-			parser.add_argument("-b",
-								"--benchmark",
-								help="Benchmark the script's runtime",
-								action="store_true")
-			args = parser.parse_args()
-		except argparse.ArgumentError:
-			print(("An error occured while parsing your arguments. "
-				   "Check the proper usage of the script."), file=sys.stderr)
-			sys.exit(ARGPARSE_ERR)
+	try:
+		parser = argparse.ArgumentParser(description="systemd service monitor")
+		parser.add_argument("-c", 
+							"--config", 
+							help="Use a different configuration file, not default ({})".format(CONFIG), 
+							type=str,
+							default=CONFIG)
+		parser.add_argument("-b",
+							"--benchmark",
+							help="Benchmark the script's runtime",
+							action="store_true",
+							default=False)
+		args = parser.parse_args()
 
-		global BENCHMARK
-		BENCHMARK = args.benchmark
+	except argparse.ArgumentError:
+		print(("An error occured while parsing your arguments. "
+			   "Check the proper usage of the script."), file=sys.stderr)
+		sys.exit(ARGPARSE_ERR)
 
-	return args.config
+	return args.config, args.benchmark
 
 def load_services(cfg):
 	"""Read services from the configuration file and add them into a list."""
@@ -194,13 +191,16 @@ def get_pidf_path(service):
 				return pidfpath
 
 def main():
-	cfg = parse_arg() # Get arguments for minimal mode and for the configuration file.
+	cfg, benchmark = parse_arg() # Get arguments for minimal mode and for the configuration file.
 	services = load_services(cfg) # Get the services into the list by using the cfg file.
 	pidlist = get_pid(services) # Get PIDs of the services' processes.
 	cpudic, memdic = read_stats(pidlist) # Get stats into the dictionary.
 	for (entry, usage) in cpudic.items(): # Print the results.
 		print("CPU usage of process {}: {}%".format(entry, usage))
 		print("Memory usage of process {}: {}%\n".format(entry, memdic[entry]))
+
+	if benchmark:
+		print("Time ran: {}".format(datetime.now() - startTime))
 
 try:
 	if __name__ == "__main__":
@@ -211,5 +211,3 @@ except Exception as err:
 	print(err, file=sys.stderr)
 	sys.exit(GLOBAL_ERR)
 
-if BENCHMARK:
-	print("Time ran: {}".format(datetime.now() - startTime)) # Uncomment if going to benchmark.
