@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Exit codes:
 # 6	:	Argparse Error. Probably wrong argument or misspell.
@@ -24,27 +24,36 @@ PROC_NAME = 1
 PROC_UTIME = 13
 PROC_STIME = 14
 
+# Other constants
+
+BENCHMARK = False
+CONFIG = 'smon.conf'
+
 def parse_arg():
 	"""Get arguments and set configuration."""
-
-	cfgfile = 'smon.conf'
 
 	if len(sys.argv) > 1:
 		try:
 			parser = argparse.ArgumentParser(description="systemd service monitor")
 			parser.add_argument("-c", 
 								"--config", 
-								help="Use a different configuration file, not smon.conf", 
-								type=str)
+								help="Use a different configuration file, not default ({})".format(CONFIG), 
+								type=str,
+								default=CONFIG)
+			parser.add_argument("-b",
+								"--benchmark",
+								help="Benchmark the script's runtime",
+								action="store_true")
 			args = parser.parse_args()
 		except argparse.ArgumentError:
 			print(("An error occured while parsing your arguments. "
 				   "Check the proper usage of the script."), file=sys.stderr)
 			sys.exit(ARGPARSE_ERR)
 
-		cfgfile = args.config
+		global BENCHMARK
+		BENCHMARK = args.benchmark
 
-	return cfgfile
+	return args.config
 
 def load_services(cfg):
 	"""Read services from the configuration file and add them into a list."""
@@ -99,7 +108,7 @@ def read_stats(service_pids):
 		if usage < 0: # Deny negative values
 			usage = 0
 
-		newusage = int(cpud[pname]) + usage
+		newusage = float(cpud[pname]) + usage
 		cpud[pname] = str(newusage) # Calculate the usage and add to it.
 		phandler = psutil.Process(pid) # Generate a process class for the given PID.
 		pmem = phandler.memory_percent() # Get memory usage in percents of services.
@@ -202,4 +211,5 @@ except Exception as err:
 	print(err, file=sys.stderr)
 	sys.exit(GLOBAL_ERR)
 
-print("Time ran: {}".format(datetime.now() - startTime)) # Uncomment if going to benchmark.
+if BENCHMARK:
+	print("Time ran: {}".format(datetime.now() - startTime)) # Uncomment if going to benchmark.
