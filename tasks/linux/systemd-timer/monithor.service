@@ -8,6 +8,7 @@ ExecStart=/usr/bin/python3.5 -u /home/fanatique/training-projects/scripts/system
 StandardOutput=journal
 User=root
 WorkingDirectory=/home/fanatique/training-projects/scripts/systemd-mon
+Slice=fanatique.slice
 
 [Install]
 WantedBy=multi-user.target
