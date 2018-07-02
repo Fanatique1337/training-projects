@@ -1,0 +1,9 @@
+[Unit]
+Description=Monithor's daily timer
+
+[Timer]
+Unit=monithor.service
+OnCalendar=daily
+
+[Install]
+WantedBy=multi-user.target

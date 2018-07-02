@@ -1,0 +1,11 @@
+[Unit]
+Description=Custom test slice
+DefaultDependancies=no
+Before=slices.target
+
+[Slice]
+CPUShares=512
+MemoryLimit=1G
+
+[Install]
+WantedBy=default.target

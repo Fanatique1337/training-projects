@@ -1,0 +1,13 @@
+[Unit]
+Description=Python 3.5+ SystemD Service Monitor
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3.5 -u /home/fanatique/training-projects/scripts/systemd-mon/newmon.py
+StandardOutput=journal
+User=root
+WorkingDirectory=/home/fanatique/training-projects/scripts/systemd-mon
+
+[Install]
+WantedBy=multi-user.target
