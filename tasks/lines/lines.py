@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 import sys
+import kivy
+import time
+from kivy.app import App
+from kivy.uix.widget import Widget 
+from kivy.graphics import Color, Line
 
 inp = input("").split(" ")
 length = int(inp[0])
@@ -36,3 +41,17 @@ for dota in dots_a:
 print(length-total)
 print(dots_a)
 print(dots_b)
+
+
+class VisualizeLines(App):
+	def build(self):
+		return VisualWidget()
+
+class VisualWidget(Widget):
+	def __init__(self, **kwargs):
+		super(VisualWidget, self).__init__(**kwargs)
+		with self.canvas:
+			Color(2, 3, 1, 1, mode="rgba")
+			Line(points=(40, 40, 120, 40))
+
+VisualizeLines().run()
