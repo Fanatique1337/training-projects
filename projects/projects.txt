@@ -1,0 +1,7 @@
+Python Password Safe project
+Python Web Bot project
+Python Address Book project
+Python Youtube Downloader project
+Python Image Browser project
+Python Watermarking Application project
+Python Hangman Game project
