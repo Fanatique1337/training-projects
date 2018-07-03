@@ -22,6 +22,8 @@ counter_b = length
 dots_a = []
 dots_b = []
 total = 0
+colored = []
+segments = {}
 
 while(counter_a <= length):
 	dots_a.append(counter_a)
@@ -36,12 +38,22 @@ for dota in dots_a:
 		tmp = max(dota, dotb)
 		tmp2 = min(dota, dotb)
 		if tmp - tmp2 == c:
+			if tmp not in colored:
+				colored.append(tmp)
+			if tmp2 not in colored:
+				colored.append(tmp2)
 			total += c
+
+colored.sort()
+
+counter = 0
+for dot in colored:
+	if colored[counter] = colored[counter+1]+1
 
 print(length-total)
 print(dots_a)
 print(dots_b)
-
+print(colored)
 
 class VisualizeLines(App):
 	def build(self):
