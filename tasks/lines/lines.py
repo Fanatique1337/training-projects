@@ -30,7 +30,9 @@ for dota in dots_a:
 	for dotb in dots_b:
 		tmp = max(dota, dotb)
 		tmp2 = min(dota, dotb)
-		if tmp - tmp2 == 1:
-			total += 1
+		if tmp - tmp2 == c:
+			total += c
 
 print(length-total)
+print(dots_a)
+print(dots_b)
