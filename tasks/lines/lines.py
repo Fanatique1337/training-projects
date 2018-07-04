@@ -46,9 +46,7 @@ for dota in dots_a:
 
 colored.sort()
 
-counter = 0
-for dot in colored:
-	if colored[counter] = colored[counter+1]+1
+
 
 print(length-total)
 print(dots_a)
