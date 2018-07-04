@@ -46,6 +46,8 @@ for dota in dots_a:
 
 colored.sort()
 
+segments = []
+
 
 
 print(length-total)
