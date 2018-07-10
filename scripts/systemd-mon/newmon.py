@@ -121,7 +121,7 @@ def get_pid(slist):
 
 	for service in slist:
 
-		try: # For every service, try to find its PID file in /var/run and read it.
+		try: # For every service, try to find its PID file in /run and read it.
 			pidfpath = get_pidf_path(service)
 			with open(pidfpath, 'r') as pidfile:
 				mainpid = int(pidfile.readline()) # Read the PID number.
@@ -149,29 +149,29 @@ def get_pid(slist):
 	return pidchecks
 
 def get_pidf_path(service):
-	"""Check if a pidfile exists in /var/run"""
-	# Most services do store their pids in a /var/run/service/service.pid file
-	pidfpath = '/var/run/{}/{}.pid'.format(service, service)
+	"""Check if a pidfile exists in /run"""
+	# Most services do store their pids in a /run/service/service.pid file
+	pidfpath = '/run/{}/{}.pid'.format(service, service)
 	if os.path.exists(pidfpath):
 		return pidfpath
 
-	# Other services have a /var/run/service.pid file
-	pidfpath = '/var/run/{}.pid'.format(service)
+	# Other services have a /run/service.pid file
+	pidfpath = '/run/{}.pid'.format(service)
 	if os.path.exists(pidfpath):
 		return pidfpath
 
 	# Some add a 'd' to their names for 'daemon'
-	pidfpath = '/var/run/{}.pid'.format(service + 'd')
+	pidfpath = '/run/{}.pid'.format(service + 'd')
 	if os.path.exists(pidfpath):
 		return pidfpath
 
-	# Others have a /var/run/service file
-	pidfpath = '/var/run/{}'.format(service)
+	# Others have a /run/service file
+	pidfpath = '/run/{}'.format(service)
 	if os.path.exists(pidfpath) and os.path.isfile(pidfpath):
 		return pidfpath
 
 	# And with a 'd'..
-	pidfpath = '/var/run/{}'.format(service + 'd')
+	pidfpath = '/run/{}'.format(service + 'd')
 	if os.path.exists(pidfpath):
 		if os.path.isdir(pidfpath):
 			for file in os.listdir(pidfpath):
@@ -182,8 +182,8 @@ def get_pidf_path(service):
 		elif os.path.isfile(pidfpath):
 			return pidfpath
 
-	# And others have various pidfiles like /var/run/service/pid
-	pidfolder = '/var/run/{}'.format(service)
+	# And others have various pidfiles like /run/service/pid
+	pidfolder = '/run/{}'.format(service)
 	for file in os.listdir(pidfolder):
 		if 'pid' in str(file):
 			pidfpath = os.path.join(pidfolder, file)
