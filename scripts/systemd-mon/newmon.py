@@ -9,7 +9,7 @@ import argparse
 import os
 import subprocess
 import sys
-from datetime import datetime # Uncomment if going to benchmark for speed.
+from datetime import datetime
 
 import psutil
 
@@ -26,7 +26,7 @@ PROC_STIME = 14
 
 # Other constants
 
-CONFIG = 'smon.conf'
+CONFIG = '/etc/monithor/smon.conf'
 
 def parse_arg():
 	"""Get arguments and set configuration."""
