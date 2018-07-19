@@ -20,21 +20,21 @@ for y in range(cols):
 		elif matrix[x][y] == 'e':
 			matrix[x][y] = 2
 
-for row in range(rows):
-	print(matrix[row])
+#for row in range(rows):
+#	print(matrix[row])
 
 def traverse(x, y):
     if matrix[x][y] == 2:
-        print('Finish is at {}, {}'.format(x, y))
+        #print('Finish is at {}, {}'.format(x, y))
         return True
     elif matrix[x][y] == 1:
-        print('There is a wall at {}, {}'.format(x, y))
+        #print('There is a wall at {}, {}'.format(x, y))
         return False
     elif matrix[x][y] == 3:
-        print('Got through {}, {}'.format(x, y))
+        #print('Got through {}, {}'.format(x, y))
         return False
     
-    print('Going through {}, {}'.format(x, y))
+    #print('Going through {}, {}'.format(x, y))
 
     # mark as visited
     matrix[x][y] = 3
@@ -52,8 +52,8 @@ traverse(0, 0)
 
 
 
-for r in range(rows):
-	print(matrix[r])
+#for r in range(rows):
+#	print(matrix[r])
 
 for y in range(cols):
 	for x in range(rows):
