@@ -78,8 +78,8 @@ def read_stats(service_pids):
 			pidtimes = pfile.read().split(' ')
 			pname = str(pidtimes[1])[1:-1]
 
-		cpud[pname] = '0'
-		memd[pname] = '0'
+		cpud[pname] = 0
+		memd[pname] = 0
 
 	for pid in service_pids:
 
@@ -105,12 +105,12 @@ def read_stats(service_pids):
 		if usage < 0: # Deny negative values
 			usage = 0
 
-		newusage = float(cpud[pname]) + usage
-		cpud[pname] = str(newusage) # Calculate the usage and add to it.
+		newusage = cpud[pname] + usage
+		cpud[pname] = newusage # Calculate the usage and add to it.
 		phandler = psutil.Process(pid) # Generate a process class for the given PID.
 		pmem = phandler.memory_percent() # Get memory usage in percents of services.
-		newpmem = float(memd[pname]) + pmem
-		memd[pname] = str(newpmem)
+		newpmem = memd[pname] + pmem
+		memd[pname] = newpmem
 
 	return cpud, memd
 
@@ -131,7 +131,7 @@ def get_pid(slist):
 				mainpid = int(subprocess.check_output(("systemctl status {} | grep 'Main PID: ' | "
 					"grep -Eo '[[:digit:]]*' | head -n 1").format(service), shell=True))
 			except ValueError: # If systemctl returns nothing, then such a service does not exist.
-				pass
+				print("The service {} most probably does not exist.".format(service))
 
 		try: # Get all the children of the Main PID and append them to a list.
 			main_proc = psutil.Process(mainpid)
@@ -196,8 +196,8 @@ def main():
 	pidlist = get_pid(services) # Get PIDs of the services' processes.
 	cpudic, memdic = read_stats(pidlist) # Get stats into the dictionary.
 	for (entry, usage) in cpudic.items(): # Print the results.
-		print("CPU usage of process {}: {}%".format(entry, usage))
-		print("Memory usage of process {}: {}%\n".format(entry, memdic[entry]))
+		print("CPU usage of process {0}: {1: .2f}%".format(entry, usage))
+		print("Memory usage of process {0}: {1: .2f}%\n".format(entry, memdic[entry]))
 
 	if benchmark:
 		print("Time ran: {}".format(datetime.now() - startTime))
