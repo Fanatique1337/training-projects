@@ -65,6 +65,24 @@ class imageconv():
 
 		return image
 
+	def grayscale(imagefile):
+		image = img.open(imagefile)
+		width, height = image.size
+		_image = image.load()
+
+		for wpixel in range(width):
+			for hpixel in range(height):
+				pixel = get_pixel(image, width, height)
+
+				red = pixel[0]
+				green = pixel[1]
+				blue = pixel[2]
+
+				gray = int(gray = (red * 0.299) + (green * 0.587) + (blue * 0.114))
+
+				_image[width, height] = (gray, gray, gray)
+
+				return _image
 
 def main():
 	convert_mode, overwrite, imagefile, output = parse_arguments()
@@ -77,6 +95,9 @@ def main():
 		image = imageconv.jpg_to_png(imagefile)
 		output = output + '.png' if '.png' not in output else output
 		image.save(output)
+	elif convert_mode == 3:
+		image = imageconv.grayscale(imagefile)
+		image.save(imagefile)
 
 main()
 
