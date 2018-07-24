@@ -149,7 +149,7 @@ def get_pid(slist):
 	return pidchecks
 
 def get_pidf_path(service):
-	"""Check if a pidfile exists in /run"""
+	"""Check if a pidfile exists in /run directory"""
 	# Most services do store their pids in a /run/service/service.pid file
 	pidfpath = '/run/{}/{}.pid'.format(service, service)
 	if os.path.exists(pidfpath):
