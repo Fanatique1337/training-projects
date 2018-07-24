@@ -23,7 +23,7 @@ def parse_arguments():
 		parser = argparse.ArgumentParser(description="Python Image Converter")
 		parser.add_argument("-m",
 							"--mode",
-							help="Converting mode: [1] to JPG | [2] to PNG | [3] to Grayscale",
+							help="1: jpg, 2: png, 3: grayscale, 4: black_white, 5: resize",
 							type=int,
 							default=1)
 		parser.add_argument("-w",
@@ -32,17 +32,27 @@ def parse_arguments():
 							action="store_true",
 							default=False)
 		parser.add_argument("imgfile",
-							help="Path to the image to be converted, defaults to all images.",
-							type=str,
-							default="*")
+							help="Path to the image to be converted.",
+							type=str)
 		parser.add_argument("-o",
 							"--output",
 							help="Output file name.",
 							type=str,
 							default="imgconv")
+		parser.add_argument("-r",
+							"--resize",
+							help="Resize to a new X Y size (-r X Y)",
+							type=int,
+							nargs="+")
+		parser.add_argument("-s",
+							"--show",
+							help="Show the image after processing it.",
+							action="store_true",
+							default=False)
 		args = parser.parse_args()
 
-		return args.mode, args.overwrite, args.imgfile, args.output
+		return (args.mode, args.overwrite, args.imgfile,
+				args.output, args.resize, args.show)
 
 	except argparse.ArgumentError:
 		print("An error occured while parsing your arguments.", file=sys.stderr)
@@ -93,35 +103,68 @@ class imageconv():
 
 		return image
 
+	def size_to(imagefile, new_size):
+		"""Resize the image."""
+
+		image = img.open(imagefile)
+		image = image.resize(tuple(new_size), img.LANCZOS)
+
+		return image
+
 def main():
 
-	convert_mode, overwrite, imagefile, output = parse_arguments()
+	convert_mode, overwrite, imagefile, output, req_size, show = parse_arguments()
 
-	imagefile = os.path.abspath(imagefile)
+	imagepath = os.path.abspath(imagefile)
 
 	if convert_mode == 1:
-		image = imageconv.to_jpg(imagefile)
+		image = imageconv.to_jpg(imagepath)
 		
 		if not overwrite:
-			output = output + '.jpg' if '.jpg' not in output else output
+			output = output + '.jpg' if not output.endswith('.jpg') else output
 		elif overwrite:
-			output = imagefile
+			output = imagepath
 
 		image.save(output, 'JPEG', quality=95)
 
 	elif convert_mode == 2:
-		image = imageconv.to_png(imagefile)
-		output = output + '.png' if '.png' not in output else output
+		image = imageconv.to_png(imagepath)
+
+		if not overwrite:
+			output = output + '.png' if not output.endswith('.png') else output
+		elif overwrite:
+			output = imagepath
+
 		image.save(output, 'PNG')
 
 	elif convert_mode == 3:
-		image = imageconv.grayscale(imagefile)
+		image = imageconv.grayscale(imagepath)
+
+		if overwrite:
+			output = imagepath
+
 		image.save(output)
 
 	elif convert_mode == 4:
-		image = imageconv.black_white(imagefile)
-		output = output + '.bmp' if '.bmp' not in output else output
+		image = imageconv.black_white(imagepath)
+
+		if not overwrite:
+			output = output + '.bmp' if not output.endswith('.bmp') else output
+		elif overwrite:
+			output = imagepath
+
 		image.save(output, "BMP")
+
+	if convert_mode == 5:
+		image = imageconv.size_to(imagepath, req_size)
+
+		if overwrite:
+			output = imagepath
+
+		image.save(output)
+
+	if show:
+		image.show()
 
 
 if __name__ == "__main__":
