@@ -9,6 +9,7 @@ import os
 import sys
 
 from PIL import Image as img
+import numpy as np
 
 # Error constants
 
@@ -22,7 +23,7 @@ def parse_arguments():
 		parser = argparse.ArgumentParser(description="Python Image Converter")
 		parser.add_argument("-m",
 							"--mode",
-							help="Converting mode: [1 = png to jpg] | [2 = jpg to png].",
+							help="Converting mode: [1] to JPG | [2] to PNG | [3] to Grayscale",
 							type=int,
 							default=1)
 		parser.add_argument("-w",
@@ -49,16 +50,16 @@ def parse_arguments():
 
 class imageconv():
 
-	def jpg_to_png(imagefile):
-		"""Convert the image from jpg to png format."""
+	def to_png(imagefile):
+		"""Convert the image to png format."""
 
 		image = img.open(imagefile)
 		image = image.convert('RGBA')
 
 		return image
 
-	def png_to_jpg(imagefile):
-		"""Convert the image from png to jpg format."""
+	def to_jpg(imagefile):
+		"""Convert the image to jpg format."""
 
 		image = img.open(imagefile)
 		image = image.convert('RGB')
@@ -66,39 +67,64 @@ class imageconv():
 		return image
 
 	def grayscale(imagefile):
+		"""Convert image to grayscale format."""
+
 		image = img.open(imagefile)
-		width, height = image.size
-		_image = image.load()
+		image = image.convert('L')
 
-		for wpixel in range(width):
-			for hpixel in range(height):
-				pixel = get_pixel(image, width, height)
+		return image
 
-				red = pixel[0]
-				green = pixel[1]
-				blue = pixel[2]
+	def black_white(imagefile):
+		"""Convert colors to black & white bitmap."""
 
-				gray = int(gray = (red * 0.299) + (green * 0.587) + (blue * 0.114))
+		image = img.open(imagefile)
+		imgarray = np.array(image)
 
-				_image[width, height] = (gray, gray, gray)
+		red, green, blue = np.split(imgarray, 3, axis=2)
+		red = red.reshape(-1)
+		green = green.reshape(-1)
+		blue = blue.reshape(-1)
 
-				return _image
+		bitmap = list(map(lambda x: 0.299*x[0] + 0.587*x[1] + 0.114*x[2], zip(red, green, blue)))
+		bitmap = np.array(bitmap).reshape([imgarray.shape[0], imgarray.shape[1]])
+		bitmap = np.dot((bitmap >128).astype(float), 255)
+
+		image = img.fromarray(bitmap.astype(np.uint8))
+
+		return image
 
 def main():
+
 	convert_mode, overwrite, imagefile, output = parse_arguments()
+
 	imagefile = os.path.abspath(imagefile)
+
 	if convert_mode == 1:
-		image = imageconv.png_to_jpg(imagefile)
-		output = output + '.jpg' if '.jpg' not in output else output
-		image.save(output, quality=95)
+		image = imageconv.to_jpg(imagefile)
+		
+		if not overwrite:
+			output = output + '.jpg' if '.jpg' not in output else output
+		elif overwrite:
+			output = imagefile
+
+		image.save(output, 'JPEG', quality=95)
+
 	elif convert_mode == 2:
-		image = imageconv.jpg_to_png(imagefile)
+		image = imageconv.to_png(imagefile)
 		output = output + '.png' if '.png' not in output else output
-		image.save(output)
+		image.save(output, 'PNG')
+
 	elif convert_mode == 3:
 		image = imageconv.grayscale(imagefile)
-		image.save(imagefile)
+		image.save(output)
 
-main()
+	elif convert_mode == 4:
+		image = imageconv.black_white(imagefile)
+		output = output + '.bmp' if '.bmp' not in output else output
+		image.save(output, "BMP")
+
+
+if __name__ == "__main__":
+	main()
 
 
