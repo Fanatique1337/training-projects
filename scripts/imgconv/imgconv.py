@@ -5,6 +5,7 @@
 # 7:	Global exception caught. Could be anything.
 
 import argparse
+import glob
 import os
 import sys
 
@@ -59,6 +60,7 @@ def parse_arguments():
 		sys.exit(ARGPARSE_ERR)
 
 class imageconv():
+	"""The image converter class."""
 
 	def to_png(imagefile):
 		"""Convert the image to png format."""
