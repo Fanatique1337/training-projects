@@ -1,0 +1,27 @@
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+The URL https://download.sublimetext.com/ returns an error code 404
+Unallowed source URL in /etc/apt/sources.list.d/google-chrome.list: http://dl.google.com/linux/chrome/deb/
+The URL http://linux.teamviewer.com/deb returns an error code 403
+The URL https://packagecloud.io/slacktechnologies/slack/debian/ returns an error code 404
+{
+    "http://ftp.bg.debian.org/debian/": 200,
+    "http://linux.teamviewer.com/deb": 403,
+    "http://ppa.launchpad.net/kivy-team/kivy/ubuntu": 200,
+    "http://repo.zabbix.com/zabbix/3.2/debian": 200,
+    "http://security.debian.org/debian-security": 200,
+    "https://download.sublimetext.com/": 404,
+    "https://packagecloud.io/slacktechnologies/slack/debian/": 404,
+    "https://packages.sury.org/php/": 200,
+    "https://repo.skype.com/deb": 200
+}
+brscan-skey/now 0.2.4-1 amd64 [installed,local]
+brscan4/now 0.4.5-1 amd64 [installed,local]
+dcpl2520dcupswrapper/now 3.2.0-1 i386 [installed,local]
+dcpl2520dlpr/now 3.2.0-1 i386 [installed,local]
+discord/now 0.0.5 amd64 [installed,local]
+libnagios-plugin-perl/now 0.36-2 all [installed,local]
+tbmon/now 2.0-1 all [installed,local]
+zabbix-release/now 3.2-1+stretch all [installed,local]
+
