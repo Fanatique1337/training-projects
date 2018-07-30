@@ -82,7 +82,7 @@ def get_stat_code(url):
 	return status
 
 def get_local_pkgs():
-	temp_output = subprocess.check_output("apt list --installed | grep 'installed,local' 2> /dev/null", shell=True)
+	temp_output = subprocess.check_output("apt list --installed 2> /dev/null | grep 'installed,local'", shell=True)
 	return temp_output.decode('utf-8')
 
 def main():
