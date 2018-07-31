@@ -1,80 +1,101 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Exit codes:
-# 6	:	Getopt Error. Probably wrong argument or misspell.
+# 6	:	Argparse Error. Probably wrong argument or misspell.
 # 7	: 	Global exception caught. Could be anything.
 
-# Import default system libraries.
-
-import getopt
+from __future__ import print_function
+import argparse
 import os
 import subprocess
 import sys
-# from datetime import datetime # Uncomment if going to benchmark for speed.
-
-# Import external libraries.
+from datetime import datetime
 
 import psutil
-from pathlib import Path
 
-# startTime = datetime.now() # Start the timer for benchmarking. Must uncomment last line as well.
+# Error constants
 
-# Get arguments and set configuration.
+ARGPARSE_ERR = 6
+GLOBAL_ERR = 7
 
-def parse_args():
-	cfgfile = 'smon.conf'
+# Stat file constants
 
-	if len(sys.argv) > 1:
-		try:
-			opts, args = getopt.getopt(sys.argv[1:], 'c:', ['config='])
-		except getopt.GetoptError:
-			print(("An error occured while parsing your arguments. "
-				"Check the proper usage of the script."))
-			sys.exit(6)
+PROC_NAME = 1
+PROC_UTIME = 13
+PROC_STIME = 14
 
-		for opt, arg in opts:
-			if opt in ('-c', '--config'):
-				cfgfile = str(arg)
+# Other constants
 
-	return cfgfile
+CONFIG = '/etc/monithor/smon.conf'
 
-# Read services from the configuration file and add them into a list.
+def parse_arg():
+	"""Get arguments and set configuration."""
+
+	try:
+		parser = argparse.ArgumentParser(description="systemd service monitor")
+		parser.add_argument("-c", 
+							"--config", 
+							help="Use a different configuration file, not default ({})".format(CONFIG), 
+							type=str,
+							default=CONFIG)
+		parser.add_argument("-b",
+							"--benchmark",
+							help="Benchmark the script's runtime",
+							action="store_true",
+							default=False)
+		parser.add_argument("--childs",
+							help="Show number of child processes for each service.",
+							action="store_true",
+							default=False)
+		args = parser.parse_args()
+
+	except argparse.ArgumentError:
+		print(("An error occured while parsing your arguments. "
+			   "Check the proper usage of the script."), file=sys.stderr)
+		sys.exit(ARGPARSE_ERR)
+
+	return args.config, args.benchmark, args.childs
 
 def load_services(cfg):
+	"""Read services from the configuration file and add them into a list."""
+
 	handler_list = [] # Predefine the list for services.
 	try:
 		with open(cfg, "r") as servfile:
 			for line in servfile:
 				handler_list.append(line.strip())
 	except:
-		print("The file {} most probably does not exist. ".format(cfg))
+		print("The file {} most probably does not exist. ".format(cfg), 
+			  file=sys.stderr)
 
 	return handler_list
 
-# Read CPU and Memory usage of the processes.
+def read_stats(service_pids):
+	"""Read CPU and Memory usage of the processes."""
 
-def read_stats(ss):
 	cpud = {}
 	memd = {}
+	iod = {}
 
-	for pid in ss:
+	for pid in service_pids:
 
 		with open(os.path.join('/proc/', str(pid), 'stat'), 'r') as pfile: 
 			pidtimes = pfile.read().split(' ')
 			pname = str(pidtimes[1])[1:-1]
 
-		cpud[pname] = '0'
-		memd[pname] = '0'
+		cpud[pname] = 0
+		memd[pname] = (0, 0, 0, 0, 0)
+		iod[pname] = (0, 0, 0, 0, 0)
 
-	for pid in ss:
+	for pid in service_pids:
 
 		# CPU times and usage can be found in the /proc/ filesystem in stat files.
 
 		with open(os.path.join('/proc/', str(pid), 'stat'), 'r') as pfile: 
 			pidtimes = pfile.read().split(' ')
-			pname = str(pidtimes[1])[1:-1]
-			utime = int(pidtimes[13]) # utime is the 14th element in the stat file (man proc).
-			stime = int(pidtimes[14]) # stime is the 15th element in the stat file (man proc).
+			pname = str(pidtimes[PROC_NAME])[1:-1]
+			utime = int(pidtimes[PROC_UTIME])
+			stime = int(pidtimes[PROC_STIME])
 			pidtotal = utime - stime
 
 		with open('/proc/stat', 'r') as cfile: # Get total system CPU times.
@@ -85,80 +106,158 @@ def read_stats(ss):
 				cputotal = cputotal + integ
 
 		# Process CPU usage is process cpu times / system cpu time.
-		usg = (pidtotal / cputotal) * 100 
+		usage = (pidtotal / cputotal) * 100 
 
-		if usg < 0: # Deny negative values
-			usg = 0
+		if usage < 0: # Deny negative values
+			usage = 0
 
-		newusg = int(cpud[pname]) + usg
-		cpud[pname] = str(newusg) # Calculate the usage and add to it.
+		newusage = cpud[pname] + usage
+		cpud[pname] = newusage # Calculate the usage and add to it.
+
 		phandler = psutil.Process(pid) # Generate a process class for the given PID.
-		pmem = phandler.memory_percent() # Get memory usage in percents of services.
-		newpmem = float(memd[pname]) + pmem
-		memd[pname] = str(newpmem)
 
-	return cpud, memd
+		pmem_uss = phandler.memory_percent(memtype="uss") # Get memory usage in percents of services.
+		pmem_rss = phandler.memory_percent(memtype="rss")
+		pmem_vms = phandler.memory_percent(memtype="vms")
+		pmem_pss = phandler.memory_percent(memtype="pss")
+		pmem_swap = phandler.memory_percent(memtype="swap")
+		pmem = (pmem_uss, pmem_rss, pmem_vms, pmem_pss, pmem_swap)
+		newpmem_uss = memd[pname][0] + pmem_uss
+		newpmem_rss = memd[pname][1] + pmem_rss
+		newpmem_vms = memd[pname][2] + pmem_vms
+		newpmem_pss = memd[pname][3] + pmem_pss
+		newpmem_swap = memd[pname][4] + pmem_swap
+		memd[pname] = (newpmem_uss, newpmem_rss, newpmem_vms, newpmem_pss, newpmem_swap)
 
-# Get the Process ID for each service in the configuration file. 
+		proc_io = phandler.io_counters()
+		new_read_c = iod[pname][0] + proc_io.read_count
+		new_write_c = iod[pname][1] + proc_io.write_count
+		new_read_b = iod[pname][2] + proc_io.read_bytes
+		new_write_b = iod[pname][3] + proc_io.write_bytes
+		total_per_proc_c = new_read_c + new_write_c
+		total_per_proc_b = new_read_b + new_write_b
+
+		total_io = psutil.disk_io_counters(perdisk=False)
+		io_count = (total_per_proc_c / (total_io[0] + total_io[1])) * 100
+		io_bytes = (total_per_proc_b / (total_io[2] + total_io[3])) * 100
+		io_percent = (io_count + io_bytes) / 2
+		new_io_p = iod[pname][4] + io_percent
+		iod[pname] = (new_read_c, new_write_c, new_read_b, new_write_b, new_io_p)
+
+	return cpud, memd, iod
 
 def get_pid(slist):
+	"""Get the Process ID for each service in the configuration file. """
+
 	pidchecks = [] # Predefine the list of PIDs.
+	child_num = {}
 
 	for service in slist:
 
-		try: # For every service, try to find its PID file in /var/run and read it.
-			pidfpath = '/var/run/{}/{}.pid'.format(service, service)
-			if not Path(pidfpath).exists(): # Most services have a /var/run/service/service.pid file.
-				pidfpath = '/var/run/{}.pid'.format(service)
-				if not Path(pidfpath).exists(): # Some services use 'd' after their names for daemon.
-					pidfpath = '/var/run/{}.pid'.format(service + 'd')
-					if not Path(pidfpath).exists(): # Others have a /var/run/service.pid file.
-						pidfolder = '/var/run/{}'.format(service)
-						temp = os.listdir(pidfolder)
-						for file in temp: # And others have various pidfiles like /var/run/service/pid.
-							file = str(file)
-							if 'pid' in file:
-								pidfpath = pidfolder + '/' + file # Add the file to the dir path. 
-
+		try: # For every service, try to find its PID file in /run and read it.
+			pidfpath = get_pidf_path(service)
 			with open(pidfpath, 'r') as pidfile:
 				mainpid = int(pidfile.readline()) # Read the PID number.
 
-		except Exception as e: # If such a PID file does not exist, get Main PID from parsing systemctl.
+		except OSError: # If such a PID file does not exist, get Main PID from parsing systemctl.
 			try:
 				mainpid = int(subprocess.check_output(("systemctl status {} | grep 'Main PID: ' | "
 					"grep -Eo '[[:digit:]]*' | head -n 1").format(service), shell=True))
-			except ValueError as e: # If systemctl returns nothing, then such a service does not exist.
-				pass
+			except ValueError: # If systemctl returns nothing, then such a service does not exist.
+				print("The service {} most probably does not exist.".format(service))
 
 		try: # Get all the children of the Main PID and append them to a list.
 			main_proc = psutil.Process(mainpid)
-			main_children = main_proc.children(recursive=True)
 			pidchecks.append(mainpid)
-			for child in main_children:
+			child_num[service] = 0
+			for child in main_proc.children(recursive=True):
 				pidchecks.append(child.pid)
-		except psutil.NoSuchProcess: # Return an error if there is no such process working.
-			print("No running process with pid {} ({}). Probably the service isn't working.\n".format(str(mainpid), service))
-		except psutil.ZombieProcess: # Return an error if the process is a zombie process.
-			print("The process with pid {} ({}) is a zombie process\n".format(str(mainpid), service))
+				child_num[service] += 1
 
-	return pidchecks
+		except psutil.NoSuchProcess: # Return an error if there is no such process working.
+			print(("No running process with pid {} ({}). "
+				   "Probably the service isn't working.\n").format(str(mainpid), service),
+					file=sys.stderr)
+		except psutil.ZombieProcess: # Return an error if the process is a zombie process.
+			print("The process with pid {} ({}) is a zombie process\n".format(str(mainpid), service),
+					file=sys.stderr)
+
+	return pidchecks, child_num
+
+def get_pidf_path(service):
+	"""Check if a pidfile exists in /run directory"""
+	# Most services do store their pids in a /run/service/service.pid file
+	pidfpath = '/run/{}/{}.pid'.format(service, service)
+	if os.path.exists(pidfpath):
+		return pidfpath
+
+	# Other services have a /run/service.pid file
+	pidfpath = '/run/{}.pid'.format(service)
+	if os.path.exists(pidfpath):
+		return pidfpath
+
+	# Some add a 'd' to their names for 'daemon'
+	pidfpath = '/run/{}.pid'.format(service + 'd')
+	if os.path.exists(pidfpath):
+		return pidfpath
+
+	# Others have a /run/service file
+	pidfpath = '/run/{}'.format(service)
+	if os.path.exists(pidfpath) and os.path.isfile(pidfpath):
+		return pidfpath
+
+	# And with a 'd'..
+	pidfpath = '/run/{}'.format(service + 'd')
+	if os.path.exists(pidfpath):
+		if os.path.isdir(pidfpath):
+			for file in os.listdir(pidfpath):
+				if 'pid' in str(file):
+					pidfpath = os.path.join(pidfpath, file)
+					if os.path.isfile(pidfpath):
+						return pidfpath
+		elif os.path.isfile(pidfpath):
+			return pidfpath
+
+	# And others have various pidfiles like /run/service/pid
+	pidfolder = '/run/{}'.format(service)
+	for file in os.listdir(pidfolder):
+		if 'pid' in str(file):
+			pidfpath = os.path.join(pidfolder, file)
+			if os.path.isfile(pidfpath):
+				return pidfpath
 
 def main():
-	cfg = parse_args() # Get arguments for minimal mode and for the configuration file.
+	cfg, benchmark, childs = parse_arg() # Get arguments for minimal mode and for the configuration file.
 	services = load_services(cfg) # Get the services into the list by using the cfg file.
-	pidlist = get_pid(services) # Get PIDs of the services' processes.
-	cpudic = {} # Predefine the dictionary for CPU usage.
-	memdic = {} # Predefine the dictionary for RAM usage.
-	cpudic, memdic = read_stats(pidlist) # Get stats into the dictionary.
-	for (entry, usg) in cpudic.items(): # Print the results.
-		print("CPU usage of process {}: {}%".format(entry, usg))
-		print("Memory usage of process {}: {}%\n".format(entry, memdic[entry]))
+	pidlist, child_nums = get_pid(services) # Get PIDs of the services' processes.
+	cpudic, memdic, iodic = read_stats(pidlist) # Get stats into the dictionary.
+	for (entry, usage) in cpudic.items(): # Print the results.
+		print("CPU usage of process {0}: {1: .2f}%".format(entry, usage))
+		print("Memory usage of process {0} (rss, uss, pss, vms, swap): {1: .2f}%, {2: .2f}%, {3: .2f}%, {4: .2f}%, {5: .2f}%".format(entry, 
+			memdic[entry][1], 
+			memdic[entry][0], 
+			memdic[entry][3], 
+			memdic[entry][2], 
+			memdic[entry][4]))
+		print("I/O usage of process {}:".format(entry))
+		print("Read operations / Read bytes: {} / {}".format(iodic[entry][0], iodic[entry][2]))
+		print("Write operations / Write bytes: {} / {}".format(iodic[entry][1], iodic[entry][3]))
+		print("I/O usage percent: {}%".format(iodic[entry][4]))
+		print()
+
+	if childs:
+		for service in services:
+			print("Number of child processes for {0}: {1}".format(service, child_nums[service]))
+
+
+	if benchmark:
+		print("Time ran: {}".format(datetime.now() - startTime))
 
 try:
-	main() # No need for main module check.
+	if __name__ == "__main__":
+		startTime = datetime.now() # Start the timer for benchmarking. 
+		main()
 except Exception as err:
-	print("A global exception has occured.")
-	print(err)
-	sys.exit(7)
-
-# print("Time ran: {}".format(datetime.now() - startTime)) # Uncomment if going to benchmark.
+	print("A global exception has been caught.", file=sys.stderr)
+	print(err, file=sys.stderr)
+	sys.exit(GLOBAL_ERR)
