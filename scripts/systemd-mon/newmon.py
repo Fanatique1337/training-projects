@@ -75,6 +75,7 @@ def read_stats(service_pids):
 
 	cpud = {}
 	memd = {}
+	iod = {}
 
 	for pid in service_pids:
 
@@ -84,6 +85,7 @@ def read_stats(service_pids):
 
 		cpud[pname] = 0
 		memd[pname] = (0, 0, 0, 0, 0)
+		iod[pname] = (0, 0, 0, 0, 0)
 
 	for pid in service_pids:
 
@@ -111,7 +113,9 @@ def read_stats(service_pids):
 
 		newusage = cpud[pname] + usage
 		cpud[pname] = newusage # Calculate the usage and add to it.
+
 		phandler = psutil.Process(pid) # Generate a process class for the given PID.
+
 		pmem_uss = phandler.memory_percent(memtype="uss") # Get memory usage in percents of services.
 		pmem_rss = phandler.memory_percent(memtype="rss")
 		pmem_vms = phandler.memory_percent(memtype="vms")
@@ -123,10 +127,24 @@ def read_stats(service_pids):
 		newpmem_vms = memd[pname][2] + pmem_vms
 		newpmem_pss = memd[pname][3] + pmem_pss
 		newpmem_swap = memd[pname][4] + pmem_swap
-		newpmem = (newpmem_uss, newpmem_rss, newpmem_vms, newpmem_pss, newpmem_swap)
-		memd[pname] = newpmem
+		memd[pname] = (newpmem_uss, newpmem_rss, newpmem_vms, newpmem_pss, newpmem_swap)
 
-	return cpud, memd
+		proc_io = phandler.io_counters()
+		new_read_c = iod[pname][0] + proc_io.read_count
+		new_write_c = iod[pname][1] + proc_io.write_count
+		new_read_b = iod[pname][2] + proc_io.read_bytes
+		new_write_b = iod[pname][3] + proc_io.write_bytes
+		total_per_proc_c = new_read_c + new_write_c
+		total_per_proc_b = new_read_b + new_write_b
+
+		total_io = psutil.disk_io_counters(perdisk=False)
+		io_count = (total_per_proc_c / (total_io[0] + total_io[1])) * 100
+		io_bytes = (total_per_proc_b / (total_io[2] + total_io[3])) * 100
+		io_percent = (io_count + io_bytes) / 2
+		new_io_p = iod[pname][4] + io_percent
+		iod[pname] = (new_read_c, new_write_c, new_read_b, new_write_b, new_io_p)
+
+	return cpud, memd, iod
 
 def get_pid(slist):
 	"""Get the Process ID for each service in the configuration file. """
@@ -212,15 +230,20 @@ def main():
 	cfg, benchmark, childs = parse_arg() # Get arguments for minimal mode and for the configuration file.
 	services = load_services(cfg) # Get the services into the list by using the cfg file.
 	pidlist, child_nums = get_pid(services) # Get PIDs of the services' processes.
-	cpudic, memdic = read_stats(pidlist) # Get stats into the dictionary.
+	cpudic, memdic, iodic = read_stats(pidlist) # Get stats into the dictionary.
 	for (entry, usage) in cpudic.items(): # Print the results.
 		print("CPU usage of process {0}: {1: .2f}%".format(entry, usage))
-		print("Memory usage of process {0} (rss, uss, pss, vms, swap): {1: .2f}%, {2: .2f}%, {3: .2f}%, {4: .2f}%, {5: .2f}%\n".format(entry, 
+		print("Memory usage of process {0} (rss, uss, pss, vms, swap): {1: .2f}%, {2: .2f}%, {3: .2f}%, {4: .2f}%, {5: .2f}%".format(entry, 
 			memdic[entry][1], 
 			memdic[entry][0], 
 			memdic[entry][3], 
 			memdic[entry][2], 
 			memdic[entry][4]))
+		print("I/O usage of process {}:".format(entry))
+		print("Read operations / Read bytes: {} / {}".format(iodic[entry][0], iodic[entry][2]))
+		print("Write operations / Write bytes: {} / {}".format(iodic[entry][1], iodic[entry][3]))
+		print("I/O usage percent: {}%".format(iodic[entry][4]))
+		print()
 
 	if childs:
 		for service in services:
