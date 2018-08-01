@@ -28,7 +28,7 @@ PROC_STIME = 14
 # Other constants
 
 CONFIG = '/etc/monithor/smon.conf'
-TRACE = True
+TRACE = False
 MEMORY_TYPES = ['vms', 'rss', 'swap']
 
 # PID file constants
