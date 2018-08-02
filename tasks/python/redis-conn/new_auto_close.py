@@ -10,7 +10,6 @@ def timefunc():
 
 	connection = redis.Connection(host='localhost', port=6379, db=0)
 	connection.connect()
-	connection.disconnect()
 	print("Open connections during test: {}".format(len(interface.client_list())))
 
 startTime = datetime.now()
