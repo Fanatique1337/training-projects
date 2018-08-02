@@ -6,11 +6,11 @@
 
 from __future__ import print_function
 import argparse
+import datetime
 import json
 import os
 import subprocess
 import sys
-from datetime import datetime
 
 import psutil
 
@@ -28,8 +28,10 @@ PROC_STIME = 14
 # Other constants
 
 CONFIG = '/etc/monithor/smon.conf'
-TRACE = False
+TRACE = True
 MEMORY_TYPES = ['vms', 'rss', 'swap']
+ATOP_LOGFILE = 'temp_proc_info'
+SAMPLE_NUM = 2
 
 # PID file constants
 
@@ -68,7 +70,7 @@ def parse_arg():
 			   "Check the proper usage of the script."), file=sys.stderr)
 		sys.exit(ARGPARSE_ERR)
 
-	return args.config, args.benchmark, args.memtypes
+	return args
 
 def load_services(cfg):
 	"""Read services from the configuration file and add them into a list."""
@@ -83,6 +85,44 @@ def load_services(cfg):
 			  file=sys.stderr)
 
 	return handler_list
+
+def setup():
+	time_now = datetime.datetime.now()
+	time_delta = time_now - datetime.timedelta(minutes=SAMPLE_NUM-1)
+	time_begin = '{}:{}'.format(time_delta.hour, time_delta.minute)
+	time_end = '{}:{}'.format(time_now.hour, time_now.minute) 
+
+	exit_code = subprocess.call("atop -P PRD,DSK -b {} -e {} -r > {}".format(time_begin, time_end, ATOP_LOGFILE), shell=True)
+
+	disk_lines = []
+	read_counts = []
+	write_counts = []
+	total_read_count = 0
+	total_write_count = 0
+
+	with open(ATOP_LOGFILE, "r") as source_file:
+		source = source_file.readlines()
+
+	for line in source:
+		if line.startswith('DSK'):
+			disk_lines.append(line)
+
+	for disk_line in disk_lines:
+		source.remove(disk_line)
+		line_info = disk_line.strip().split(' ')
+		read_counts.append(line_info[8])
+		write_counts.append(line_info[10])
+		print(line_info)
+
+	for reads in read_counts:
+		total_read_count += int(reads)
+	for writes in write_counts:
+		total_write_count += int(writes)
+
+	print("Total read ops: {}".format(total_read_count))
+	print("Total write ops: {}".format(total_write_count))
+
+	return exit_code, source, total_read_count, total_write_count
 
 class ProcMon:
 
@@ -117,6 +157,8 @@ class ProcMon:
 	def get_io_stats(self):
 		return self.process.io_counters()
 
+	def get_io_usage(self):
+		return 0		
 
 def get_pid(service):
 	"""Get the Process ID for each service in the configuration file. """
@@ -133,7 +175,6 @@ def get_pid(service):
 				"grep -Eo '[[:digit:]]*' | head -n 1").format(service), shell=True))
 		except ValueError: # If systemctl returns nothing, then such a service does not exist.
 			print("The service {} most probably does not exist.".format(service))
-
 
 	except psutil.NoSuchProcess: # Return an error if there is no such process working.
 		print(("No running process with pid {} ({}). "
@@ -160,13 +201,13 @@ def get_pidf_path(service):
 				if 'pid' in str(file):
 					return os.path.join(path, file)
 
-
 def main():
 	service_info = {}
 
 	# Get arguments for minimal mode and for the configuration file.
-	cfg, benchmark, memory_types = parse_arg() 
-	services = load_services(cfg) # Get the services into the list by using the cfg file.
+	args = parse_arg() 
+	services = load_services(args.config) # Get the services into the list by using the cfg file.
+	setup_code, source = setup()
 
 	for service in services:
 		service_info[service] = {}
@@ -175,7 +216,7 @@ def main():
 		service_info[service]["name"] = proc.get_process_name()
 		service_info[service]["child_count"] = proc.get_child_num()
 		service_info[service]["cpu_usage"] = proc.get_cpu_usage()
-		for t in memory_types:
+		for t in args.memtypes:
 			service_info[service]["memory_{}".format(t)] = proc.get_memory_usage(t)
 		service_info[service]["running"] = proc.process.is_running()
 		io_stats = proc.get_io_stats()
@@ -183,20 +224,22 @@ def main():
 		service_info[service]["write_bytes"] = io_stats.write_bytes
 		service_info[service]["read_count"] = io_stats.read_count
 		service_info[service]["write_count"] = io_stats.write_count
+		if setup_code == 0:
+			service_info[service]["io_usage"] = proc.get_io_usage()
 
 	print(json.dumps(service_info, indent=4, sort_keys=True))
 
-	if benchmark:
-		print("Time ran: {}".format(datetime.now() - startTime))
+	if args.benchmark:
+		print("Time ran: {}".format(datetime.datetime.now() - startTime))
 
 
 if __name__ == "__main__":
-	startTime = datetime.now()
+	startTime = datetime.datetime.now()
 	if TRACE:
-		main()
+		setup()
 	else:
 		try:
-			main()
+			setup()
 		except Exception as err:
 			print("A global exception has been caught.", file=sys.stderr)
 			print(err, file=sys.stderr)

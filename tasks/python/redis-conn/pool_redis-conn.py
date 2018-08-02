@@ -10,7 +10,7 @@ connection = redis.StrictRedis(connection_pool=pool)
 def timefunc():
 
 	newconn = redis.StrictRedis(connection_pool=pool)
-	print("Open connections during test: {}".format(len(connection.client_list())))
+	print("Open connections during test: {}".format(len(newconn.client_list())))
 
 startTime = datetime.now()
 
