@@ -112,17 +112,14 @@ def setup():
 		line_info = disk_line.strip().split(' ')
 		read_counts.append(line_info[8])
 		write_counts.append(line_info[10])
-		print(line_info)
 
 	for reads in read_counts:
 		total_read_count += int(reads)
 	for writes in write_counts:
 		total_write_count += int(writes)
 
-	print("Total read ops: {}".format(total_read_count))
-	print("Total write ops: {}".format(total_write_count))
 
-	return exit_code, source, total_read_count, total_write_count
+	return exit_code, source, (total_read_count, total_write_count)
 
 class ProcMon:
 
@@ -157,7 +154,7 @@ class ProcMon:
 	def get_io_stats(self):
 		return self.process.io_counters()
 
-	def get_io_usage(self):
+	def get_io_usage(self, source, disk_ops):
 		return 0		
 
 def get_pid(service):
@@ -207,7 +204,7 @@ def main():
 	# Get arguments for minimal mode and for the configuration file.
 	args = parse_arg() 
 	services = load_services(args.config) # Get the services into the list by using the cfg file.
-	setup_code, source = setup()
+	setup_code, parse_source, disk_ops = setup()
 
 	for service in services:
 		service_info[service] = {}
@@ -225,7 +222,7 @@ def main():
 		service_info[service]["read_count"] = io_stats.read_count
 		service_info[service]["write_count"] = io_stats.write_count
 		if setup_code == 0:
-			service_info[service]["io_usage"] = proc.get_io_usage()
+			service_info[service]["io_usage"] = proc.get_io_usage(parse_source, disk_ops)
 
 	print(json.dumps(service_info, indent=4, sort_keys=True))
 
@@ -236,10 +233,10 @@ def main():
 if __name__ == "__main__":
 	startTime = datetime.datetime.now()
 	if TRACE:
-		setup()
+		main()
 	else:
 		try:
-			setup()
+			main()
 		except Exception as err:
 			print("A global exception has been caught.", file=sys.stderr)
 			print(err, file=sys.stderr)
