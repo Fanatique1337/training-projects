@@ -4,19 +4,15 @@ import redis
 from datetime import datetime
 import timeit
 
-interface = redis.StrictRedis(host='localhost', port=6379, db=0)
+test_num = 5000
 
 def timefunc():
-
-	connection = redis.Connection(host='localhost', port=6379, db=0)
+	connection = redis.Connection(host='10.20.1.115', port=6379, db=0)
 	connection.connect()
 	connection.disconnect()
-	print("Open connections during test: {}".format(len(interface.client_list())))
 
-startTime = datetime.now()
 
-timeit_result = timeit.timeit("timefunc()", setup="from __main__ import timefunc", number=10)
+timeit_result = timeit.timeit("timefunc()", setup="from __main__ import timefunc", number=test_num)
 
-print("Open connections after finishing test: {}".format(len(interface.client_list())))
-print("Time ran without pool: {}".format(datetime.now() - startTime))
-print("Python timeit: {}".format(timeit_result))
+print("Timeit result (total): {}".format(timeit_result))
+print("Timeit result (average): {}".format(timeit_result / test_num))
