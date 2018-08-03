@@ -118,17 +118,18 @@ def setup():
 	for writes in write_counts:
 		total_write_count += int(writes)
 
-
 	return exit_code, source, (total_read_count, total_write_count)
 
 class ProcMon:
 
 	def __init__(self, service_pid):
+		self.pid = service_pid
 		self.process = psutil.Process(service_pid)
 		self.childs = self.process.children(recursive=True)
+		self.name = self.process.name()
 
 	def get_process_name(self):
-		return self.process.name()
+		return self.name
 
 	def get_child_pids(self):
 		child_pids = []
@@ -155,7 +156,28 @@ class ProcMon:
 		return self.process.io_counters()
 
 	def get_io_usage(self, source, disk_ops):
-		return 0		
+		proc_reads = 0
+		proc_writes = 0
+
+		for line in source:
+			for child in self.childs:
+				if ' {} ({})'.format(self.pid, self.name) in line or ' {} ('.format(child.pid) in line:
+					line = line.strip().split(' ')
+					proc_reads += int(line[11])
+					proc_writes += int(line[13])
+
+
+		if disk_ops[0] > 0:
+			io_read = (proc_reads / disk_ops[0]) * 100
+		else:
+			io_read = 0
+		if disk_ops[1] > 0:
+			io_write = (proc_writes / disk_ops[1]) * 100
+		else:
+			io_write = 0
+
+		return (io_read, io_write)
+
 
 def get_pid(service):
 	"""Get the Process ID for each service in the configuration file. """
@@ -171,15 +193,10 @@ def get_pid(service):
 			mainpid = int(subprocess.check_output(("systemctl status {} | grep 'Main PID: ' | "
 				"grep -Eo '[[:digit:]]*' | head -n 1").format(service), shell=True))
 		except ValueError: # If systemctl returns nothing, then such a service does not exist.
-			print("The service {} most probably does not exist.".format(service))
+			print("The service {} most probably does not exist or is not running.".format(service))
+			mainpid = -1
 
-	except psutil.NoSuchProcess: # Return an error if there is no such process working.
-		print(("No running process with pid {} ({}). "
-			   "Probably the service isn't working.\n").format(str(mainpid), service),
-				file=sys.stderr)
-	except psutil.ZombieProcess: # Return an error if the process is a zombie process.
-		print("The process with pid {} ({}) is a zombie process\n".format(str(mainpid), service),
-				file=sys.stderr)
+		mainpid = -1
 
 	return mainpid
 
@@ -209,29 +226,44 @@ def main():
 	for service in services:
 		service_info[service] = {}
 		service_info[service]["pid"] = get_pid(service)
-		proc = ProcMon(service_info[service]["pid"])
-		service_info[service]["name"] = proc.get_process_name()
-		service_info[service]["child_count"] = proc.get_child_num()
-		service_info[service]["cpu_usage"] = proc.get_cpu_usage()
-		for t in args.memtypes:
-			service_info[service]["memory_{}".format(t)] = proc.get_memory_usage(t)
-		service_info[service]["running"] = proc.process.is_running()
-		io_stats = proc.get_io_stats()
-		service_info[service]["read_bytes"] = io_stats.read_bytes
-		service_info[service]["write_bytes"] = io_stats.write_bytes
-		service_info[service]["read_count"] = io_stats.read_count
-		service_info[service]["write_count"] = io_stats.write_count
-		if setup_code == 0:
-			service_info[service]["io_usage"] = proc.get_io_usage(parse_source, disk_ops)
+		if service_info[service]["pid"] > 0:
+			proc = ProcMon(service_info[service]["pid"])
+			service_info[service]["name"] = proc.get_process_name()
+			service_info[service]["child_count"] = proc.get_child_num()
+			service_info[service]["cpu_usage"] = proc.get_cpu_usage()
+			for t in args.memtypes:
+				service_info[service]["memory_{}".format(t)] = proc.get_memory_usage(t)
+			service_info[service]["running"] = 1 if proc.process.is_running() else 0
+			io_stats = proc.get_io_stats()
+			service_info[service]["read_bytes"] = io_stats.read_bytes
+			service_info[service]["write_bytes"] = io_stats.write_bytes
+			service_info[service]["read_count"] = io_stats.read_count
+			service_info[service]["write_count"] = io_stats.write_count
+			if setup_code == 0:
+				io_usage = proc.get_io_usage(parse_source, disk_ops)
+				service_info[service]["io_read_usage"] = io_usage[0]
+				service_info[service]["io_write_usage"] = io_usage[1]
+		elif service_info[service]["pid"] == -1:
+			service_info[service]["running"] = 0
 
 	print(json.dumps(service_info, indent=4, sort_keys=True))
+	build_json(service_info)
 
 	if args.benchmark:
-		print("Time ran: {}".format(datetime.datetime.now() - startTime))
+		print("Time ran: {}".format(datetime.datetime.now() - start_time))
+
+
+def build_json(service_info):
+	output = {
+		"update_interval" : "{}".format(ZBX_INTERVAL),
+		"version" : "0.1",
+		"services" : {}
+	}
+
 
 
 if __name__ == "__main__":
-	startTime = datetime.datetime.now()
+	start_time = datetime.datetime.now()
 	if TRACE:
 		main()
 	else:
@@ -241,3 +273,4 @@ if __name__ == "__main__":
 			print("A global exception has been caught.", file=sys.stderr)
 			print(err, file=sys.stderr)
 			sys.exit(GLOBAL_ERR)
+

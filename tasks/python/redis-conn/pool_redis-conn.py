@@ -4,7 +4,7 @@ import redis
 from datetime import datetime
 import timeit
 
-pool = redis.ConnectionPool(host='localhost', port=6379, db=0, max_connections=10000)
+pool = redis.ConnectionPool(host='localhost', port=6379, db=0, max_connections=1)
 
 def timefunc():
     connection = redis.Redis(connection_pool=pool)

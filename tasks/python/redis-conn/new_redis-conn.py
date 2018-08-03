@@ -9,8 +9,6 @@ test_num = 5000
 def timefunc():
 	connection = redis.Connection(host='10.20.1.115', port=6379, db=0)
 	connection.connect()
-	connection.disconnect()
-
 
 timeit_result = timeit.timeit("timefunc()", setup="from __main__ import timefunc", number=test_num)
 
