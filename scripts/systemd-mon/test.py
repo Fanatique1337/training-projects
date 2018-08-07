@@ -292,8 +292,21 @@ class ProcMon:
 	def __init__(self, service_pid):
 		self.pid = service_pid
 		self.process = psutil.Process(service_pid)
-		self.childs = self.process.children(recursive=True)
-		self.name = self.process.name()
+		with self.process.oneshot():
+			self.childs = self.process.children(recursive=True)
+			self.name = self.process.name()
+			self.child_num = len(self.childs)
+			self.status = self.process.status()
+			self.io_stats = self.process.io_counters()
+			self.cpu_usage = self.process.cpu_percent(interval=0.01)
+			self.memory_rss = self.process.memory_percent(memtype="rss")
+			self.memory_vms = self.process.memory_percent(memtype="vms")
+			self.memory_swap = self.process.memory_percent(memtype="swap")
+			for child in self.childs:
+				self.cpu_usage += child.cpu_percent(interval=0.01)
+				self.memory_rss += child.memory_percent(memtype="rss")
+				self.memory_vms += child.memory_percent(memtype="vms")
+				self.memory_swap += child.memory_percent(memtype="swap")
 
 	def get_process_name(self):
 		return self.name
@@ -398,13 +411,14 @@ def main():
 		service_info[service]["pid"] = get_pid(service)
 		if service_info[service]["pid"] > 0:
 			proc = ProcMon(service_info[service]["pid"])
-			service_info[service]["name"] = proc.get_process_name()
-			service_info[service]["child_count"] = proc.get_child_num()
-			service_info[service]["cpu_usage"] = proc.get_cpu_usage()
-			for t in args.memtypes:
-				service_info[service]["memory_{}".format(t)] = proc.get_memory_usage(t)
-			service_info[service]["status"] = proc.get_status()
-			io_stats = proc.get_io_stats()
+			service_info[service]["name"] = proc.name
+			service_info[service]["child_count"] = proc.child_num
+			service_info[service]["cpu_usage"] = proc.cpu_usage
+			service_info[service]["memory_vms"] = proc.memory_vms
+			service_info[service]["memory_rss"] = proc.memory_rss
+			service_info[service]["memory_swap"] = proc.memory_swap
+			service_info[service]["status"] = proc.status
+			io_stats = proc.io_stats
 			service_info[service]["read_bytes"] = io_stats.read_bytes
 			service_info[service]["write_bytes"] = io_stats.write_bytes
 			service_info[service]["read_count"] = io_stats.read_count

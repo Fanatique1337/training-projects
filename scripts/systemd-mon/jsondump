@@ -1,8 +1,0 @@
-{
-    "service": {
-        "cpu": {},
-        "memory": {},
-        "io": {}
-    },
-    "service2": {}
-}
