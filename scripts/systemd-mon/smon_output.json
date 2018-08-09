@@ -1,432 +1,1000 @@
 {
-    "version": "3.0",
     "applications": {
-        "dnsmasq": {
+        "nginx": {
+            "name": "nginx service",
             "items": {
-                "memory_rss": {
-                    "units": "%",
-                    "name": "rss memory usage",
-                    "value": 0.006368946443784112,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "write_bytes": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Bytes written for the service",
+                "io_read_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "value": 0,
-                    "descr": ""
-                },
-                "process_name": {
-                    "type": "text",
-                    "timestamp": 1533642439,
-                    "name": "Name of process",
-                    "value": "dnsmasq",
-                    "descr": "Name of the service's main process"
+                    "name": "Read usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
                 },
                 "write_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Write operations for the service",
+                    "value": 1,
+                    "type": "int"
+                },
+                "read_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes read for the service",
+                    "value": 0,
+                    "type": "int"
+                },
+                "pid": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 518,
+                    "name": "Process ID",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Service is not working.",
+                            "resol": "Check the service with systemctl status nginx",
+                            "range": [0, 0]
+                        }
+                    },
+                    "type": "int"
+                },
+                "io_write_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "Write usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "child_count": {
+                    "descr": "Amount of child processes the main process has forked.",
+                    "timestamp": 1533713436,
+                    "name": "Number of child processes",
+                    "value": 0,
+                    "type": "int"
+                },
+                "memory_vms": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 2.0318467702817826,
+                    "name": "vms memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_rss": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.02109395062181298,
+                    "name": "rss memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_swap": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "swap memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "status": {
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
+                    "timestamp": 1533713436,
+                    "value": "sleeping",
+                    "name": "Process status",
+                    "triggers": {
+                        "trig2": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process is a zombie.",
+                            "resol": "Check the service and kill if needed.",
+                            "match": "^zombie"
+                        },
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process might not be working.",
+                            "resol": "Check the service and restart if needed.",
+                            "match": "^dead"
+                        }
+                    },
+                    "type": "text"
+                },
+                "write_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes written for the service",
+                    "value": 0,
+                    "type": "int"
+                },
+                "cpu_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "CPU usage of service.",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "warn",
+                            "descr": "SUPP: Service using too much CPU.",
+                            "resol": "Decrease the CPU usage or ....",
+                            "range": [
+                                90,
+                                100
+                            ]
+                        }
+                    },
+                    "units": "%",
+                    "type": "float"
+                },
+                "process_name": {
+                    "descr": "Name of the service's main process",
+                    "timestamp": 1533713436,
+                    "name": "Name of process",
+                    "value": "nginx",
+                    "type": "text"
+                },
+                "read_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Read operations for the service",
+                    "value": 0,
+                    "type": "int"
+                }
+            }
+        },
+        "dnsmasq": {
+            "name": "dnsmasq service",
+            "items": {
+                "io_read_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0,
+                    "name": "Read usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "write_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "name": "Write operations for the service",
                     "value": 20,
-                    "descr": ""
+                    "type": "int"
+                },
+                "read_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes read for the service",
+                    "value": 0,
+                    "type": "int"
+                },
+                "pid": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 683,
+                    "name": "Process ID",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Service is not working.",
+                            "resol": "Check the service with systemctl status dnsmasq",
+                            "match": -1
+                        }
+                    },
+                    "type": "int"
+                },
+                "io_write_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "Write usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "child_count": {
+                    "descr": "Amount of child processes the main process has forked.",
+                    "timestamp": 1533713436,
+                    "name": "Number of child processes",
+                    "value": 0,
+                    "type": "int"
+                },
+                "memory_vms": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.6874895549278323,
+                    "name": "vms memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_rss": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.006368946443784112,
+                    "name": "rss memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_swap": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "swap memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "status": {
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
+                    "timestamp": 1533713436,
+                    "value": "sleeping",
+                    "name": "Process status",
+                    "triggers": {
+                        "trig2": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process is a zombie.",
+                            "resol": "Check the service and kill if needed.",
+                            "match": "^zombie"
+                        },
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process might not be working.",
+                            "resol": "Check the service and restart if needed.",
+                            "match": "^dead"
+                        }
+                    },
+                    "type": "text"
+                },
+                "write_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes written for the service",
+                    "value": 0,
+                    "type": "int"
                 },
                 "cpu_usage": {
-                    "units": "%",
-                    "name": "CPU usage of service.",
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
+                    "name": "CPU usage of service.",
                     "triggers": {
                         "trig1": {
                             "prior": "warn",
+                            "descr": "SUPP: Service using too much CPU.",
+                            "resol": "Decrease the CPU usage or ....",
                             "range": [
                                 90,
                                 100
-                            ],
-                            "resol": "Decrease the CPU usage or ....",
-                            "descr": "SUPP: Service using too much CPU."
+                            ]
                         }
                     },
-                    "descr": ""
-                },
-                "child_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Number of child processes",
-                    "value": 0,
-                    "descr": "Amount of child processes the main process has forked."
-                },
-                "memory_swap": {
                     "units": "%",
-                    "name": "swap memory usage",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
+                    "type": "float"
                 },
-                "pid": {
-                    "name": "Process ID",
-                    "value": 683,
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "triggers": {
-                        "trig1": {
-                            "resol": "Check the service with systemctl status dnsmasq",
-                            "prior": "err",
-                            "match": -1,
-                            "descr": "SUPP: Service is not working."
-                        }
-                    },
-                    "descr": ""
-                },
-                "memory_vms": {
-                    "units": "%",
-                    "name": "vms memory usage",
-                    "value": 0.6874895549278323,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "io_read_usage": {
-                    "units": "%",
-                    "name": "Read usage I/O for the service",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "io_write_usage": {
-                    "units": "%",
-                    "name": "Write usage I/O for the service",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "read_bytes": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Bytes read for the service",
-                    "value": 0,
-                    "descr": ""
+                "process_name": {
+                    "descr": "Name of the service's main process",
+                    "timestamp": 1533713436,
+                    "name": "Name of process",
+                    "value": "dnsmasq",
+                    "type": "text"
                 },
                 "read_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "name": "Read operations for the service",
                     "value": 13,
-                    "descr": ""
-                },
-                "status": {
-                    "name": "Process status",
-                    "value": "sleeping",
-                    "type": "text",
-                    "timestamp": 1533642439,
-                    "triggers": {
-                        "trig1": {
-                            "resol": "Check the service and restart if needed.",
-                            "prior": "err",
-                            "match": "^dead",
-                            "descr": "SUPP: Main process might not be working."
-                        },
-                        "trig2": {
-                            "resol": "Check the service and kill if needed.",
-                            "prior": "err",
-                            "match": "^zombie",
-                            "descr": "SUPP: Main process is a zombie."
-                        }
-                    },
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                    "type": "int"
                 }
-            },
-            "name": "dnsmasq service"
+            }
         },
-        "postgresql": {
+        "sshd": {
+            "name": "sshd service",
             "items": {
-                "memory_rss": {
+                "io_read_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0,
+                    "name": "Read usage I/O for the service",
                     "units": "%",
-                    "name": "rss memory usage",
-                    "value": 0.5875735231177471,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "write_bytes": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Bytes written for the service",
-                    "value": 274432,
-                    "descr": ""
-                },
-                "process_name": {
-                    "type": "text",
-                    "timestamp": 1533642439,
-                    "name": "Name of process",
-                    "value": "postgres",
-                    "descr": "Name of the service's main process"
+                    "type": "float"
                 },
                 "write_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "name": "Write operations for the service",
-                    "value": 3758,
-                    "descr": ""
-                },
-                "cpu_usage": {
-                    "units": "%",
-                    "name": "CPU usage of service.",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "triggers": {
-                        "trig1": {
-                            "prior": "warn",
-                            "range": [
-                                90,
-                                100
-                            ],
-                            "resol": "Decrease the CPU usage or ....",
-                            "descr": "SUPP: Service using too much CPU."
-                        }
-                    },
-                    "descr": ""
-                },
-                "child_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Number of child processes",
-                    "value": 5,
-                    "descr": "Amount of child processes the main process has forked."
-                },
-                "memory_swap": {
-                    "units": "%",
-                    "name": "swap memory usage",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "pid": {
-                    "name": "Process ID",
-                    "value": 641,
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "triggers": {
-                        "trig1": {
-                            "resol": "Check the service with systemctl status postgresql",
-                            "prior": "err",
-                            "match": -1,
-                            "descr": "SUPP: Service is not working."
-                        }
-                    },
-                    "descr": ""
-                },
-                "memory_vms": {
-                    "units": "%",
-                    "name": "vms memory usage",
-                    "value": 20.138048187958308,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "io_read_usage": {
-                    "units": "%",
-                    "name": "Read usage I/O for the service",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "io_write_usage": {
-                    "units": "%",
-                    "name": "Write usage I/O for the service",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
+                    "value": 19,
+                    "type": "int"
                 },
                 "read_bytes": {
-                    "type": "int",
-                    "timestamp": 1533642439,
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "name": "Bytes read for the service",
-                    "value": 6463488,
-                    "descr": ""
+                    "value": 0,
+                    "type": "int"
                 },
-                "read_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Read operations for the service",
-                    "value": 83615,
-                    "descr": ""
-                },
-                "status": {
-                    "name": "Process status",
-                    "value": "sleeping",
-                    "type": "text",
-                    "timestamp": 1533642439,
+                "pid": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 666,
+                    "name": "Process ID",
                     "triggers": {
                         "trig1": {
-                            "resol": "Check the service and restart if needed.",
                             "prior": "err",
-                            "match": "^dead",
-                            "descr": "SUPP: Main process might not be working."
-                        },
-                        "trig2": {
-                            "resol": "Check the service and kill if needed.",
-                            "prior": "err",
-                            "match": "^zombie",
-                            "descr": "SUPP: Main process is a zombie."
+                            "descr": "SUPP: Service is not working.",
+                            "resol": "Check the service with systemctl status sshd",
+                            "match": -1
                         }
                     },
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
-                }
-            },
-            "name": "postgresql service"
-        },
-        "mysql": {
-            "items": {
-                "memory_rss": {
-                    "units": "%",
-                    "name": "rss memory usage",
-                    "value": 0.9946256282328771,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
+                    "type": "int"
                 },
-                "write_bytes": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Bytes written for the service",
-                    "value": 90112,
-                    "descr": ""
-                },
-                "process_name": {
-                    "type": "text",
-                    "timestamp": 1533642439,
-                    "name": "Name of process",
-                    "value": "mysqld",
-                    "descr": "Name of the service's main process"
-                },
-                "write_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Write operations for the service",
-                    "value": 37,
-                    "descr": ""
-                },
-                "cpu_usage": {
-                    "units": "%",
-                    "name": "CPU usage of service.",
+                "io_write_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "triggers": {
-                        "trig1": {
-                            "prior": "warn",
-                            "range": [
-                                90,
-                                100
-                            ],
-                            "resol": "Decrease the CPU usage or ....",
-                            "descr": "SUPP: Service using too much CPU."
-                        }
-                    },
-                    "descr": ""
+                    "name": "Write usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
                 },
                 "child_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "timestamp": 1533713436,
                     "name": "Number of child processes",
                     "value": 0,
-                    "descr": "Amount of child processes the main process has forked."
-                },
-                "memory_swap": {
-                    "units": "%",
-                    "name": "swap memory usage",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "pid": {
-                    "name": "Process ID",
-                    "value": 802,
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "triggers": {
-                        "trig1": {
-                            "resol": "Check the service with systemctl status mysql",
-                            "prior": "err",
-                            "match": -1,
-                            "descr": "SUPP: Service is not working."
-                        }
-                    },
-                    "descr": ""
+                    "type": "int"
                 },
                 "memory_vms": {
-                    "units": "%",
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.8909901316996223,
                     "name": "vms memory usage",
-                    "value": 8.637565167060012,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "io_read_usage": {
                     "units": "%",
-                    "name": "Read usage I/O for the service",
-                    "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
+                    "type": "float"
                 },
-                "io_write_usage": {
+                "memory_rss": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.07123029702728151,
+                    "name": "rss memory usage",
                     "units": "%",
-                    "name": "Write usage I/O for the service",
+                    "type": "float"
+                },
+                "memory_swap": {
+                    "descr": "",
+                    "timestamp": 1533713436,
                     "value": 0.0,
-                    "type": "float",
-                    "timestamp": 1533642439,
-                    "descr": ""
-                },
-                "read_bytes": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Bytes read for the service",
-                    "value": 24977408,
-                    "descr": ""
-                },
-                "read_count": {
-                    "type": "int",
-                    "timestamp": 1533642439,
-                    "name": "Read operations for the service",
-                    "value": 694,
-                    "descr": ""
+                    "name": "swap memory usage",
+                    "units": "%",
+                    "type": "float"
                 },
                 "status": {
-                    "name": "Process status",
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
+                    "timestamp": 1533713436,
                     "value": "sleeping",
-                    "type": "text",
-                    "timestamp": 1533642439,
+                    "name": "Process status",
                     "triggers": {
-                        "trig1": {
-                            "resol": "Check the service and restart if needed.",
-                            "prior": "err",
-                            "match": "^dead",
-                            "descr": "SUPP: Main process might not be working."
-                        },
                         "trig2": {
-                            "resol": "Check the service and kill if needed.",
                             "prior": "err",
-                            "match": "^zombie",
-                            "descr": "SUPP: Main process is a zombie."
+                            "descr": "SUPP: Main process is a zombie.",
+                            "resol": "Check the service and kill if needed.",
+                            "match": "^zombie"
+                        },
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process might not be working.",
+                            "resol": "Check the service and restart if needed.",
+                            "match": "^dead"
                         }
                     },
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                    "type": "text"
+                },
+                "write_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes written for the service",
+                    "value": 0,
+                    "type": "int"
+                },
+                "cpu_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "CPU usage of service.",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "warn",
+                            "descr": "SUPP: Service using too much CPU.",
+                            "resol": "Decrease the CPU usage or ....",
+                            "range": [
+                                90,
+                                100
+                            ]
+                        }
+                    },
+                    "units": "%",
+                    "type": "float"
+                },
+                "process_name": {
+                    "descr": "Name of the service's main process",
+                    "timestamp": 1533713436,
+                    "name": "Name of process",
+                    "value": "sshd",
+                    "type": "text"
+                },
+                "read_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Read operations for the service",
+                    "value": 201,
+                    "type": "int"
                 }
-            },
-            "name": "mysql service"
+            }
+        },
+        "postgresql": {
+            "name": "postgresql service",
+            "items": {
+                "io_read_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0,
+                    "name": "Read usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "write_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Write operations for the service",
+                    "value": 6122,
+                    "type": "int"
+                },
+                "read_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes read for the service",
+                    "value": 6463488,
+                    "type": "int"
+                },
+                "pid": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 641,
+                    "name": "Process ID",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Service is not working.",
+                            "resol": "Check the service with systemctl status postgresql",
+                            "match": -1
+                        }
+                    },
+                    "type": "int"
+                },
+                "io_write_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "Write usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "child_count": {
+                    "descr": "Amount of child processes the main process has forked.",
+                    "timestamp": 1533713436,
+                    "name": "Number of child processes",
+                    "value": 0,
+                    "type": "int"
+                },
+                "memory_vms": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 3.663316091321521,
+                    "name": "vms memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_rss": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.3191096926193592,
+                    "name": "rss memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_swap": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "swap memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "status": {
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
+                    "timestamp": 1533713436,
+                    "value": "sleeping",
+                    "name": "Process status",
+                    "triggers": {
+                        "trig2": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process is a zombie.",
+                            "resol": "Check the service and kill if needed.",
+                            "match": "^zombie"
+                        },
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process might not be working.",
+                            "resol": "Check the service and restart if needed.",
+                            "match": "^dead"
+                        }
+                    },
+                    "type": "text"
+                },
+                "write_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes written for the service",
+                    "value": 409600,
+                    "type": "int"
+                },
+                "cpu_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "CPU usage of service.",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "warn",
+                            "descr": "SUPP: Service using too much CPU.",
+                            "resol": "Decrease the CPU usage or ....",
+                            "range": [
+                                90,
+                                100
+                            ]
+                        }
+                    },
+                    "units": "%",
+                    "type": "float"
+                },
+                "process_name": {
+                    "descr": "Name of the service's main process",
+                    "timestamp": 1533713436,
+                    "name": "Name of process",
+                    "value": "postgres",
+                    "type": "text"
+                },
+                "read_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Read operations for the service",
+                    "value": 136805,
+                    "type": "int"
+                }
+            }
+        },
+        "mysql": {
+            "name": "mysql service",
+            "items": {
+                "io_read_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0,
+                    "name": "Read usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "write_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Write operations for the service",
+                    "value": 37,
+                    "type": "int"
+                },
+                "read_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes read for the service",
+                    "value": 24977408,
+                    "type": "int"
+                },
+                "pid": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 802,
+                    "name": "Process ID",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Service is not working.",
+                            "resol": "Check the service with systemctl status mysql",
+                            "match": -1
+                        }
+                    },
+                    "type": "int"
+                },
+                "io_write_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "Write usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "child_count": {
+                    "descr": "Amount of child processes the main process has forked.",
+                    "timestamp": 1533713436,
+                    "name": "Number of child processes",
+                    "value": 0,
+                    "type": "int"
+                },
+                "memory_vms": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 8.637565167060012,
+                    "name": "vms memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_rss": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 1.0048159425429317,
+                    "name": "rss memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_swap": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "swap memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "status": {
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
+                    "timestamp": 1533713436,
+                    "value": "sleeping",
+                    "name": "Process status",
+                    "triggers": {
+                        "trig2": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process is a zombie.",
+                            "resol": "Check the service and kill if needed.",
+                            "match": "^zombie"
+                        },
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process might not be working.",
+                            "resol": "Check the service and restart if needed.",
+                            "match": "^dead"
+                        }
+                    },
+                    "type": "text"
+                },
+                "write_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes written for the service",
+                    "value": 90112,
+                    "type": "int"
+                },
+                "cpu_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "CPU usage of service.",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "warn",
+                            "descr": "SUPP: Service using too much CPU.",
+                            "resol": "Decrease the CPU usage or ....",
+                            "range": [
+                                90,
+                                100
+                            ]
+                        }
+                    },
+                    "units": "%",
+                    "type": "float"
+                },
+                "process_name": {
+                    "descr": "Name of the service's main process",
+                    "timestamp": 1533713436,
+                    "name": "Name of process",
+                    "value": "mysqld",
+                    "type": "text"
+                },
+                "read_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Read operations for the service",
+                    "value": 694,
+                    "type": "int"
+                }
+            }
+        },
+        "avahi-daemon": {
+            "name": "avahi-daemon service",
+            "items": {
+                "io_read_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0,
+                    "name": "Read usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "write_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Write operations for the service",
+                    "value": 30262,
+                    "type": "int"
+                },
+                "read_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes read for the service",
+                    "value": 741376,
+                    "type": "int"
+                },
+                "pid": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 557,
+                    "name": "Process ID",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Service is not working.",
+                            "resol": "Check the service with systemctl status avahi-daemon",
+                            "match": -1
+                        }
+                    },
+                    "type": "int"
+                },
+                "io_write_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "Write usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "child_count": {
+                    "descr": "Amount of child processes the main process has forked.",
+                    "timestamp": 1533713436,
+                    "name": "Number of child processes",
+                    "value": 0,
+                    "type": "int"
+                },
+                "memory_vms": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.6005152222915163,
+                    "name": "vms memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_rss": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.04035364466781613,
+                    "name": "rss memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_swap": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "swap memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "status": {
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
+                    "timestamp": 1533713436,
+                    "value": "sleeping",
+                    "name": "Process status",
+                    "triggers": {
+                        "trig2": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process is a zombie.",
+                            "resol": "Check the service and kill if needed.",
+                            "match": "^zombie"
+                        },
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process might not be working.",
+                            "resol": "Check the service and restart if needed.",
+                            "match": "^dead"
+                        }
+                    },
+                    "type": "text"
+                },
+                "write_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes written for the service",
+                    "value": 0,
+                    "type": "int"
+                },
+                "cpu_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "CPU usage of service.",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "warn",
+                            "descr": "SUPP: Service using too much CPU.",
+                            "resol": "Decrease the CPU usage or ....",
+                            "range": [
+                                90,
+                                100
+                            ]
+                        }
+                    },
+                    "units": "%",
+                    "type": "float"
+                },
+                "process_name": {
+                    "descr": "Name of the service's main process",
+                    "timestamp": 1533713436,
+                    "name": "Name of process",
+                    "value": "avahi-daemon",
+                    "type": "text"
+                },
+                "read_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Read operations for the service",
+                    "value": 14612,
+                    "type": "int"
+                }
+            }
+        },
+        "apache2": {
+            "name": "apache2 service",
+            "items": {
+                "io_read_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0,
+                    "name": "Read usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "write_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Write operations for the service",
+                    "value": 598797,
+                    "type": "int"
+                },
+                "read_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes read for the service",
+                    "value": 299008,
+                    "type": "int"
+                },
+                "pid": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 11228,
+                    "name": "Process ID",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Service is not working.",
+                            "resol": "Check the service with systemctl status apache2",
+                            "match": -1
+                        }
+                    },
+                    "type": "int"
+                },
+                "io_write_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "Write usage I/O for the service",
+                    "units": "%",
+                    "type": "float"
+                },
+                "child_count": {
+                    "descr": "Amount of child processes the main process has forked.",
+                    "timestamp": 1533713436,
+                    "name": "Number of child processes",
+                    "value": 0,
+                    "type": "int"
+                },
+                "memory_vms": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 1.0478700205029123,
+                    "name": "vms memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_rss": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.06832605744891596,
+                    "name": "rss memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "memory_swap": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "swap memory usage",
+                    "units": "%",
+                    "type": "float"
+                },
+                "status": {
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
+                    "timestamp": 1533713436,
+                    "value": "sleeping",
+                    "name": "Process status",
+                    "triggers": {
+                        "trig2": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process is a zombie.",
+                            "resol": "Check the service and kill if needed.",
+                            "match": "^zombie"
+                        },
+                        "trig1": {
+                            "prior": "err",
+                            "descr": "SUPP: Main process might not be working.",
+                            "resol": "Check the service and restart if needed.",
+                            "match": "^dead"
+                        }
+                    },
+                    "type": "text"
+                },
+                "write_bytes": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Bytes written for the service",
+                    "value": 28790784,
+                    "type": "int"
+                },
+                "cpu_usage": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "value": 0.0,
+                    "name": "CPU usage of service.",
+                    "triggers": {
+                        "trig1": {
+                            "prior": "warn",
+                            "descr": "SUPP: Service using too much CPU.",
+                            "resol": "Decrease the CPU usage or ....",
+                            "range": [
+                                90,
+                                100
+                            ]
+                        }
+                    },
+                    "units": "%",
+                    "type": "float"
+                },
+                "process_name": {
+                    "descr": "Name of the service's main process",
+                    "timestamp": 1533713436,
+                    "name": "Name of process",
+                    "value": "apache2",
+                    "type": "text"
+                },
+                "read_count": {
+                    "descr": "",
+                    "timestamp": 1533713436,
+                    "name": "Read operations for the service",
+                    "value": 603463,
+                    "type": "int"
+                }
+            }
         }
     },
-    "update_interval": "60"
+    "update_interval": "60",
+    "version": "3.0"
 }
