@@ -15,26 +15,19 @@ import time
 
 import psutil
 
+# atop PRD constants
+
+PRD_READ = -8 # the read stat is the 8th column from right to left
+PRD_WRITE = -6 # the write stat is the 6th column from right to left
+
 # Error constants
 
 ARGPARSE_ERR = 6
 GLOBAL_ERR = 7
+CONF_ERR = 8
+CALL_ERR = 9
 
-# Stat file constants
-
-PROC_NAME = 1
-PROC_UTIME = 13
-PROC_STIME = 14
-
-# Other constants
-
-CONFIG = '/etc/monithor/smon.conf'
-TRACE = True
-MEMORY_TYPES = ['vms', 'rss', 'swap']
-ATOP_LOGFILE = 'temp_proc_info'
-SAMPLE_NUM = 2
-
-# PID file constants
+# PID file constants # Options where to search for the PID file
 
 PATH_OPTIONS = ['/run/{0}/{0}.pid',
 				'/run/{0}.pid',
@@ -46,167 +39,191 @@ FDIR_OPTIONS = ['/run/{0}',
 # Zabbix MONJSON constants
 
 VERSION = '3.0' # MONJSON version
-ZBX_INTERVAL = 60
-NS = "ZBX_NOTSUPPORTED"
+ZBX_INTERVAL = 60 # Call interval used by zabbix agent.
+NS = "ZBX_NOTSUPPORTED" # Value for values that cannot be gathered.
 
-def build_monjson(service_info, services):
+# Other constants
+
+CONFIG = 'config.json' # Default configuration file.
+TRACE = True # Should we traceback errors | False to catch global exceptions
+MEMORY_TYPES = ['vms', 'rss', 'swap'] # Types of memory to be monitored.
+ATOP_LOGFILE = 'temp_proc_info' # Temporary file to save the atop history to.
+SAMPLE_NUM = 2 # Number of samples to get from atop history.
+
+def build_monjson(service_info, service, output):
+	"""Build the MONJSON output format."""
 
 	timestamp_v = int(time.time())
 
-	output = {
-		"update_interval" : "{}".format(ZBX_INTERVAL),
-		"version" : VERSION,
-		"applications" : {}
-	}
+	output["name"] = "{} service".format(service)
+	output["items"] = {}
+	output_items = output["items"]
 
-	for service in services:
+	# Build the process_name item.
+	output_items["process_name"] = dict(
+		name="Name of process",
+		type="text",
+		value=service_info["name"],
+		descr="Name of the service's main process",
+		timestamp=timestamp_v
+	)
 
-		output["applications"][service] = {}
-		output["applications"][service]["name"] = "{} service".format(service)
-		output["applications"][service]["items"] = {}
-		output_items = output["applications"][service]["items"]
+	# Build the pid item and triggers.
+	output_items["pid"] = dict(
+		name="Process ID",
+		type="int",
+		value=service_info["pid"],
+		descr="",
+		timestamp=timestamp_v
+	)
+	output_items["pid"]["triggers"] = {} 
+	output_items["pid"]["triggers"]["trig1"] = dict(
+		descr="SUPP: Service is not working.",
+		range=[-1, -1],
+		prior="warn",
+		resol="Check the service with systemctl status {}".format(service)
+	)
 
-		# Build the process_name item.
-		output_items["process_name"] = dict(
-			name="Name of process",
-			type="text",
-			value=service_info[service]["name"],
-			descr="Name of the service's main process",
-			timestamp=timestamp_v
-		)
+	# Build the child_count item.
+	output_items["child_count"] = dict(
+		name="Number of child processes",
+		type="int",
+		value=service_info["child_count"],
+		descr="Amount of child processes the main process has forked.",
+		timestamp=timestamp_v
+	)
 
-		# Build the pid item and triggers.
-		output_items["pid"] = dict(
-			name="Process ID",
-			type="int",
-			value=service_info[service]["pid"],
+	# Build the status item and triggers.
+	output_items["status"] = dict(
+		name="Process status",
+		type="text",
+		value=service_info["status"],
+		descr="Shows the status of the process (running, sleeping, zombie, etc.)",
+		timestamp=timestamp_v
+	)
+	output_items["status"]["triggers"] = {}
+	output_items["status"]["triggers"]["trig1"] = dict(
+		descr="SUPP: Main process might not be working.",
+		match="^dead",
+		prior="warn",
+		resol="Check the service and restart if needed.",
+	)
+	output_items["status"]["triggers"]["trig2"] = dict(
+		descr="SUPP: Main process is a zombie.",
+		match="^zombie",
+		prior="warn",
+		resol="Check the service and kill if needed."
+	)
+
+	# Build memory items.
+	for m_type in MEMORY_TYPES:
+		output_items["memory_{}".format(m_type)] = dict(
+			name="{} memory usage".format(m_type),
+			type="float",
+			units="%",
+			value=service_info["memory_{}".format(m_type)],
 			descr="",
 			timestamp=timestamp_v
 		)
-		output_items["pid"]["triggers"] = {} 
-		output_items["pid"]["triggers"]["trig1"] = dict(
-			descr="SUPP: Service is not working.",
-			match=-1,
-			prior="err",
-			resol="Check the service with systemctl status {}".format(service)
-		)
-
-		# Build the child_count item.
-		output_items["child_count"] = dict(
-			name="Number of child processes",
-			type="int",
-			value=service_info[service]["child_count"],
-			descr="Amount of child processes the main process has forked.",
-			timestamp=timestamp_v
-		)
-
-		# Build the status item and triggers.
-		output_items["status"] = dict(
-			name="Process status",
-			type="text",
-			value=service_info[service]["status"],
-			descr="Shows the status of the process (running, sleeping, zombie, etc.)",
-			timestamp=timestamp_v
-		)
-		output_items["status"]["triggers"] = {}
-		output_items["status"]["triggers"]["trig1"] = dict(
-			descr="SUPP: Main process might not be working.",
-			match="^dead",
-			prior="err",
-			resol="Check the service and restart if needed.",
-		)
-		output_items["status"]["triggers"]["trig2"] = dict(
-			descr="SUPP: Main process is a zombie.",
-			match="^zombie",
-			prior="err",
-			resol="Check the service and kill if needed."
-		)
-
-		# Build memory items.
-		for m_type in MEMORY_TYPES:
-			output_items["memory_{}".format(m_type)] = dict(
-				name="{} memory usage".format(m_type),
-				type="float",
-				units="%",
-				value=service_info[service]["memory_{}".format(m_type)],
-				descr="",
-				timestamp=timestamp_v
+		if m_type == "vms":
+			output_items["memory_vms"]["units"] = "B"
+		else:
+			output_items["memory_{}".format(m_type)]["triggers"] = {}
+			output_items["memory_{}".format(m_type)]["triggers"]["trig1"] = dict(
+				descr="SUPP: Memory usage is too high!",
+				resol="Get creative.",
+				range=[90, 100],
+				prior="warn"
 			)
 
-		# Build cpu_usage item and trigger.
-		output_items["cpu_usage"] = dict(
-			name="CPU usage of service.",
-			type="float",
-			units="%",
-			value=service_info[service]["cpu_usage"],
-			descr="",
-			timestamp=timestamp_v
-		)
-		output_items["cpu_usage"]["triggers"] = {}
-		output_items["cpu_usage"]["triggers"]["trig1"] = dict(
-			descr="SUPP: Service using too much CPU.",
-			range=[90, 100],
-			prior="warn",
-			resol="Decrease the CPU usage or ...."
-		)
+	# Build cpu_usage item and trigger.
+	output_items["cpu_usage"] = dict(
+		name="CPU usage of service.",
+		type="float",
+		units="%",
+		value=service_info["cpu_usage"],
+		descr="",
+		timestamp=timestamp_v
+	)
+	output_items["cpu_usage"]["triggers"] = {}
+	output_items["cpu_usage"]["triggers"]["trig1"] = dict(
+		descr="SUPP: Service using too much CPU.",
+		range=[90, 100],
+		prior="warn",
+		resol="Decrease the CPU usage or ...."
+	)
 
-		# Build read_bytes item
-		output_items["read_bytes"] = dict(
-			name="Bytes read for the service",
-			type="int",
-			value=service_info[service]["read_bytes"],
-			descr="",
-			timestamp=timestamp_v
-		)
+	# Build read_bytes item
+	output_items["read_bytes"] = dict(
+		name="Bytes read for the service",
+		type="int",
+		value=service_info["read_bytes"],
+		descr="",
+		timestamp=timestamp_v
+	)
 
-		# Build write_bytes item
-		output_items["write_bytes"] = dict(
-			name="Bytes written for the service",
-			type="int",
-			value=service_info[service]["write_bytes"],
-			descr="",
-			timestamp=timestamp_v
-		)
+	# Build write_bytes item
+	output_items["write_bytes"] = dict(
+		name="Bytes written for the service",
+		type="int",
+		value=service_info["write_bytes"],
+		descr="",
+		timestamp=timestamp_v
+	)
 
-		# Build read_count item
-		output_items["read_count"] = dict(
-			name="Read operations for the service",
-			type="int",
-			value=service_info[service]["read_count"],
-			descr="",
-			timestamp=timestamp_v
-		)
+	# Build read_count item
+	output_items["read_count"] = dict(
+		name="Read operations for the service",
+		type="int",
+		value=service_info["read_count"],
+		descr="",
+		timestamp=timestamp_v
+	)
 
-		# Build the write count item
-		output_items["write_count"] = dict(
-			name="Write operations for the service",
-			type="int",
-			value=service_info[service]["write_count"],
-			descr="",
-			timestamp=timestamp_v
-		)
+	# Build the write count item
+	output_items["write_count"] = dict(
+		name="Write operations for the service",
+		type="int",
+		value=service_info["write_count"],
+		descr="",
+		timestamp=timestamp_v
+	)
 
-		# Build the io_read_usage item
-		output_items["io_read_usage"] = dict(
-			name="Read usage I/O for the service",
-			type="float",
-			units="%",
-			value=service_info[service]["io_read_usage"],
-			descr="",
-			timestamp=timestamp_v
-		)
+	# Build the io_read_usage item and triggers
+	output_items["io_read_usage"] = dict(
+		name="Read usage I/O for the service",
+		type="float",
+		units="%",
+		value=service_info["io_read_usage"],
+		descr="",
+		timestamp=timestamp_v
+	)
+	output_items["io_read_usage"]["triggers"] = {}
+	output_items["io_read_usage"]["triggers"]["trig1"] = dict(
+		descr="SUPP: The service is using too much read I/O.",
+		resol="Insert creative resolution here",
+		range=[90, 100],
+		prior="warn"
+	)
 
-		# Build the io_write_usage item
-		output_items["io_write_usage"] = dict(
-			name="Write usage I/O for the service",
-			type="float",
-			units="%",
-			value=service_info[service]["io_write_usage"],
-			descr="",
-			timestamp=timestamp_v
-		)
+	# Build the io_write_usage item and triggers
+	output_items["io_write_usage"] = dict(
+		name="Write usage I/O for the service",
+		type="float",
+		units="%",
+		value=service_info["io_write_usage"],
+		descr="",
+		timestamp=timestamp_v
+	)
+	output_items["io_write_usage"]["triggers"] = {}
+	output_items["io_write_usage"]["triggers"]["trig1"] = dict(
+		descr="SUPP: The service is using too much write I/O.",
+		resol="Insert creative resolution here",
+		range=[90, 100],
+		prior="warn"
+	)
 
-		output["applications"][service]["items"] = output_items
+	output["items"] = output_items
 
 	return output
 
@@ -225,11 +242,7 @@ def parse_arg():
 							help="Benchmark the script's runtime",
 							action="store_true",
 							default=False)
-		parser.add_argument("-m",
-							"--memtypes",
-							help="Choose memory types (vms/rss/uss/pss/swap) to monitor.",
-							nargs="+",
-							default=MEMORY_TYPES)
+
 		args = parser.parse_args()
 
 	except argparse.ArgumentError:
@@ -243,15 +256,23 @@ def load_services(cfg):
 	"""Read services from the configuration file and add them into a list."""
 
 	handler_list = [] # Predefine the list for services.
+	conf_dict = {} # Predefine the dictionary with configurable services.
+
 	try:
 		with open(cfg, "r") as servfile:
-			for line in servfile:
-				handler_list.append(line.strip())
-	except:
+			conf_data = json.load(servfile)
+
+	except OSError:
 		print("The file {} most probably does not exist. ".format(cfg), 
 			  file=sys.stderr)
+		sys.exit(CONF_ERR)
 
-	return handler_list
+	for key, value in conf_data.items():
+		handler_list.append(key)
+		if value["manual"] == 1:
+			conf_dict[key] = value
+
+	return handler_list, conf_dict
 
 def setup():
 	time_now = datetime.datetime.now()
@@ -259,92 +280,94 @@ def setup():
 	time_begin = '{}:{}'.format(time_delta.hour, time_delta.minute)
 	time_end = '{}:{}'.format(time_now.hour, time_now.minute) 
 
-	exit_code = subprocess.call("atop -P PRD,DSK -b {} -e {} -r > {}".format(time_begin, time_end, ATOP_LOGFILE), shell=True)
-
-	disk_lines = []
-	read_counts = []
-	write_counts = []
-	total_read_count = 0
-	total_write_count = 0
+	exit_code = subprocess.call("atop -P PRD -b {} -e {} -r > {}".format(time_begin, time_end, ATOP_LOGFILE), shell=True)
+	if exit_code == 127:
+		print("The atop tool most probably is not installed or cannot be found.")
+		sys.exit(CALL_ERR)
 
 	with open(ATOP_LOGFILE, "r") as source_file:
 		source = source_file.readlines()
 
-	for line in source:
-		if line.startswith('DSK'):
-			disk_lines.append(line)
-
-	for disk_line in disk_lines:
-		source.remove(disk_line)
-		line_info = disk_line.strip().split(' ')
-		read_counts.append(line_info[8])
-		write_counts.append(line_info[10])
-
-	for reads in read_counts:
-		total_read_count += int(reads)
-	for writes in write_counts:
-		total_write_count += int(writes)
-
-	return exit_code, source, (total_read_count, total_write_count)
+	return exit_code, source
 
 class ProcMon:
+	"""
+	The process class to gather information about a single process and its children.
+	Information gathered:
+	* Main process' children
+	* Main process name
+	* Number of childrens running # currently unused
+	* Main process status (running, dead, zombie..)
+	* IO counters since boot
+	* CPU usage (percent)
+	* Resident memory usage (percent)
+	* Swap memory usage (percent)
+	* Virtual memory size (bytes)
+
+	CPU and Memory usages are total for the main process + its children, 
+	since we are monitoring a service and not a single process.
+	"""
 
 	def __init__(self, service_pid):
+		"""Initialize the class and efficiently gather starting information about the process."""
 		self.pid = service_pid
 		self.process = psutil.Process(service_pid)
-		self.childs = self.process.children(recursive=True)
-		self.name = self.process.name()
+		with self.process.oneshot(): # Use psutil's process caching method to increase performance.
+			self.childs = self.process.children(recursive=True)
+			self.name = self.process.name()
+			self.child_num = len(self.childs) 
+			self.status = self.process.status()
+			self.io_stats = self.process.io_counters()
+			self.cpu_usage = self.process.cpu_percent(interval=0.01)
+			self.memory_rss = self.process.memory_percent(memtype="rss")
+			self.memory_vms = self.process.memory_info().vms # We want VMS in bytes, not percents.
+			self.memory_swap = self.process.memory_percent(memtype="swap")
+			for child in self.childs: # Get total CPU/Memory usage for the process' children.
+				self.cpu_usage += child.cpu_percent(interval=0.01)
+				self.memory_rss += child.memory_percent(memtype="rss")
+				self.memory_vms += child.memory_info().vms
+				self.memory_swap += child.memory_percent(memtype="swap")
 
-	def get_process_name(self):
-		return self.name
+	def get_io_usage(self, source):
+		"""
+		Get the total I/O usage of all processes, as well as the I/O usage
+		for the specified process. I am aware that getting the total I/O usage
+		for all processes every time this function is being called for a process
+		is an unneccessary overhead. However, if I moved the total I/O stats in
+		the setup() function, I'd have to iterate over the source two times. 
+		And the source is a list with 3000+ lines parsed from atop's history file. 
+		Iterating over this list only once is a performance bonus in contrast to
+		doing it twice.
 
-	def get_child_pids(self):
-		child_pids = []
-		for child in self.childs:
-			child_pids.append(child.pid)
-		return child_pids
+		[source] here must be a list of strings, each string representing a line from
+		atop's history generated with the PRD parseable output label.
 
-	def get_child_num(self):
-		return len(self.childs)
+		In this function we iterate over the source lines from atop's history file,
+		and add the number of reads & writes to the totals for every line. If the line
+		is for the process we're using this function for, we add the line's write & read
+		count to those of the process as well.
+		"""
 
-	def get_cpu_usage(self):
-		cpu_usage = self.process.cpu_percent(interval=0.01)
-		for child in self.childs:
-			cpu_usage += child.cpu_percent(interval=0.01)
-		return cpu_usage
-
-	def get_memory_usage(self, m_type):
-		memory_usage = self.process.memory_percent(memtype=m_type)
-		for child in self.childs:
-			memory_usage += child.memory_percent(memtype=m_type)
-		return memory_usage
-
-	def get_io_stats(self):
-		return self.process.io_counters()
-
-	def get_status(self):
-		return self.process.status()
-
-	def get_io_usage(self, source, disk_ops):
 		proc_reads = 0
 		proc_writes = 0
 
-		for line in source:
-			for child in self.childs:
-				if ' {} ({})'.format(self.pid, self.name) in line or ' {} ('.format(child.pid) in line:
-					line = line.strip().split(' ')
-					proc_reads += int(line[11])
-					proc_writes += int(line[13])
+		total_reads = 0
+		total_writes = 0
 
+		for line in source: 
+			is_current = False
+			if line.startswith('PRD'):
+				if '({})'.format(self.name) in line:
+					is_current = True
+				line = line.strip().split(' ')
+				total_reads += int(line[PRD_READ])
+				total_writes += int(line[PRD_WRITE])
+				if is_current:
+					proc_reads += int(line[PRD_READ])
+					proc_writes += int(line[PRD_WRITE])
 
-		if disk_ops[0] > 0:
-			io_read = (proc_reads / disk_ops[0]) * 100
-		else:
-			io_read = 0
-		if disk_ops[1] > 0:
-			io_write = (proc_writes / disk_ops[1]) * 100
-		else:
-			io_write = 0
+		io_read = (proc_reads / total_reads) * 100 if total_reads > 0 else 0
+		io_write = (proc_writes / total_writes) * 100 if total_writes > 0 else 0
 
 		return (io_read, io_write)
 
@@ -371,7 +394,7 @@ def get_pid(service):
 	return mainpid
 
 def get_pidf_path(service):
-	"""Check if a pidfile exists in /run directory"""
+	"""Check if a pidfile exists in the /run directory"""
 
 	for filepath in PATH_OPTIONS:
 		path = filepath.format(service)
@@ -386,31 +409,41 @@ def get_pidf_path(service):
 					return os.path.join(path, file)
 
 def main():
+	"""
+	The main function responsible for controlling the arguments and the whole information gathering.
+	"""
 	service_info = {}
 
 	# Get arguments for minimal mode and for the configuration file.
 	args = parse_arg() 
-	services = load_services(args.config) # Get the services into the list by using the cfg file.
-	setup_code, parse_source, disk_ops = setup()
+	services, conf_dict = load_services(args.config) # Get the services into the list by using the cfg file.
+	setup_code, parse_source = setup()
+
+	output = {
+		"update_interval" : "{}".format(ZBX_INTERVAL),
+		"version" : VERSION,
+		"applications" : {}
+	}
 
 	for service in services:
 		service_info[service] = {}
 		service_info[service]["pid"] = get_pid(service)
 		if service_info[service]["pid"] > 0:
 			proc = ProcMon(service_info[service]["pid"])
-			service_info[service]["name"] = proc.get_process_name()
-			service_info[service]["child_count"] = proc.get_child_num()
-			service_info[service]["cpu_usage"] = proc.get_cpu_usage()
-			for t in args.memtypes:
-				service_info[service]["memory_{}".format(t)] = proc.get_memory_usage(t)
-			service_info[service]["status"] = proc.get_status()
-			io_stats = proc.get_io_stats()
+			service_info[service]["name"] = proc.name
+			service_info[service]["child_count"] = proc.child_num
+			service_info[service]["cpu_usage"] = proc.cpu_usage
+			service_info[service]["memory_vms"] = proc.memory_vms
+			service_info[service]["memory_rss"] = proc.memory_rss
+			service_info[service]["memory_swap"] = proc.memory_swap
+			service_info[service]["status"] = proc.status
+			io_stats = proc.io_stats
 			service_info[service]["read_bytes"] = io_stats.read_bytes
 			service_info[service]["write_bytes"] = io_stats.write_bytes
 			service_info[service]["read_count"] = io_stats.read_count
 			service_info[service]["write_count"] = io_stats.write_count
 			if setup_code == 0:
-				io_usage = proc.get_io_usage(parse_source, disk_ops)
+				io_usage = proc.get_io_usage(parse_source)
 				service_info[service]["io_read_usage"] = io_usage[0]
 				service_info[service]["io_write_usage"] = io_usage[1]
 			else:
@@ -421,7 +454,7 @@ def main():
 			service_info[service]["name"] = NS
 			service_info[service]["child_count"] = NS
 			service_info[service]["cpu_usage"] = NS
-			for t in args.memtypes:
+			for t in MEMORY_TYPES:
 				service_info[service]["memory_{}".format(t)] = NS
 			service_info[service]["read_bytes"] = NS
 			service_info[service]["write_bytes"] = NS
@@ -430,8 +463,19 @@ def main():
 			service_info[service]["io_read_usage"] = NS
 			service_info[service]["io_write_usage"] = NS
 
-	#print(json.dumps(service_info, indent=4, sort_keys=True))
-	print(json.dumps(build_monjson(service_info, services), indent=4, sort_keys=False))
+		output["applications"][service] = {}
+		output["applications"][service] = build_monjson(
+			service_info[service], 
+			service, 
+			output["applications"][service]
+		)
+		
+		if service in conf_dict:
+			for key, value in conf_dict[service].items():
+				if key != "manual":
+					output["applications"][service]["items"][key]["triggers"] = value["triggers"]
+
+	print(json.dumps(output, indent=4, sort_keys=False))
 
 	if args.benchmark:
 		print("Time ran: {}".format(datetime.datetime.now() - start_time))

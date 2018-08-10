@@ -1,1000 +1,3805 @@
+The service nginx most probably does not exist or is not running.
 {
     "applications": {
-        "nginx": {
-            "name": "nginx service",
+        "upower": {
+            "name": "upower service",
             "items": {
-                "io_read_usage": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907109,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0,
-                    "name": "Read usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "write_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Write operations for the service",
-                    "value": 1,
-                    "type": "int"
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
                 },
                 "read_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Bytes read for the service",
-                    "value": 0,
-                    "type": "int"
-                },
-                "pid": {
+                    "timestamp": 1533907109,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 518,
-                    "name": "Process ID",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
                     "triggers": {
                         "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Service is not working.",
-                            "resol": "Check the service with systemctl status nginx",
-                            "range": [0, 0]
-                        }
-                    },
-                    "type": "int"
-                },
-                "io_write_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "Write usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "child_count": {
-                    "descr": "Amount of child processes the main process has forked.",
-                    "timestamp": 1533713436,
-                    "name": "Number of child processes",
-                    "value": 0,
-                    "type": "int"
-                },
-                "memory_vms": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 2.0318467702817826,
-                    "name": "vms memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_rss": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.02109395062181298,
-                    "name": "rss memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_swap": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "swap memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "status": {
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
-                    "timestamp": 1533713436,
-                    "value": "sleeping",
-                    "name": "Process status",
-                    "triggers": {
-                        "trig2": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process is a zombie.",
-                            "resol": "Check the service and kill if needed.",
-                            "match": "^zombie"
-                        },
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process might not be working.",
-                            "resol": "Check the service and restart if needed.",
-                            "match": "^dead"
-                        }
-                    },
-                    "type": "text"
-                },
-                "write_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes written for the service",
-                    "value": 0,
-                    "type": "int"
-                },
-                "cpu_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "CPU usage of service.",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "warn",
-                            "descr": "SUPP: Service using too much CPU.",
-                            "resol": "Decrease the CPU usage or ....",
                             "range": [
                                 90,
                                 100
-                            ]
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
                         }
                     },
-                    "units": "%",
-                    "type": "float"
+                    "descr": ""
                 },
-                "process_name": {
-                    "descr": "Name of the service's main process",
-                    "timestamp": 1533713436,
-                    "name": "Name of process",
-                    "value": "nginx",
-                    "type": "text"
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907109,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
                 },
                 "read_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Read operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907109,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907109,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status upower",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907109,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "atopacct": {
+            "name": "atopacct service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 4096
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 0
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
                     "value": 0,
-                    "type": "int"
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907109,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 4284416,
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 2169649
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907109,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.017476389041743604,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907109,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 596,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status atopacct",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907109,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "atopacctd"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 376321
+                }
+            }
+        },
+        "dbus": {
+            "name": "dbus service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907109,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907109,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907109,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status dbus",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907109,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "cups": {
+            "name": "cups service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 8192
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 196608
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": 0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907109,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 99389440,
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 278
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907109,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.10011983809628625,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907109,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 28243,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status cups",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907109,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "cupsd"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 14
+                }
+            }
+        },
+        "cron": {
+            "name": "cron service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 6336512
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 19458187264
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": 0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907109,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 30371840,
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 7114471
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907109,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.03688893780239758,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907109,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 556,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status cron",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907109,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907109,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "cron"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907109,
+                    "descr": "",
+                    "type": "int",
+                    "value": 529848
                 }
             }
         },
         "dnsmasq": {
             "name": "dnsmasq service",
             "items": {
-                "io_read_usage": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0,
-                    "name": "Read usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "write_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Write operations for the service",
-                    "value": 20,
-                    "type": "int"
+                    "type": "int",
+                    "value": 0
                 },
                 "read_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Bytes read for the service",
-                    "value": 0,
-                    "type": "int"
-                },
-                "pid": {
+                    "timestamp": 1533907110,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 683,
-                    "name": "Process ID",
+                    "type": "int",
+                    "value": 0
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": 0,
+                    "units": "%",
                     "triggers": {
                         "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Service is not working.",
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 55267328,
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 8
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.006419898015334385,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 31928,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
                             "resol": "Check the service with systemctl status dnsmasq",
-                            "match": -1
+                            "descr": "SUPP: Service is not working."
                         }
                     },
-                    "type": "int"
-                },
-                "io_write_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "Write usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "child_count": {
-                    "descr": "Amount of child processes the main process has forked.",
-                    "timestamp": 1533713436,
-                    "name": "Number of child processes",
-                    "value": 0,
-                    "type": "int"
-                },
-                "memory_vms": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.6874895549278323,
-                    "name": "vms memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_rss": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.006368946443784112,
-                    "name": "rss memory usage",
-                    "units": "%",
-                    "type": "float"
+                    "descr": ""
                 },
                 "memory_swap": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
+                    "timestamp": 1533907110,
+                    "type": "float",
                     "name": "swap memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "status": {
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
-                    "timestamp": 1533713436,
-                    "value": "sleeping",
-                    "name": "Process status",
-                    "triggers": {
-                        "trig2": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process is a zombie.",
-                            "resol": "Check the service and kill if needed.",
-                            "match": "^zombie"
-                        },
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process might not be working.",
-                            "resol": "Check the service and restart if needed.",
-                            "match": "^dead"
-                        }
-                    },
-                    "type": "text"
-                },
-                "write_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes written for the service",
-                    "value": 0,
-                    "type": "int"
-                },
-                "cpu_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "value": 0.0,
-                    "name": "CPU usage of service.",
+                    "units": "%",
                     "triggers": {
                         "trig1": {
-                            "prior": "warn",
-                            "descr": "SUPP: Service using too much CPU.",
-                            "resol": "Decrease the CPU usage or ....",
                             "range": [
                                 90,
                                 100
-                            ]
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
                         }
                     },
-                    "units": "%",
-                    "type": "float"
+                    "descr": ""
                 },
                 "process_name": {
-                    "descr": "Name of the service's main process",
-                    "timestamp": 1533713436,
                     "name": "Name of process",
-                    "value": "dnsmasq",
-                    "type": "text"
-                },
-                "read_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Read operations for the service",
-                    "value": 13,
-                    "type": "int"
-                }
-            }
-        },
-        "sshd": {
-            "name": "sshd service",
-            "items": {
-                "io_read_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0,
-                    "name": "Read usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "dnsmasq"
                 },
                 "write_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Write operations for the service",
-                    "value": 19,
-                    "type": "int"
-                },
-                "read_bytes": {
+                    "timestamp": 1533907110,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes read for the service",
-                    "value": 0,
-                    "type": "int"
-                },
-                "pid": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 666,
-                    "name": "Process ID",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Service is not working.",
-                            "resol": "Check the service with systemctl status sshd",
-                            "match": -1
-                        }
-                    },
-                    "type": "int"
-                },
-                "io_write_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "Write usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "child_count": {
-                    "descr": "Amount of child processes the main process has forked.",
-                    "timestamp": 1533713436,
-                    "name": "Number of child processes",
-                    "value": 0,
-                    "type": "int"
-                },
-                "memory_vms": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.8909901316996223,
-                    "name": "vms memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_rss": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.07123029702728151,
-                    "name": "rss memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_swap": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "swap memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "status": {
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
-                    "timestamp": 1533713436,
-                    "value": "sleeping",
-                    "name": "Process status",
-                    "triggers": {
-                        "trig2": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process is a zombie.",
-                            "resol": "Check the service and kill if needed.",
-                            "match": "^zombie"
-                        },
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process might not be working.",
-                            "resol": "Check the service and restart if needed.",
-                            "match": "^dead"
-                        }
-                    },
-                    "type": "text"
-                },
-                "write_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes written for the service",
-                    "value": 0,
-                    "type": "int"
-                },
-                "cpu_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "CPU usage of service.",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "warn",
-                            "descr": "SUPP: Service using too much CPU.",
-                            "resol": "Decrease the CPU usage or ....",
-                            "range": [
-                                90,
-                                100
-                            ]
-                        }
-                    },
-                    "units": "%",
-                    "type": "float"
-                },
-                "process_name": {
-                    "descr": "Name of the service's main process",
-                    "timestamp": 1533713436,
-                    "name": "Name of process",
-                    "value": "sshd",
-                    "type": "text"
-                },
-                "read_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Read operations for the service",
-                    "value": 201,
-                    "type": "int"
-                }
-            }
-        },
-        "postgresql": {
-            "name": "postgresql service",
-            "items": {
-                "io_read_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0,
-                    "name": "Read usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "write_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Write operations for the service",
-                    "value": 6122,
-                    "type": "int"
-                },
-                "read_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes read for the service",
-                    "value": 6463488,
-                    "type": "int"
-                },
-                "pid": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 641,
-                    "name": "Process ID",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Service is not working.",
-                            "resol": "Check the service with systemctl status postgresql",
-                            "match": -1
-                        }
-                    },
-                    "type": "int"
-                },
-                "io_write_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "Write usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "child_count": {
-                    "descr": "Amount of child processes the main process has forked.",
-                    "timestamp": 1533713436,
-                    "name": "Number of child processes",
-                    "value": 0,
-                    "type": "int"
-                },
-                "memory_vms": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 3.663316091321521,
-                    "name": "vms memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_rss": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.3191096926193592,
-                    "name": "rss memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_swap": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "swap memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "status": {
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
-                    "timestamp": 1533713436,
-                    "value": "sleeping",
-                    "name": "Process status",
-                    "triggers": {
-                        "trig2": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process is a zombie.",
-                            "resol": "Check the service and kill if needed.",
-                            "match": "^zombie"
-                        },
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process might not be working.",
-                            "resol": "Check the service and restart if needed.",
-                            "match": "^dead"
-                        }
-                    },
-                    "type": "text"
-                },
-                "write_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes written for the service",
-                    "value": 409600,
-                    "type": "int"
-                },
-                "cpu_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "CPU usage of service.",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "warn",
-                            "descr": "SUPP: Service using too much CPU.",
-                            "resol": "Decrease the CPU usage or ....",
-                            "range": [
-                                90,
-                                100
-                            ]
-                        }
-                    },
-                    "units": "%",
-                    "type": "float"
-                },
-                "process_name": {
-                    "descr": "Name of the service's main process",
-                    "timestamp": 1533713436,
-                    "name": "Name of process",
-                    "value": "postgres",
-                    "type": "text"
-                },
-                "read_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Read operations for the service",
-                    "value": 136805,
-                    "type": "int"
-                }
-            }
-        },
-        "mysql": {
-            "name": "mysql service",
-            "items": {
-                "io_read_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0,
-                    "name": "Read usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "write_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Write operations for the service",
-                    "value": 37,
-                    "type": "int"
-                },
-                "read_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes read for the service",
-                    "value": 24977408,
-                    "type": "int"
-                },
-                "pid": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 802,
-                    "name": "Process ID",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Service is not working.",
-                            "resol": "Check the service with systemctl status mysql",
-                            "match": -1
-                        }
-                    },
-                    "type": "int"
-                },
-                "io_write_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "Write usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "child_count": {
-                    "descr": "Amount of child processes the main process has forked.",
-                    "timestamp": 1533713436,
-                    "name": "Number of child processes",
-                    "value": 0,
-                    "type": "int"
-                },
-                "memory_vms": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 8.637565167060012,
-                    "name": "vms memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_rss": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 1.0048159425429317,
-                    "name": "rss memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_swap": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "swap memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "status": {
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
-                    "timestamp": 1533713436,
-                    "value": "sleeping",
-                    "name": "Process status",
-                    "triggers": {
-                        "trig2": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process is a zombie.",
-                            "resol": "Check the service and kill if needed.",
-                            "match": "^zombie"
-                        },
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process might not be working.",
-                            "resol": "Check the service and restart if needed.",
-                            "match": "^dead"
-                        }
-                    },
-                    "type": "text"
-                },
-                "write_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes written for the service",
-                    "value": 90112,
-                    "type": "int"
-                },
-                "cpu_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "CPU usage of service.",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "warn",
-                            "descr": "SUPP: Service using too much CPU.",
-                            "resol": "Decrease the CPU usage or ....",
-                            "range": [
-                                90,
-                                100
-                            ]
-                        }
-                    },
-                    "units": "%",
-                    "type": "float"
-                },
-                "process_name": {
-                    "descr": "Name of the service's main process",
-                    "timestamp": 1533713436,
-                    "name": "Name of process",
-                    "value": "mysqld",
-                    "type": "text"
-                },
-                "read_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Read operations for the service",
-                    "value": 694,
-                    "type": "int"
+                    "type": "int",
+                    "value": 18
                 }
             }
         },
         "avahi-daemon": {
             "name": "avahi-daemon service",
             "items": {
-                "io_read_usage": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0,
-                    "name": "Read usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "write_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Write operations for the service",
-                    "value": 30262,
-                    "type": "int"
+                    "type": "int",
+                    "value": 0
                 },
                 "read_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Bytes read for the service",
-                    "value": 741376,
-                    "type": "int"
-                },
-                "pid": {
+                    "timestamp": 1533907110,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 557,
-                    "name": "Process ID",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Service is not working.",
-                            "resol": "Check the service with systemctl status avahi-daemon",
-                            "match": -1
-                        }
-                    },
-                    "type": "int"
+                    "type": "int",
+                    "value": 741376
                 },
-                "io_write_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "Write usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "child_count": {
-                    "descr": "Amount of child processes the main process has forked.",
-                    "timestamp": 1533713436,
-                    "name": "Number of child processes",
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
                     "value": 0,
-                    "type": "int"
-                },
-                "memory_vms": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.6005152222915163,
-                    "name": "vms memory usage",
                     "units": "%",
-                    "type": "float"
-                },
-                "memory_rss": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.04035364466781613,
-                    "name": "rss memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_swap": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "swap memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "status": {
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
-                    "timestamp": 1533713436,
-                    "value": "sleeping",
-                    "name": "Process status",
-                    "triggers": {
-                        "trig2": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process is a zombie.",
-                            "resol": "Check the service and kill if needed.",
-                            "match": "^zombie"
-                        },
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process might not be working.",
-                            "resol": "Check the service and restart if needed.",
-                            "match": "^dead"
-                        }
-                    },
-                    "type": "text"
-                },
-                "write_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes written for the service",
-                    "value": 0,
-                    "type": "int"
-                },
-                "cpu_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "CPU usage of service.",
                     "triggers": {
                         "trig1": {
-                            "prior": "warn",
-                            "descr": "SUPP: Service using too much CPU.",
-                            "resol": "Decrease the CPU usage or ....",
                             "range": [
                                 90,
                                 100
-                            ]
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
                         }
                     },
-                    "units": "%",
-                    "type": "float"
+                    "descr": ""
                 },
-                "process_name": {
-                    "descr": "Name of the service's main process",
-                    "timestamp": 1533713436,
-                    "name": "Name of process",
-                    "value": "avahi-daemon",
-                    "type": "text"
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 48275456,
+                    "units": "B",
+                    "descr": ""
                 },
                 "read_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Read operations for the service",
-                    "value": 14612,
-                    "type": "int"
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 34652
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.04035364466781613,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 557,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status avahi-daemon",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "avahi-daemon"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 74290
+                }
+            }
+        },
+        "ModemManager": {
+            "name": "ModemManager service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status ModemManager",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "polkit": {
+            "name": "polkit service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status polkit",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
                 }
             }
         },
         "apache2": {
             "name": "apache2 service",
             "items": {
-                "io_read_usage": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0,
-                    "name": "Read usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "write_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Write operations for the service",
-                    "value": 598797,
-                    "type": "int"
+                    "type": "int",
+                    "value": 1036288
                 },
                 "read_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Bytes read for the service",
-                    "value": 299008,
-                    "type": "int"
-                },
-                "pid": {
+                    "timestamp": 1533907110,
                     "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 11228,
-                    "name": "Process ID",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Service is not working.",
-                            "resol": "Check the service with systemctl status apache2",
-                            "match": -1
-                        }
-                    },
-                    "type": "int"
+                    "type": "int",
+                    "value": 0
                 },
-                "io_write_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "Write usage I/O for the service",
-                    "units": "%",
-                    "type": "float"
-                },
-                "child_count": {
-                    "descr": "Amount of child processes the main process has forked.",
-                    "timestamp": 1533713436,
-                    "name": "Number of child processes",
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
                     "value": 0,
-                    "type": "int"
-                },
-                "memory_vms": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 1.0478700205029123,
-                    "name": "vms memory usage",
                     "units": "%",
-                    "type": "float"
-                },
-                "memory_rss": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.06832605744891596,
-                    "name": "rss memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "memory_swap": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "swap memory usage",
-                    "units": "%",
-                    "type": "float"
-                },
-                "status": {
-                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)",
-                    "timestamp": 1533713436,
-                    "value": "sleeping",
-                    "name": "Process status",
                     "triggers": {
                         "trig2": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process is a zombie.",
-                            "resol": "Check the service and kill if needed.",
-                            "match": "^zombie"
+                            "range": [
+                                80,
+                                90
+                            ],
+                            "prior": "warn",
+                            "resol": "Be nicer to apache",
+                            "descr": "SUPP: Apache2 is reading a lot on disk."
                         },
                         "trig1": {
-                            "prior": "err",
-                            "descr": "SUPP: Main process might not be working.",
-                            "resol": "Check the service and restart if needed.",
-                            "match": "^dead"
-                        }
-                    },
-                    "type": "text"
-                },
-                "write_bytes": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "name": "Bytes written for the service",
-                    "value": 28790784,
-                    "type": "int"
-                },
-                "cpu_usage": {
-                    "descr": "",
-                    "timestamp": 1533713436,
-                    "value": 0.0,
-                    "name": "CPU usage of service.",
-                    "triggers": {
-                        "trig1": {
-                            "prior": "warn",
-                            "descr": "SUPP: Service using too much CPU.",
-                            "resol": "Decrease the CPU usage or ....",
                             "range": [
                                 90,
                                 100
-                            ]
+                            ],
+                            "prior": "err",
+                            "resol": "Don't worry, be happy",
+                            "descr": "SUPP: Apache2 is reading too much on disk."
                         }
                     },
-                    "units": "%",
-                    "type": "float"
+                    "descr": ""
                 },
-                "process_name": {
-                    "descr": "Name of the service's main process",
-                    "timestamp": 1533713436,
-                    "name": "Name of process",
-                    "value": "apache2",
-                    "type": "text"
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 84238336,
+                    "units": "B",
+                    "descr": ""
                 },
                 "read_count": {
-                    "descr": "",
-                    "timestamp": 1533713436,
                     "name": "Read operations for the service",
-                    "value": 603463,
-                    "type": "int"
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 21022
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig2": {
+                            "range": [
+                                80,
+                                90
+                            ],
+                            "prior": "warn",
+                            "resol": "Be nicer to apache",
+                            "descr": "SUPP: Apache2 is writing a lot on disk."
+                        },
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "err",
+                            "resol": "Don't worry, be happy",
+                            "descr": "SUPP: Apache2 is writing too much on disk."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.06837700902046623,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 2154,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Restart apache2 via systemctl.",
+                            "descr": "SUPP: Service probably isn't working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "apache2"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 20032
+                }
+            }
+        },
+        "postgresql": {
+            "name": "postgresql service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 602112
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 6463488
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": 0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 294494208,
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 281930
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.3191096926193592,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 641,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status postgresql",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "postgres"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 12572
+                }
+            }
+        },
+        "supervisor": {
+            "name": "supervisor service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 77824
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 16199680
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": 0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 62316544,
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 91240
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.2814055296721572,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 634,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status supervisor",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "supervisord"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 422
+                }
+            }
+        },
+        "nginx": {
+            "name": "nginx service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status nginx",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "mariadb": {
+            "name": "mariadb service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status mariadb",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "zabbix-agent": {
+            "name": "zabbix-agent service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status zabbix-agent",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "NetworkManager": {
+            "name": "NetworkManager service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status NetworkManager",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "systemd-journald": {
+            "name": "systemd-journald service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status systemd-journald",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "atop": {
+            "name": "atop service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 42536960
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 4096
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": 0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": 0
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": 30904320,
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 36180135
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "sleeping",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": 0.09142996464708034,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": 0.16722305782799565,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": 25677,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status atop",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": 0.0,
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "atop"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": 2957
+                }
+            }
+        },
+        "sddm": {
+            "name": "sddm service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status sddm",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                }
+            }
+        },
+        "systemd-timesyncd": {
+            "name": "systemd-timesyncd service",
+            "items": {
+                "write_bytes": {
+                    "name": "Bytes written for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "read_bytes": {
+                    "name": "Bytes read for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "io_read_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Read usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much read I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "child_count": {
+                    "name": "Number of child processes",
+                    "timestamp": 1533907110,
+                    "descr": "Amount of child processes the main process has forked.",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "memory_vms": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "vms memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "B",
+                    "descr": ""
+                },
+                "read_count": {
+                    "name": "Read operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "cpu_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "CPU usage of service.",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Decrease the CPU usage or ....",
+                            "descr": "SUPP: Service using too much CPU."
+                        }
+                    },
+                    "descr": ""
+                },
+                "status": {
+                    "timestamp": 1533907110,
+                    "type": "text",
+                    "name": "Process status",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "triggers": {
+                        "trig2": {
+                            "match": "^zombie",
+                            "prior": "warn",
+                            "resol": "Check the service and kill if needed.",
+                            "descr": "SUPP: Main process is a zombie."
+                        },
+                        "trig1": {
+                            "match": "^dead",
+                            "prior": "warn",
+                            "resol": "Check the service and restart if needed.",
+                            "descr": "SUPP: Main process might not be working."
+                        }
+                    },
+                    "descr": "Shows the status of the process (running, sleeping, zombie, etc.)"
+                },
+                "io_write_usage": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "Write usage I/O for the service",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Insert creative resolution here",
+                            "descr": "SUPP: The service is using too much write I/O."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_rss": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "rss memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "pid": {
+                    "timestamp": 1533907110,
+                    "type": "int",
+                    "name": "Process ID",
+                    "value": -1,
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                -1,
+                                -1
+                            ],
+                            "prior": "warn",
+                            "resol": "Check the service with systemctl status systemd-timesyncd",
+                            "descr": "SUPP: Service is not working."
+                        }
+                    },
+                    "descr": ""
+                },
+                "memory_swap": {
+                    "timestamp": 1533907110,
+                    "type": "float",
+                    "name": "swap memory usage",
+                    "value": "ZBX_NOTSUPPORTED",
+                    "units": "%",
+                    "triggers": {
+                        "trig1": {
+                            "range": [
+                                90,
+                                100
+                            ],
+                            "prior": "warn",
+                            "resol": "Get creative.",
+                            "descr": "SUPP: Memory usage is too high!"
+                        }
+                    },
+                    "descr": ""
+                },
+                "process_name": {
+                    "name": "Name of process",
+                    "timestamp": 1533907110,
+                    "descr": "Name of the service's main process",
+                    "type": "text",
+                    "value": "ZBX_NOTSUPPORTED"
+                },
+                "write_count": {
+                    "name": "Write operations for the service",
+                    "timestamp": 1533907110,
+                    "descr": "",
+                    "type": "int",
+                    "value": "ZBX_NOTSUPPORTED"
                 }
             }
         }
     },
-    "update_interval": "60",
-    "version": "3.0"
+    "version": "3.0",
+    "update_interval": "60"
 }

@@ -61,8 +61,8 @@ for r in range(rows):
 		if map[r][c] == 0:
 			i += 1
 
-#for r in range(rows):
-#	print(map[r])
+for r in range(rows):
+	print(map[r])
 
 print(i)
 

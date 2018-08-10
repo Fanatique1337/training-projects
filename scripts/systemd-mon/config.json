@@ -1,0 +1,104 @@
+{
+	"apache2": {
+		"manual": 1,
+		"pid": {
+			"triggers": {
+				"trig1": {
+					"prior": "warn",
+					"descr": "SUPP: Service probably isn't working.",
+					"range": [-1, -1],
+					"resol": "Restart apache2 via systemctl."
+				}
+			}
+		},
+		"io_write_usage": {
+			"triggers": {
+				"trig1": {
+					"prior": "err",
+					"descr": "SUPP: Apache2 is writing too much on disk.",
+					"range": [90, 100],
+					"resol": "Don't worry, be happy"
+				},
+				"trig2": {
+					"prior": "warn",
+					"descr": "SUPP: Apache2 is writing a lot on disk.",
+					"range": [80, 90],
+					"resol": "Be nicer to apache"
+				}
+			}
+		},
+		"io_read_usage": {
+			"triggers": {
+				"trig1": {
+					"prior": "err",
+					"descr": "SUPP: Apache2 is reading too much on disk.",
+					"range": [90, 100],
+					"resol": "Don't worry, be happy"
+				},
+				"trig2": {
+					"prior": "warn",
+					"descr": "SUPP: Apache2 is reading a lot on disk.",
+					"range": [80, 90],
+					"resol": "Be nicer to apache"
+				}
+			}
+		}
+	},
+	"nginx": {
+		"manual": 0
+	},
+	"postgresql": {
+		"manual": 0
+	},
+	"atop": {
+		"manual": 0
+	},
+	"atopacct": {
+		"manual": 0
+	},
+	"avahi-daemon": {
+		"manual": 0
+	},
+	"dnsmasq": {
+		"manual": 0
+	},
+	"polkit": {
+		"manual": 0
+	},
+	"sddm": {
+		"manual": 0
+	},
+	"mariadb": {
+		"manual": 0
+	},
+	"cups": {
+		"manual": 0
+	},
+	"cron": {
+		"manual": 0
+	},
+	"zabbix-agent": {
+		"manual": 0
+	},
+	"supervisor": {
+		"manual": 0
+	},
+	"systemd-journald": {
+		"manual": 0
+	},
+	"NetworkManager": {
+		"manual": 0
+	},
+	"upower": {
+		"manual": 0
+	},
+	"ModemManager": {
+		"manual": 0
+	},
+	"systemd-timesyncd": {
+		"manual": 0
+	},
+	"dbus": {
+		"manual": 0
+	}
+}
