@@ -161,24 +161,6 @@ def build_monjson(service_info, service, output):
 		resol="Decrease the CPU usage."
 	)
 
-	# Build read_bytes item
-	output_items["read_bytes"] = dict(
-		name="I/O: bytes read",
-		type="int",
-		value=service_info["read_bytes"],
-		descr="",
-		timestamp=timestamp_v
-	)
-
-	# Build write_bytes item
-	output_items["write_bytes"] = dict(
-		name="I/O: bytes written",
-		type="int",
-		value=service_info["write_bytes"],
-		descr="",
-		timestamp=timestamp_v
-	)
-
 	# Build read_count item
 	output_items["read_count"] = dict(
 		name="I/O: read ops",
@@ -325,22 +307,47 @@ class ProcMon:
 			self.name = self.process.name()
 			self.child_num = len(self.childs) 
 			self.status = self.process.status()
-			self.io_stats = self.process.io_counters()
 			self.cpu_usage = self.process.cpu_percent(interval=0.01)
-			self.meminfo = self.process.memory_full_info()
+			self.meminfo = self.process.memory_info()
 			self.memory_rss_p = self.process.memory_percent(memtype="rss")
 			self.memory_vms_b = self.meminfo.vms # We want VMS in bytes, not percents.
-			self.memory_swap_p = self.process.memory_percent(memtype="swap")
+			self.memory_swap_p = self._get_swap(self.pid, 'percent')
 			self.memory_rss_b = self.meminfo.rss
-			self.memory_swap_b = self.meminfo.swap
+			self.memory_swap_b = self._get_swap(self.pid, 'bytes')
 			for child in self.childs: # Get total CPU/Memory usage for the process' children.
 				self.cpu_usage += child.cpu_percent(interval=0.01)
-				self.meminfo_c = self.process.memory_full_info()
+				self.meminfo_c = self.process.memory_info()
 				self.memory_rss_p += child.memory_percent(memtype="rss")
 				self.memory_vms_b += self.meminfo_c.vms
-				self.memory_swap_p += child.memory_percent(memtype="swap")
+				self.memory_swap_p += child._getswap(child.pid, 'percent')
 				self.memory_rss_b += self.meminfo_c.rss
-				self.memory_swap_b += self.meminfo_c.swap
+				self.memory_swap_b += self._getswap(child.pid, 'bytes')
+
+	def _get_swap(self, pid, r_type):
+		
+		with open('/proc/{}/status'.format(pid), 'r') as statusfile:
+			pid_content = statusfile.readlines()
+
+		for line in pid_content:
+			if line.startswith('VmSwap'):
+				line = line.strip().split()
+				process_swap = int(line[1])
+
+		if r_type == "percent":
+			with open('/proc/meminfo', 'r') as sysfile:
+				sys_content = sysfile.readlines()
+
+			for line in sys_content:
+				if line.startswith('SwapTotal'):
+					line = line.strip().split()
+					total_swap = int(line[1])
+
+			swap_usage = (process_swap / total_swap) * 100
+
+		else:
+			swap_usage = process_swap
+			
+		return swap_usage
 
 	def get_io_usage(self, source):
 		"""
@@ -383,7 +390,7 @@ class ProcMon:
 		io_read = (proc_reads / total_reads) * 100 if total_reads > 0 else 0
 		io_write = (proc_writes / total_writes) * 100 if total_writes > 0 else 0
 
-		return (io_read, io_write)
+		return (io_read, io_write, proc_reads, proc_writes)
 
 
 def get_pid(service):
@@ -451,15 +458,12 @@ def main():
 			service_info[service]["memory_rss_b"] = proc.memory_rss_b
 			service_info[service]["memory_swap_b"] = proc.memory_swap_b
 			service_info[service]["status"] = proc.status
-			io_stats = proc.io_stats
-			service_info[service]["read_bytes"] = io_stats.read_bytes
-			service_info[service]["write_bytes"] = io_stats.write_bytes
-			service_info[service]["read_count"] = io_stats.read_count
-			service_info[service]["write_count"] = io_stats.write_count
 			if setup_code == 0:
 				io_usage = proc.get_io_usage(parse_source)
 				service_info[service]["io_read_usage"] = io_usage[0]
 				service_info[service]["io_write_usage"] = io_usage[1]
+				service_info[service]["read_count"] = io_usage[2]
+				service_info[service]["write_count"] = io_usage[3]
 			else:
 				service_info[service]["io_read_usage"] = NS
 				service_info[service]["io_write_usage"] = NS
@@ -471,8 +475,6 @@ def main():
 			for t in MEMORY_TYPES_BYTES:
 				service_info[service]["memory_{}_b".format(t)] = NS
 				service_info[service]["memory_{}_p".format(t)] = NS
-			service_info[service]["read_bytes"] = NS
-			service_info[service]["write_bytes"] = NS
 			service_info[service]["read_count"] = NS
 			service_info[service]["write_count"] = NS
 			service_info[service]["io_read_usage"] = NS

@@ -327,20 +327,46 @@ class ProcMon:
 			self.status = self.process.status()
 			self.io_stats = self.process.io_counters()
 			self.cpu_usage = self.process.cpu_percent(interval=0.01)
-			self.meminfo = self.process.memory_full_info()
+			self.meminfo = self.process.memory_info()
 			self.memory_rss_p = self.process.memory_percent(memtype="rss")
 			self.memory_vms_b = self.meminfo.vms # We want VMS in bytes, not percents.
-			self.memory_swap_p = self.process.memory_percent(memtype="swap")
+			self.memory_swap_p = self._get_swap(self.pid, 'percent')
 			self.memory_rss_b = self.meminfo.rss
-			self.memory_swap_b = self.meminfo.swap
+			self.memory_swap_b = self._get_swap(self.pid, 'bytes')
 			for child in self.childs: # Get total CPU/Memory usage for the process' children.
 				self.cpu_usage += child.cpu_percent(interval=0.01)
-				self.meminfo_c = self.process.memory_full_info()
+				self.meminfo_c = self.process.memory_info()
 				self.memory_rss_p += child.memory_percent(memtype="rss")
 				self.memory_vms_b += self.meminfo_c.vms
-				self.memory_swap_p += child.memory_percent(memtype="swap")
+				self.memory_swap_p += child._getswap(child.pid, 'percent')
 				self.memory_rss_b += self.meminfo_c.rss
-				self.memory_swap_b += self.meminfo_c.swap
+				self.memory_swap_b += self._getswap(child.pid, 'bytes')
+
+	def _get_swap(pid, r_type):
+		
+		with open('/proc/{}/status', 'r') as statusfile:
+			pid_content = statusfile.readlines()
+
+		for line in pid_content:
+			if line.startswith('VmSwap'):
+				line = line.strip().split()
+				process_swap = line[1]
+
+		if r_type == "percent":
+			with open('/proc/meminfo', 'r') as sysfile:
+				sys_content = sysfile.readlines()
+
+			for line in sys_content:
+				if line.startswith('SwapTotal'):
+					line = line.strip().split()
+					total_swap = line[1]
+
+			swap_usage = (process_swap / total_swap) * 100
+
+		else:
+			swap_usage = process_swap
+			
+		return swap_usage
 
 	def get_io_usage(self, source):
 		"""
