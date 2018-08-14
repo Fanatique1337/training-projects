@@ -23,9 +23,9 @@ PRD_WRITE = -6 # the write stat is the 6th column from right to left
 # Error constants
 
 ARGPARSE_ERR = 6
-GLOBAL_ERR = 7
-CONF_ERR = 8
-CALL_ERR = 9
+CONF_ERR = 7
+CALL_ERR = 8
+GLOBAL_ERR = 9
 
 # PID file constants # Options where to search for the PID file
 
@@ -45,7 +45,7 @@ NS = "ZBX_NOTSUPPORTED" # Value for values that cannot be gathered.
 # Other constants
 
 CONFIG = 'config.json' # Default configuration file.
-TRACE = True # Should we traceback errors | False to catch global exceptions
+TRACE = False # Should we traceback errors | False to catch global exceptions
 MEMORY_TYPES_BYTES = ['vms', 'rss', 'swap'] # Types of memory to be monitored.
 MEMORY_TYPES_PERCENT = ['rss', 'swap']
 ATOP_LOGFILE = 'temp_proc_info' # Temporary file to save the atop history to.
@@ -257,6 +257,10 @@ def load_services(cfg):
 			  file=sys.stderr)
 		sys.exit(CONF_ERR)
 
+	except json.decoder.JSONDecodeError:
+		print("Wrong syntax in the configuration file.", file=sys.stderr)
+		sys.exit(CONF_ERR)
+
 	for key, value in conf_data.items():
 		handler_list.append(key)
 		if value["manual"] == 1:
@@ -325,13 +329,17 @@ class ProcMon:
 
 	def _get_swap(self, pid, r_type):
 		
-		with open('/proc/{}/status'.format(pid), 'r') as statusfile:
-			pid_content = statusfile.readlines()
+		try:
+			with open('/proc/{}/status'.format(pid), 'r') as statusfile:
+				pid_content = statusfile.readlines()
 
-		for line in pid_content:
-			if line.startswith('VmSwap'):
-				line = line.strip().split()
-				process_swap = int(line[1])
+			for line in pid_content:
+				if line.startswith('VmSwap'):
+					line = line.strip().split()
+					process_swap = int(line[1])
+
+		except OSError: # If the PID directory does not exist by the time we open it.
+			process_swap = 0
 
 		if r_type == "percent":
 			with open('/proc/meminfo', 'r') as sysfile:
@@ -506,6 +514,9 @@ if __name__ == "__main__":
 	else:
 		try:
 			main()
+		except KeyError as keyerr:
+			print("There is an error in your configuration file.", file=sys.stderr)
+			print("Required key {} not found.".format(keyerr), file=sys.stderr)
 		except Exception as err:
 			print("A global exception has been caught.", file=sys.stderr)
 			print(err, file=sys.stderr)
