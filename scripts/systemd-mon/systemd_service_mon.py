@@ -307,12 +307,12 @@ class ProcMon:
 		self.pid = service_pid
 		self.process = psutil.Process(service_pid)
 		with self.process.oneshot(): # Use psutil's process caching method to increase performance.
-			self.childs = self.process.children(recursive=True)
-			self.name = self.process.name()
-			self.child_num = len(self.childs) 
-			self.status = self.process.status()
-			self.cpu_usage = self.process.cpu_percent(interval=0.01)
-			self.meminfo = self.process.memory_info()
+			self.childs      = self.process.children(recursive=True)
+			self.name        = self.process.name()
+			self.child_num   = len(self.childs) 
+			self.status      = self.process.status()
+			self.cpu_usage   = self.process.cpu_percent(interval=0.01)
+			self.meminfo     = self.process.memory_info()
 			self.memory_rss_p = self.process.memory_percent(memtype="rss")
 			self.memory_vms_b = self.meminfo.vms # We want VMS in bytes, not percents.
 			self.memory_swap_p = self._get_swap(self.pid, 'percent')
@@ -334,23 +334,23 @@ class ProcMon:
 				pid_content = statusfile.readlines()
 
 			for line in pid_content:
-				if line.startswith('VmSwap'):
+				if line.startswith('VmSwap:'):
 					line = line.strip().split()
 					process_swap = int(line[1])
 
 		except OSError: # If the PID directory does not exist by the time we open it.
-			process_swap = 0
+			process_swap = 0 # TODO - fix me / not known
 
 		if r_type == "percent":
 			with open('/proc/meminfo', 'r') as sysfile:
 				sys_content = sysfile.readlines()
 
 			for line in sys_content:
-				if line.startswith('SwapTotal'):
+				if line.startswith('SwapTotal:'):
 					line = line.strip().split()
 					total_swap = int(line[1])
 
-			swap_usage = (process_swap / total_swap) * 100
+			swap_usage = (process_swap / total_swap) * 100 # TODO
 
 		else:
 			swap_usage = process_swap
@@ -395,7 +395,7 @@ class ProcMon:
 					proc_reads += int(line[PRD_READ])
 					proc_writes += int(line[PRD_WRITE])
 
-		io_read = (proc_reads / total_reads) * 100 if total_reads > 0 else 0
+		io_read  = (proc_reads / total_reads) * 100 if total_reads > 0 else 0 # TODO remove ternary operator
 		io_write = (proc_writes / total_writes) * 100 if total_writes > 0 else 0
 
 		return (io_read, io_write, proc_reads, proc_writes)
