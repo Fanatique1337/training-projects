@@ -282,7 +282,16 @@ def setup():
 	with open(ATOP_LOGFILE, "r") as source_file:
 		source = source_file.readlines()
 
-	return exit_code, source
+	enabled_services = []
+	systemctl_exit_code = subprocess.call("systemctl list-unit-files | grep enabled > tmp_enabled", shell=True)
+	with open('tmp_enabled', 'r') as enabledf:
+		content = enabledf.readlines()
+
+	for line in content:
+		line = line.strip().split()
+		enabled_services.append(line[0])
+
+	return exit_code, source, enabled_services
 
 class ProcMon:
 	"""
@@ -304,27 +313,27 @@ class ProcMon:
 
 	def __init__(self, service_pid):
 		"""Initialize the class and efficiently gather starting information about the process."""
-		self.pid = service_pid
+		self.pid     = service_pid
 		self.process = psutil.Process(service_pid)
 		with self.process.oneshot(): # Use psutil's process caching method to increase performance.
-			self.childs      = self.process.children(recursive=True)
-			self.name        = self.process.name()
-			self.child_num   = len(self.childs) 
-			self.status      = self.process.status()
-			self.cpu_usage   = self.process.cpu_percent(interval=0.01)
-			self.meminfo     = self.process.memory_info()
-			self.memory_rss_p = self.process.memory_percent(memtype="rss")
-			self.memory_vms_b = self.meminfo.vms # We want VMS in bytes, not percents.
-			self.memory_swap_p = self._get_swap(self.pid, 'percent')
-			self.memory_rss_b = self.meminfo.rss
-			self.memory_swap_b = self._get_swap(self.pid, 'bytes')
+			self.childs          = self.process.children(recursive=True)
+			self.name            = self.process.name()
+			self.child_num       = len(self.childs) 
+			self.status          = self.process.status()
+			self.cpu_usage       = self.process.cpu_percent(interval=0.01)
+			self.meminfo         = self.process.memory_info()
+			self.memory_rss_p    = self.process.memory_percent(memtype="rss")
+			self.memory_vms_b    = self.meminfo.vms # We want VMS in bytes, not percents.
+			self.memory_swap_p   = self._get_swap(self.pid, 'percent')
+			self.memory_rss_b    = self.meminfo.rss
+			self.memory_swap_b   = self._get_swap(self.pid, 'bytes')
 			for child in self.childs: # Get total CPU/Memory usage for the process' children.
-				self.cpu_usage += child.cpu_percent(interval=0.01)
-				self.meminfo_c = self.process.memory_info()
-				self.memory_rss_p += child.memory_percent(memtype="rss")
-				self.memory_vms_b += self.meminfo_c.vms
+				self.cpu_usage     += child.cpu_percent(interval=0.01)
+				self.meminfo_c      = self.process.memory_info()
+				self.memory_rss_p  += child.memory_percent(memtype="rss")
+				self.memory_vms_b  += self.meminfo_c.vms
 				self.memory_swap_p += child._getswap(child.pid, 'percent')
-				self.memory_rss_b += self.meminfo_c.rss
+				self.memory_rss_b  += self.meminfo_c.rss
 				self.memory_swap_b += self._getswap(child.pid, 'bytes')
 
 	def _get_swap(self, pid, r_type):
@@ -339,7 +348,7 @@ class ProcMon:
 					process_swap = int(line[1])
 
 		except OSError: # If the PID directory does not exist by the time we open it.
-			process_swap = 0 # TODO - fix me / not known
+			process_swap = -1 # TODO - fix me / not known
 
 		if r_type == "percent":
 			with open('/proc/meminfo', 'r') as sysfile:
@@ -444,7 +453,7 @@ def main():
 	# Get arguments for minimal mode and for the configuration file.
 	args = parse_arg() 
 	services, conf_dict = load_services(args.config) # Get the services into the list by using the cfg file.
-	setup_code, parse_source = setup()
+	setup_code, parse_source, enabled_services = setup()
 
 	output = {
 		"update_interval" : "{}".format(ZBX_INTERVAL),
@@ -453,40 +462,40 @@ def main():
 	}
 
 	for service in services:
-		service_info[service] = {}
-		service_info[service]["pid"] = get_pid(service)
+		service_info[service]                      = {}
+		service_info[service]["pid"]               = get_pid(service)
 		if service_info[service]["pid"] > 0:
-			proc = ProcMon(service_info[service]["pid"])
-			service_info[service]["name"] = proc.name
-			service_info[service]["child_count"] = proc.child_num
-			service_info[service]["cpu_usage"] = proc.cpu_usage
-			service_info[service]["memory_vms_b"] = proc.memory_vms_b
-			service_info[service]["memory_rss_p"] = proc.memory_rss_p
+			proc                                   = ProcMon(service_info[service]["pid"])
+			service_info[service]["name"]          = proc.name
+			service_info[service]["child_count"]   = proc.child_num
+			service_info[service]["cpu_usage"]     = proc.cpu_usage
+			service_info[service]["memory_vms_b"]  = proc.memory_vms_b
+			service_info[service]["memory_rss_p"]  = proc.memory_rss_p
 			service_info[service]["memory_swap_p"] = proc.memory_swap_p
-			service_info[service]["memory_rss_b"] = proc.memory_rss_b
+			service_info[service]["memory_rss_b"]  = proc.memory_rss_b
 			service_info[service]["memory_swap_b"] = proc.memory_swap_b
-			service_info[service]["status"] = proc.status
+			service_info[service]["status"]        = proc.status
 			if setup_code == 0:
-				io_usage = proc.get_io_usage(parse_source)
-				service_info[service]["io_read_usage"] = io_usage[0]
-				service_info[service]["io_write_usage"] = io_usage[1]
-				service_info[service]["read_count"] = io_usage[2]
-				service_info[service]["write_count"] = io_usage[3]
+				io_usage                                  = proc.get_io_usage(parse_source)
+				service_info[service]["io_read_usage"]    = io_usage[0]
+				service_info[service]["io_write_usage"]   = io_usage[1]
+				service_info[service]["read_count"]       = io_usage[2]
+				service_info[service]["write_count"]      = io_usage[3]
 			else:
-				service_info[service]["io_read_usage"] = NS
-				service_info[service]["io_write_usage"] = NS
+				service_info[service]["io_read_usage"]         = NS
+				service_info[service]["io_write_usage"]        = NS
 		elif service_info[service]["pid"] == -1:
-			service_info[service]["status"] = NS
-			service_info[service]["name"] = NS
-			service_info[service]["child_count"] = NS
-			service_info[service]["cpu_usage"] = NS
+			service_info[service]["status"]                    = NS
+			service_info[service]["name"]                      = NS
+			service_info[service]["child_count"]               = NS
+			service_info[service]["cpu_usage"]                 = NS
 			for t in MEMORY_TYPES_BYTES:
 				service_info[service]["memory_{}_b".format(t)] = NS
 				service_info[service]["memory_{}_p".format(t)] = NS
-			service_info[service]["read_count"] = NS
-			service_info[service]["write_count"] = NS
-			service_info[service]["io_read_usage"] = NS
-			service_info[service]["io_write_usage"] = NS
+			service_info[service]["read_count"]                = NS
+			service_info[service]["write_count"]               = NS
+			service_info[service]["io_read_usage"]             = NS
+			service_info[service]["io_write_usage"]            = NS
 
 		output["applications"][service] = {}
 		output["applications"][service] = build_monjson(
