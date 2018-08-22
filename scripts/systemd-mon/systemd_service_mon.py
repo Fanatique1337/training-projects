@@ -44,7 +44,12 @@ NS = "ZBX_NOTSUPPORTED" # Value for values that cannot be gathered.
 
 # Other constants
 
-SYSTEMD_CONF_DIR = '/etc/systemd/system'
+CGROUP_LIMITS_MEMORY_PATH = '/sys/fs/cgroup/memory/system.slice'
+CGROUP_LIMITS_MEMORY_FILE = 'memory.limit_in_bytes'
+CGROUP_LIMITS_CPU_PATH = '/sys/fs/cgroup/cpu,cpuacct/system.slice'
+CGROUP_LIMITS_CPU_FILE = 'cpu.shares'
+CGROUP_LIMITS_IO_PATH = '/sys/fs/cgroup/blkio/system.slice'
+CGROUP_LIMITS_IO_FILE = 'blkio.weight'
 CONFIG = 'config.json' # Default configuration file.
 TRACE = True # Should we traceback errors | False to catch global exceptions
 MEMORY_TYPES_BYTES = ['vms', 'rss', 'swap'] # Types of memory to be monitored.
@@ -219,6 +224,33 @@ def build_monjson(service_info, service, output):
         name="Service: enabled status",
         type="bool",
         value=service_info["status_service"],
+        descr="",
+        timestamp=timestamp_v
+    )
+
+    # Build the service memory limit item
+    output_items["memory_limit"] = dict(
+        name="Service limit: Memory limit",
+        type="int",
+        value=service_info["memory_limit"],
+        descr="",
+        timestamp=timestamp_v
+    )
+
+    # Build the service cpu shares limit item
+    output_items["cpu_shares"] = dict(
+        name="Service limit: CPU shares",
+        type="int",
+        value=service_info["cpu_shares"],
+        descr="",
+        timestamp=timestamp_v
+    )
+
+    # Build the service io weight limit item
+    output_items["io_weight"] = dict(
+        name="Service limit: IO weight",
+        type="int",
+        value=service_info["io_weight"],
         descr="",
         timestamp=timestamp_v
     )
@@ -462,12 +494,36 @@ def get_pidf_path(service):
 
 def get_service_limits(service):
 
-    path = os.path.join(SYSTEMD_CONF_DIR, '{}.service'.format(service))
-    if os.path.exists(path):
-        with open(path, 'r') as unit:
-            opts = unit.readlines()
-        for line in opts:
-            if line.startswith('MemoryMax=')
+    service_name = '{}.service'.format(service)
+    memory_limits = get_service_cgroup_limits(service_name, 'mem')
+    cpu_shares = get_service_cgroup_limits(service_name, 'cpu')
+    io_weight = get_service_cgroup_limits(service_name, 'io')
+
+    return memory_limits, cpu_shares, io_weight
+
+def get_service_cgroup_limits(service_d, c_type):
+
+    if c_type == 'mem':
+        path = os.path.join(CGROUP_LIMITS_MEMORY_PATH, service_d)
+        check_file = CGROUP_LIMITS_MEMORY_FILE
+
+    if c_type == 'cpu':
+        path = os.path.join(CGROUP_LIMITS_CPU_PATH, service_d)
+        check_file = CGROUP_LIMITS_CPU_FILE
+
+    if c_type == 'io':
+        path = os.path.join(CGROUP_LIMITS_IO_PATH, service_d)
+        check_file = CGROUP_LIMITS_IO_FILE
+
+    if os.path.isdir(path):
+        cgroup_file = os.path.join(path, check_file)
+        with open(cgroup_file, 'r') as c_file:
+            limit = int(c_file.readline().strip())
+    else:
+        limit = NS
+
+    return limit
+
 
 def main():
     """
@@ -505,6 +561,10 @@ def main():
             service_info[service]["memory_rss_b"]  = proc.memory_rss_b
             service_info[service]["memory_swap_b"] = proc.memory_swap_b
             service_info[service]["status_process"]= proc.status
+            memory_limit, cpu_shares, io_weight    = get_service_limits(service)
+            service_info[service]["memory_limit"]  = memory_limit
+            service_info[service]["cpu_shares"]    = cpu_shares
+            service_info[service]["io_weight"]     = io_weight
             if setup_code == 0:
                 io_usage                                  = proc.get_io_usage(parse_source)
                 service_info[service]["io_read_usage"]    = io_usage[0]
@@ -526,6 +586,10 @@ def main():
             service_info[service]["write_count"]               = NS
             service_info[service]["io_read_usage"]             = NS
             service_info[service]["io_write_usage"]            = NS
+            service_info[service]["status_process"]            = NS
+            service_info[service]["memory_limit"]              = NS
+            service_info[service]["cpu_shares"]                = NS
+            service_info[service]["io_weight"]                 = NS
 
         output["applications"][service] = {}
         output["applications"][service] = build_monjson(
