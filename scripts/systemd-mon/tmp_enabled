@@ -2,6 +2,7 @@ cups.path                                  enabled
 accounts-daemon.service                    enabled  
 anacron.service                            enabled  
 apparmor.service                           enabled  
+atd.service                                enabled  
 atop.service                               enabled  
 atopacct.service                           enabled  
 autovt@.service                            enabled  
@@ -61,3 +62,4 @@ apt-daily-upgrade.timer                    enabled
 apt-daily.timer                            enabled  
 monithor.timer                             enabled  
 phpsessionclean.timer                      enabled  
+systemd_mon.timer                          enabled  
