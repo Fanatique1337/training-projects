@@ -50,11 +50,11 @@ CGROUP_LIMITS_CPU_PATH = '/sys/fs/cgroup/cpu,cpuacct/system.slice'
 CGROUP_LIMITS_CPU_FILE = 'cpu.shares'
 CGROUP_LIMITS_IO_PATH = '/sys/fs/cgroup/blkio/system.slice'
 CGROUP_LIMITS_IO_FILE = 'blkio.weight'
-CONFIG = 'config.json' # Default configuration file.
+CONFIG = '/etc/monithor/config.json' # Default configuration file.
 TRACE = True # Should we traceback errors | False to catch global exceptions
 MEMORY_TYPES_BYTES = ['vms', 'rss', 'swap'] # Types of memory to be monitored.
 MEMORY_TYPES_PERCENT = ['rss', 'swap']
-ATOP_LOGFILE = 'temp_proc_info' # Temporary file to save the atop history to.
+ATOP_LOGFILE = '/tmp/temp_proc_info' # Temporary file to save the atop history to.
 SAMPLE_NUM = 2 # Number of samples to get from atop history.
 
 def build_monjson(service_info, service, output):
@@ -498,6 +498,13 @@ def get_service_limits(service):
     memory_limits = get_service_cgroup_limits(service_name, 'mem')
     cpu_shares = get_service_cgroup_limits(service_name, 'cpu')
     io_weight = get_service_cgroup_limits(service_name, 'io')
+
+    memory_default_file = os.path.join(CGROUP_LIMITS_MEMORY_PATH, CGROUP_LIMITS_MEMORY_FILE)
+    with open(memory_default_file, 'r') as mem_default:
+        memory_limit_default = int(mem_default.readline().strip())
+
+    if memory_limits == memory_limit_default:
+        memory_limits = -1
 
     return memory_limits, cpu_shares, io_weight
 
