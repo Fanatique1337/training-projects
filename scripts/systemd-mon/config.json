@@ -46,7 +46,7 @@
 		"status_service": {
 			"triggers": {
 				"trig1": {
-					"prior": "err",
+					"prior": "info",
 					"descr": "SUPP: Apache2 is disabled!",
 					"range": [0, 0],
 					"resol": "Idk"
