@@ -26,11 +26,15 @@ mariadb.service                            enabled
 ModemManager.service                       enabled  
 mysql.service                              enabled  
 mysqld.service                             enabled  
+network-bench-local.service                enabled  
+network-bench-wan.service                  enabled  
 network-manager.service                    enabled  
 networking.service                         enabled  
 NetworkManager-dispatcher.service          enabled  
 NetworkManager-wait-online.service         enabled  
 NetworkManager.service                     enabled  
+nwlocal.service                            enabled  
+nwwan.service                              enabled  
 openvpn.service                            enabled  
 php7.1-fpm.service                         enabled  
 postgresql.service                         enabled  

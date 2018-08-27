@@ -611,7 +611,7 @@ def main():
                     output["applications"][service]["items"][key]["triggers"] = value["triggers"]
 
 
-    print(json.dumps(output))
+    #print(json.dumps(output))
 
     if args.benchmark:
         print("Time ran: {}".format(datetime.datetime.now() - start_time), file=sys.stderr)
