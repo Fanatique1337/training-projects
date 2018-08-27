@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 import itertools
-
+from PIL import ImageDraw
 
 goatnum = 0
 courses = 0
 goatw = []
 counter = 0
-course = []
 
 goatnum = int(input("Enter the number of goats: "))
 courses = int(input("Enter the number of courses: "))
@@ -25,6 +24,5 @@ while not result:
 	else:
 		break
 
-#print("Result: {}".format(result))
-print(goats/courses)
+print(result)
 
