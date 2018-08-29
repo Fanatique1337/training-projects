@@ -358,26 +358,28 @@ class ProcMon:
         """Initialize the class and efficiently gather starting information about the process."""
         self.pid     = service_pid
         self.process = psutil.Process(service_pid)
+        self.childs = self.process.children(recursive=True)
+
         with self.process.oneshot(): # Use psutil's process caching method to increase performance.
-            self.childs          = self.process.children(recursive=True)
             self.name            = self.process.name()
             self.child_num       = len(self.childs) 
             self.status          = self.process.status()
-            self.cpu_usage       = self.process.cpu_percent(interval=0.01)
             self.meminfo         = self.process.memory_info()
-            self.memory_rss_p    = self.process.memory_percent(memtype="rss")
             self.memory_vms_b    = self.meminfo.vms # We want VMS in bytes, not percents.
             self.memory_swap_p   = self._get_swap(self.pid, 'percent')
             self.memory_rss_b    = self.meminfo.rss
             self.memory_swap_b   = self._get_swap(self.pid, 'bytes')
             for child in self.childs: # Get total CPU/Memory usage for the process' children.
-                self.cpu_usage     += child.cpu_percent(interval=0.01)
                 self.meminfo_c      = self.process.memory_info()
-                self.memory_rss_p  += child.memory_percent(memtype="rss")
                 self.memory_vms_b  += self.meminfo_c.vms
-                self.memory_swap_p += child._getswap(child.pid, 'percent')
+                self.memory_swap_p += self._get_swap(child.pid, 'percent')
                 self.memory_rss_b  += self.meminfo_c.rss
-                self.memory_swap_b += self._getswap(child.pid, 'bytes')
+                self.memory_swap_b += self._get_swap(child.pid, 'bytes')
+        self.cpu_usage = self.process.cpu_percent(interval=0.03)
+        self.memory_rss_p = self.process.memory_percent(memtype="rss")
+        for child in self.childs:
+        	self.cpu_usage += child.cpu_percent(interval=0.03)
+        	self.memory_rss_p += child.memory_percent(memtype="rss")
 
     def _get_swap(self, pid, r_type):
         

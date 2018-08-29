@@ -1,629 +1,633 @@
-         373333 function calls (372713 primitive calls) in 2.489 seconds
+{"version": "3.0", "update_interval": "60", "applications": {"polkit": {"items": {"status_service": {"type": "bool", "value": false, "timestamp": 1535547167, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547167, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547167, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 576, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status polkit", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547167, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 296, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547167, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.10944397568998618, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547167, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 8798208, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547167, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "polkitd", "timestamp": 1535547167, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0050535436609099515, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547167, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547167, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 295559168, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547167, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547167, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547167, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547167, "name": "Process: Status"}}, "name": "systemd service: polkit"}, "nginx": {"items": {"status_service": {"type": "bool", "value": false, "timestamp": 1535547167, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": "ZBX_NOTSUPPORTED", "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547167, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547167, "descr": "", "name": "I/O: read ops"}, "pid": {"value": -1, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status nginx", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547167, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": "ZBX_NOTSUPPORTED", "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547167, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": "ZBX_NOTSUPPORTED", "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547167, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": "ZBX_NOTSUPPORTED", "descr": "", "type": "int", "timestamp": 1535547167, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": "ZBX_NOTSUPPORTED", "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547167, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547167, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": "ZBX_NOTSUPPORTED", "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547167, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547167, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": "ZBX_NOTSUPPORTED", "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547167, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": "ZBX_NOTSUPPORTED", "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547167, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": "ZBX_NOTSUPPORTED", "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547167, "name": "CPU: usage"}, "status_process": {"value": "ZBX_NOTSUPPORTED", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547167, "name": "Process: Status"}}, "name": "systemd service: nginx"}, "sddm": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547169, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 815, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status sddm", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547169, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 952, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547169, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.1417472720528592, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 11395072, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "sddm", "timestamp": 1535547169, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.016253289071575253, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 199344128, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547169, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547169, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547169, "name": "Process: Status"}}, "name": "systemd service: sddm"}, "dnsmasq": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547168, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 857, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status dnsmasq", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547168, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 516, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547168, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.025781495204438086, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 2072576, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "dnsmasq", "timestamp": 1535547168, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.008809555841315998, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 55267328, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547168, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547168, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547168, "name": "Process: Status"}}, "name": "systemd service: dnsmasq"}, "atop": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547168, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.08187092870109992, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 409, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status atop", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547168, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 0, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547168, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.17206345712527157, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 13832192, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 184, "timestamp": 1535547168, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "atop", "timestamp": 1535547168, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 31186944, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547168, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547168, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547168, "name": "Process: Status"}}, "name": "systemd service: atop"}, "postgresql": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547168, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 678, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status postgresql", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547168, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 1608, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547168, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.2795203215247971, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 22470656, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "postgres", "timestamp": 1535547168, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.027453034482240547, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 294502400, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547168, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547168, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547168, "name": "Process: Status"}}, "name": "systemd service: postgresql"}, "cron": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547168, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 526, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status cron", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547168, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 144, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547168, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.035615148513640754, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 2863104, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "cron", "timestamp": 1535547168, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0024584806999021387, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 30371840, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547168, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547168, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547168, "name": "Process: Status"}}, "name": "systemd service: cron"}, "NetworkManager": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547168, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 25465, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status NetworkManager", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547168, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 0, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547168, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.16605117168233938, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 13348864, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "NetworkManager", "timestamp": 1535547168, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 417148928, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547168, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547168, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547168, "name": "Process: Status"}}, "name": "systemd service: NetworkManager"}, "avahi-daemon": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547170, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 522, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status avahi-daemon", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547170, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 244, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547170, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.04030269309626586, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 3239936, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "avahi-daemon", "timestamp": 1535547170, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.004165758963723069, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 48271360, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547170, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547170, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547170, "name": "Process: Status"}}, "name": "systemd service: avahi-daemon"}, "supervisor": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547170, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 24359, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status supervisor", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547170, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 3552, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 250, "timestamp": 1535547170, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.1996792089055195, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": 1048576000, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 16052224, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "supervisord", "timestamp": 1535547170, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.06064252393091943, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 62586880, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 512, "timestamp": 1535547170, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547170, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547170, "name": "Process: Status"}}, "name": "systemd service: supervisor"}, "apache2": {"items": {"status_service": {"type": "bool", "value": false, "timestamp": 1535547169, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "err", "resol": "Don't worry, be happy", "descr": "SUPP: Apache2 is writing too much on disk."}, "trig2": {"range": [80, 90], "prior": "warn", "resol": "Be nicer to apache", "descr": "SUPP: Apache2 is writing a lot on disk."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 3922, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Restart apache2 via systemctl.", "descr": "SUPP: Service probably isn't working."}}, "type": "int", "timestamp": 1535547169, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 0, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547169, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.06939604045147169, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": "ZBX_NOTSUPPORTED", "descr": "", "type": "int", "timestamp": 1535547169, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 5578752, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "apache2", "timestamp": 1535547169, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 84238336, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": "ZBX_NOTSUPPORTED", "timestamp": 1535547169, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "err", "resol": "Don't worry, be happy", "descr": "SUPP: Apache2 is reading too much on disk."}, "trig2": {"range": [80, 90], "prior": "warn", "resol": "Be nicer to apache", "descr": "SUPP: Apache2 is reading a lot on disk."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547169, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547169, "name": "Process: Status"}}, "name": "systemd service: apache2"}, "cups": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547169, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 3638, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status cups", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547169, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 0, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547169, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.1016993368143447, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 8175616, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "cupsd", "timestamp": 1535547169, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 99389440, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547169, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547169, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547169, "name": "Process: Status"}}, "name": "systemd service: cups"}, "dbus": {"items": {"status_service": {"type": "bool", "value": false, "timestamp": 1535547169, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 502, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status dbus", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547169, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 208, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547169, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.061498546861179386, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 4943872, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "dbus-daemon", "timestamp": 1535547169, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.003551138788747534, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 47763456, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547169, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547169, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547169, "name": "Process: Status"}}, "name": "systemd service: dbus"}, "systemd-journald": {"items": {"status_service": {"type": "bool", "value": false, "timestamp": 1535547169, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 267, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status systemd-journald", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547169, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 328, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547169, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.23814764542597552, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 19144704, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "systemd-journald", "timestamp": 1535547169, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.00559987270533265, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 78360576, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547169, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547169, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547169, "name": "Process: Status"}}, "name": "systemd service: systemd-journald"}, "mariadb": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547167, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547167, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547167, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 1054, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status mariadb", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547167, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 62604, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547167, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.07133220017038205, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547167, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 5734400, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547167, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "mysqld", "timestamp": 1535547167, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 1.068824484282455, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547167, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547167, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 694374400, "descr": "", "type": "int", "timestamp": 1535547167, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547167, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547167, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547167, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547167, "name": "Process: Status"}}, "name": "systemd service: mariadb"}, "upower": {"items": {"status_service": {"type": "bool", "value": false, "timestamp": 1535547169, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 2377, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status upower", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547169, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 0, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547169, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.09619656708691524, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 7733248, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "upowerd", "timestamp": 1535547169, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547169, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547169, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 317812736, "descr": "", "type": "int", "timestamp": 1535547169, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547169, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547169, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547169, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547169, "name": "Process: Status"}}, "name": "systemd service: upower"}, "ModemManager": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547170, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 533, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status ModemManager", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547170, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 756, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547170, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.06338375500853949, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 5095424, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "ModemManager", "timestamp": 1535547170, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.012907023674486227, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 432734208, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547170, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547170, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547170, "name": "Process: Status"}}, "name": "systemd service: ModemManager"}, "systemd-timesyncd": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547168, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 494, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status systemd-timesyncd", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547168, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 388, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547168, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.04702830054090188, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 3780608, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "systemd-timesyncd", "timestamp": 1535547168, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.006624239663625207, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547168, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547168, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 132444160, "descr": "", "type": "int", "timestamp": 1535547168, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547168, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547168, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547168, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547168, "name": "Process: Status"}}, "name": "systemd service: systemd-timesyncd"}, "atopacct": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547170, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 505, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status atopacct", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547170, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 40, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547170, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.01706877646934142, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 1372160, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "atopacctd", "timestamp": 1535547170, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.0006829113055283718, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 4284416, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547170, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547170, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547170, "name": "Process: Status"}}, "name": "systemd service: atopacct"}, "zabbix-agent": {"items": {"status_service": {"type": "bool", "value": true, "timestamp": 1535547170, "descr": "", "name": "Service: enabled status"}, "io_write_usage": {"units": "%", "value": 0.05695368953119994, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much write I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: write usage"}, "read_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "", "name": "I/O: read ops"}, "pid": {"value": 826, "descr": "", "triggers": {"trig1": {"range": [-1, -1], "prior": "warn", "resol": "Check the service with systemctl status zabbix-agent", "descr": "SUPP: Service is not working."}}, "type": "int", "timestamp": 1535547170, "name": "Process: ID"}, "memory_swap_b": {"units": "B", "value": 1264, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): swap"}, "io_weight": {"type": "int", "value": 500, "timestamp": 1535547170, "descr": "", "name": "Service limit: IO weight"}, "memory_rss_p": {"units": "%", "value": 0.019055887759802062, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): rss"}, "memory_limit": {"units": "B", "value": -1, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Service limit: Memory limit"}, "memory_rss_b": {"units": "B", "value": 1531904, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): rss"}, "write_count": {"type": "int", "value": 128, "timestamp": 1535547170, "descr": "", "name": "I/O: write ops"}, "process_name": {"type": "text", "value": "zabbix_agentd", "timestamp": 1535547170, "descr": "Name of the service's main process", "name": "Process: name"}, "memory_swap_p": {"units": "%", "value": 0.021579997254696552, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Get creative.", "descr": "SUPP: Memory usage is too high!"}}, "type": "float", "timestamp": 1535547170, "name": "Memory (percent): swap"}, "child_count": {"type": "int", "value": 0, "timestamp": 1535547170, "descr": "Amount of child processes the main process has forked.", "name": "Process: Number of children"}, "memory_vms_b": {"units": "B", "value": 103706624, "descr": "", "type": "int", "timestamp": 1535547170, "name": "Memory (bytes): vms"}, "cpu_shares": {"type": "int", "value": 1024, "timestamp": 1535547170, "descr": "", "name": "Service limit: CPU shares"}, "io_read_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Insert creative resolution here", "descr": "SUPP: The service is using too much read I/O."}}, "type": "float", "timestamp": 1535547170, "name": "I/O: read usage"}, "cpu_usage": {"units": "%", "value": 0.0, "descr": "", "triggers": {"trig1": {"range": [90, 100], "prior": "warn", "resol": "Decrease the CPU usage.", "descr": "SUPP: Service using too much CPU."}}, "type": "float", "timestamp": 1535547170, "name": "CPU: usage"}, "status_process": {"value": "sleeping", "descr": "Shows the status of the process (running, sleeping, zombie, etc.)", "triggers": {"trig1": {"match": "^dead", "prior": "warn", "resol": "Check the service and restart if needed.", "descr": "SUPP: Main process might not be working."}, "trig2": {"match": "^zombie", "prior": "warn", "resol": "Check the service and kill if needed.", "descr": "SUPP: Main process is a zombie."}}, "type": "text", "timestamp": 1535547170, "name": "Process: Status"}}, "name": "systemd service: zabbix-agent"}}}
+         475626 function calls (475006 primitive calls) in 3.431 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     60/1    0.016    0.000    2.490    2.490 {built-in method builtins.exec}
-        1    0.001    0.001    2.490    2.490 systemd_service_mon.py:7(<module>)
-        1    0.001    0.001    2.348    2.348 systemd_service_mon.py:535(main)
-       19    0.583    0.031    1.096    0.058 systemd_service_mon.py:411(get_io_usage)
-       19    0.002    0.000    0.940    0.049 systemd_service_mon.py:356(__init__)
-       19    0.000    0.000    0.703    0.037 __init__.py:332(wrapper)
-       19    0.035    0.002    0.700    0.037 __init__.py:873(children)
-     4734    0.038    0.000    0.644    0.000 __init__.py:1430(process_iter)
-     9185    0.039    0.000    0.428    0.000 __init__.py:373(__init__)
-     9185    0.125    0.000    0.388    0.000 __init__.py:376(_init)
-     4451    0.055    0.000    0.303    0.000 __init__.py:580(is_running)
-     4715    0.040    0.000    0.267    0.000 __init__.py:1444(add)
-       19    0.001    0.000    0.196    0.010 __init__.py:969(cpu_percent)
-       19    0.192    0.010    0.192    0.010 {built-in method time.sleep}
-     9185    0.052    0.000    0.180    0.000 __init__.py:721(create_time)
-    52709    0.168    0.000    0.168    0.000 {method 'split' of 'str' objects}
-       20    0.001    0.000    0.146    0.007 systemd_service_mon.py:461(get_pid)
-     43/6    0.001    0.000    0.141    0.024 <frozen importlib._bootstrap>:966(_find_and_load)
-       11    0.000    0.000    0.141    0.013 subprocess.py:275(check_output)
-     43/6    0.001    0.000    0.141    0.023 <frozen importlib._bootstrap>:939(_find_and_load_unlocked)
-       11    0.001    0.000    0.140    0.013 subprocess.py:352(run)
-        1    0.001    0.001    0.140    0.140 systemd_service_mon.py:313(setup)
-        2    0.000    0.000    0.137    0.069 subprocess.py:239(call)
-     9301    0.044    0.000    0.136    0.000 _pslinux.py:1081(wrapper)
-     43/6    0.001    0.000    0.135    0.023 <frozen importlib._bootstrap>:659(_load_unlocked)
-       26    0.000    0.000    0.135    0.005 subprocess.py:1349(wait)
-       13    0.000    0.000    0.134    0.010 subprocess.py:1336(_try_wait)
-       13    0.134    0.010    0.134    0.010 {built-in method posix.waitpid}
+     60/1    0.017    0.000    3.432    3.432 {built-in method builtins.exec}
+        1    0.001    0.001    3.432    3.432 systemd_service_mon.py:7(<module>)
+        1    0.002    0.002    3.290    3.290 systemd_service_mon.py:537(main)
+       19    0.892    0.047    1.683    0.089 systemd_service_mon.py:413(get_io_usage)
+       19    0.002    0.000    1.294    0.068 systemd_service_mon.py:357(__init__)
+       19    0.000    0.000    0.676    0.036 __init__.py:332(wrapper)
+       19    0.034    0.002    0.672    0.035 __init__.py:873(children)
+     4788    0.037    0.000    0.617    0.000 __init__.py:1430(process_iter)
+       19    0.001    0.000    0.582    0.031 __init__.py:969(cpu_percent)
+       19    0.573    0.030    0.573    0.030 {built-in method time.sleep}
+     9323    0.040    0.000    0.416    0.000 __init__.py:373(__init__)
+     9323    0.118    0.000    0.376    0.000 __init__.py:376(_init)
+     4535    0.049    0.000    0.293    0.000 __init__.py:580(is_running)
+    77752    0.264    0.000    0.264    0.000 {method 'split' of 'str' objects}
+     4769    0.035    0.000    0.250    0.000 __init__.py:1444(add)
+    79031    0.197    0.000    0.197    0.000 {method 'format' of 'str' objects}
+    81760    0.180    0.000    0.180    0.000 {method 'startswith' of 'str' objects}
+     9323    0.051    0.000    0.176    0.000 __init__.py:721(create_time)
+    77815    0.163    0.000    0.163    0.000 {method 'strip' of 'str' objects}
+        1    0.001    0.001    0.151    0.151 systemd_service_mon.py:314(setup)
+        2    0.000    0.000    0.147    0.074 subprocess.py:239(call)
+       26    0.000    0.000    0.144    0.006 subprocess.py:1349(wait)
+       13    0.000    0.000    0.143    0.011 subprocess.py:1336(_try_wait)
+       13    0.143    0.011    0.143    0.011 {built-in method posix.waitpid}
+     43/6    0.001    0.000    0.142    0.024 <frozen importlib._bootstrap>:966(_find_and_load)
+     43/6    0.001    0.000    0.141    0.024 <frozen importlib._bootstrap>:939(_find_and_load_unlocked)
+     9439    0.043    0.000    0.136    0.000 _pslinux.py:1081(wrapper)
+     43/6    0.001    0.000    0.136    0.023 <frozen importlib._bootstrap>:659(_load_unlocked)
      29/6    0.000    0.000    0.134    0.022 <frozen importlib._bootstrap_external>:667(exec_module)
-     63/6    0.000    0.000    0.130    0.022 <frozen importlib._bootstrap>:214(_call_with_frames_removed)
-    53990    0.129    0.000    0.129    0.000 {method 'format' of 'str' objects}
-    56718    0.121    0.000    0.121    0.000 {method 'startswith' of 'str' objects}
-       11    0.001    0.000    0.119    0.011 subprocess.py:761(communicate)
-       49    0.117    0.002    0.117    0.002 {method 'read' of '_io.BufferedReader' objects}
-    52772    0.108    0.000    0.108    0.000 {method 'strip' of 'str' objects}
-     9185    0.059    0.000    0.086    0.000 _pslinux.py:1249(create_time)
-        1    0.000    0.000    0.083    0.083 __init__.py:10(<module>)
-  227/110    0.001    0.000    0.072    0.001 <frozen importlib._bootstrap>:996(_handle_fromlist)
-      6/3    0.000    0.000    0.071    0.024 {built-in method builtins.__import__}
-     9185    0.043    0.000    0.065    0.000 _pslinux.py:1102(__init__)
-14033/14014    0.034    0.000    0.042    0.000 _common.py:290(wrapper)
-    18370    0.037    0.000    0.037    0.000 __init__.py:604(pid)
-       19    0.000    0.000    0.036    0.002 __init__.py:1404(pids)
-       19    0.001    0.000    0.036    0.002 _pslinux.py:1067(pids)
-     4451    0.025    0.000    0.034    0.000 __init__.py:441(__eq__)
+     63/6    0.000    0.000    0.131    0.022 <frozen importlib._bootstrap>:214(_call_with_frames_removed)
+       20    0.001    0.000    0.120    0.006 systemd_service_mon.py:463(get_pid)
+       11    0.000    0.000    0.115    0.010 subprocess.py:275(check_output)
+       11    0.001    0.000    0.115    0.010 subprocess.py:352(run)
+       11    0.001    0.000    0.095    0.009 subprocess.py:761(communicate)
+       87    0.094    0.001    0.094    0.001 {method 'read' of '_io.BufferedReader' objects}
+        1    0.000    0.000    0.084    0.084 __init__.py:10(<module>)
+     9323    0.057    0.000    0.082    0.000 _pslinux.py:1249(create_time)
+  227/110    0.001    0.000    0.073    0.001 <frozen importlib._bootstrap>:996(_handle_fromlist)
+      6/3    0.000    0.000    0.072    0.024 {built-in method builtins.__import__}
+     9323    0.042    0.000    0.063    0.000 _pslinux.py:1102(__init__)
+14225/14206    0.033    0.000    0.046    0.000 _common.py:290(wrapper)
+       19    0.000    0.000    0.037    0.002 __init__.py:1404(pids)
+       19    0.000    0.000    0.037    0.002 _pslinux.py:1067(pids)
+    18646    0.037    0.000    0.037    0.000 __init__.py:604(pid)
+        1    0.000    0.000    0.032    0.032 _common.py:5(<module>)
         1    0.000    0.000    0.032    0.032 _pslinux.py:5(<module>)
-        1    0.000    0.000    0.031    0.031 _common.py:5(<module>)
         1    0.000    0.000    0.030    0.030 subprocess.py:42(<module>)
-       30    0.003    0.000    0.028    0.001 __init__.py:359(namedtuple)
-       26    0.000    0.000    0.026    0.001 re.py:222(compile)
+     4535    0.021    0.000    0.030    0.000 __init__.py:441(__eq__)
+       30    0.003    0.000    0.029    0.001 __init__.py:359(namedtuple)
+       26    0.000    0.000    0.025    0.001 re.py:222(compile)
        26    0.000    0.000    0.025    0.001 re.py:278(_compile)
        19    0.015    0.001    0.025    0.001 _pslinux.py:1069(<listcomp>)
-       20    0.000    0.000    0.025    0.001 sre_compile.py:531(compile)
-       43    0.001    0.000    0.025    0.001 <frozen importlib._bootstrap>:879(_find_spec)
+       20    0.000    0.000    0.024    0.001 sre_compile.py:531(compile)
+       43    0.001    0.000    0.024    0.001 <frozen importlib._bootstrap>:879(_find_spec)
        13    0.001    0.000    0.024    0.002 subprocess.py:563(__init__)
-       38    0.008    0.000    0.022    0.001 systemd_service_mon.py:381(_get_swap)
-       13    0.003    0.000    0.022    0.002 subprocess.py:1159(_execute_child)
+       19    0.002    0.000    0.023    0.001 systemd_service_mon.py:497(get_service_limits)
   127/125    0.003    0.000    0.022    0.000 {built-in method builtins.__build_class__}
-     9208    0.022    0.000    0.022    0.000 _pslinux.py:206(get_procfs_path)
+       13    0.004    0.000    0.022    0.002 subprocess.py:1159(_execute_child)
+     9346    0.021    0.000    0.021    0.000 _pslinux.py:206(get_procfs_path)
        34    0.000    0.000    0.021    0.001 <frozen importlib._bootstrap_external>:1141(find_spec)
        34    0.001    0.000    0.021    0.001 <frozen importlib._bootstrap_external>:1109(_get_spec)
+       38    0.008    0.000    0.020    0.001 systemd_service_mon.py:383(_get_swap)
+       57    0.003    0.000    0.018    0.000 systemd_service_mon.py:513(get_service_cgroup_limits)
        94    0.005    0.000    0.018    0.000 <frozen importlib._bootstrap_external>:1223(find_spec)
         5    0.000    0.000    0.018    0.004 enum.py:532(_convert)
-       19    0.001    0.000    0.013    0.001 systemd_service_mon.py:495(get_service_limits)
+      267    0.012    0.000    0.015    0.000 {built-in method io.open}
         1    0.000    0.000    0.013    0.013 _compat.py:5(<module>)
        20    0.000    0.000    0.013    0.001 sre_parse.py:819(parse)
         1    0.000    0.000    0.013    0.013 socket.py:47(<module>)
         1    0.000    0.000    0.013    0.013 __init__.py:97(<module>)
-       29    0.001    0.000    0.013    0.000 <frozen importlib._bootstrap_external>:737(get_code)
+       29    0.001    0.000    0.012    0.000 <frozen importlib._bootstrap_external>:737(get_code)
         1    0.000    0.000    0.012    0.012 _pslinux.py:1097(Process)
+     6302    0.012    0.000    0.012    0.000 {method 'append' of 'list' objects}
     42/20    0.001    0.000    0.012    0.001 sre_parse.py:429(_parse_sub)
-     6247    0.012    0.000    0.012    0.000 {method 'append' of 'list' objects}
-      229    0.009    0.000    0.012    0.000 {built-in method io.open}
         1    0.000    0.000    0.012    0.012 threading.py:1(<module>)
-        1    0.000    0.000    0.012    0.012 shutil.py:5(<module>)
-    46/21    0.003    0.000    0.012    0.001 sre_parse.py:491(_parse)
+        1    0.000    0.000    0.011    0.011 shutil.py:5(<module>)
+       27    0.011    0.000    0.011    0.000 {built-in method posix.listdir}
+    46/21    0.003    0.000    0.011    0.001 sre_parse.py:491(_parse)
+     5767    0.011    0.000    0.011    0.000 {built-in method builtins.isinstance}
         1    0.000    0.000    0.011    0.011 signal.py:1(<module>)
-     5681    0.011    0.000    0.011    0.000 {built-in method builtins.isinstance}
        20    0.000    0.000    0.011    0.001 sre_compile.py:516(_code)
-       57    0.002    0.000    0.011    0.000 systemd_service_mon.py:511(get_service_cgroup_limits)
-       28    0.011    0.000    0.011    0.000 {built-in method posix.listdir}
-     5798    0.010    0.000    0.010    0.000 {method 'isdigit' of 'bytes' objects}
+     5852    0.010    0.000    0.010    0.000 {method 'isdigit' of 'bytes' objects}
         1    0.000    0.000    0.010    0.010 traceback.py:1(<module>)
-      481    0.003    0.000    0.010    0.000 <frozen importlib._bootstrap_external>:57(_path_join)
+      481    0.003    0.000    0.009    0.000 <frozen importlib._bootstrap_external>:57(_path_join)
         6    0.000    0.000    0.009    0.002 enum.py:215(__call__)
         6    0.001    0.000    0.009    0.002 enum.py:314(_create_)
+       76    0.003    0.000    0.009    0.000 _pslinux.py:1108(_parse_stat_file)
         5    0.002    0.000    0.009    0.002 enum.py:547(<dictcomp>)
-       13    0.009    0.001    0.009    0.001 {built-in method _posixsubprocess.fork_exec}
        13    0.008    0.001    0.008    0.001 {built-in method posix.read}
+       13    0.008    0.001    0.008    0.001 {built-in method _posixsubprocess.fork_exec}
         1    0.000    0.000    0.008    0.008 linecache.py:6(<module>)
         1    0.000    0.000    0.008    0.008 decoder.py:2(<module>)
     86/20    0.003    0.000    0.008    0.000 sre_compile.py:64(_compile)
        10    0.003    0.000    0.007    0.001 enum.py:88(__new__)
-       43    0.001    0.000    0.007    0.000 <frozen importlib._bootstrap>:570(module_from_spec)
+       43    0.000    0.000    0.007    0.000 <frozen importlib._bootstrap>:570(module_from_spec)
        29    0.000    0.000    0.007    0.000 <frozen importlib._bootstrap_external>:482(_compile_bytecode)
-        1    0.000    0.000    0.007    0.007 systemd_service_mon.py:262(parse_arg)
         1    0.000    0.000    0.007    0.007 tokenize.py:21(<module>)
+       38    0.001    0.000    0.006    0.000 _pslinux.py:1233(cpu_times)
+        1    0.000    0.000    0.006    0.006 systemd_service_mon.py:263(parse_arg)
        29    0.006    0.000    0.006    0.000 {built-in method marshal.loads}
-        1    0.000    0.000    0.006    0.006 argparse.py:1605(__init__)
        59    0.004    0.000    0.006    0.000 {method 'readlines' of '_io._IOBase' objects}
+        1    0.000    0.000    0.006    0.006 argparse.py:1605(__init__)
+      157    0.003    0.000    0.005    0.000 posixpath.py:71(join)
       481    0.003    0.000    0.005    0.000 <frozen importlib._bootstrap_external>:59(<listcomp>)
+      623    0.002    0.000    0.005    0.000 {method 'join' of 'str' objects}
         1    0.000    0.000    0.005    0.005 scanner.py:2(<module>)
-      622    0.002    0.000    0.005    0.000 {method 'join' of 'str' objects}
        43    0.001    0.000    0.004    0.000 <frozen importlib._bootstrap>:510(_init_module_attrs)
-       38    0.002    0.000    0.004    0.000 _pslinux.py:1108(_parse_stat_file)
-      336    0.004    0.000    0.004    0.000 {built-in method posix.stat}
-      157    0.002    0.000    0.004    0.000 posixpath.py:71(join)
-      113    0.001    0.000    0.004    0.000 enum.py:51(__setitem__)
+        2    0.004    0.002    0.004    0.002 {built-in method builtins.print}
+      334    0.004    0.000    0.004    0.000 {built-in method posix.stat}
+      100    0.001    0.000    0.004    0.000 _pslinux.py:180(open_binary)
+       82    0.003    0.000    0.004    0.000 {method 'readline' of '_io.TextIOWrapper' objects}
+      113    0.001    0.000    0.003    0.000 enum.py:51(__setitem__)
         1    0.000    0.000    0.003    0.003 bz2.py:5(<module>)
        20    0.002    0.000    0.003    0.000 systemd_service_mon.py:60(build_monjson)
-       19    0.000    0.000    0.003    0.000 __init__.py:1077(memory_info)
-       20    0.001    0.000    0.003    0.000 systemd_service_mon.py:480(get_pidf_path)
-       19    0.001    0.000    0.003    0.000 _pslinux.py:1260(memory_info)
         1    0.000    0.000    0.003    0.003 _psposix.py:5(<module>)
        58    0.001    0.000    0.003    0.000 <frozen importlib._bootstrap_external>:254(cache_from_source)
-       53    0.002    0.000    0.003    0.000 functools.py:43(update_wrapper)
         1    0.000    0.000    0.003    0.003 datetime.py:5(<module>)
-      974    0.003    0.000    0.003    0.000 {built-in method builtins.getattr}
-      332    0.002    0.000    0.003    0.000 socket.py:81(<lambda>)
-      331    0.002    0.000    0.003    0.000 socket.py:76(<lambda>)
+       20    0.001    0.000    0.003    0.000 systemd_service_mon.py:482(get_pidf_path)
         1    0.000    0.000    0.003    0.003 encoder.py:2(<module>)
-       38    0.000    0.000    0.003    0.000 {built-in method builtins.next}
-       62    0.000    0.000    0.003    0.000 _pslinux.py:180(open_binary)
+       53    0.002    0.000    0.003    0.000 functools.py:43(update_wrapper)
+      974    0.003    0.000    0.003    0.000 {built-in method builtins.getattr}
+      331    0.002    0.000    0.003    0.000 socket.py:76(<lambda>)
+      332    0.002    0.000    0.003    0.000 socket.py:81(<lambda>)
+       19    0.000    0.000    0.003    0.000 __init__.py:1077(memory_info)
+       63    0.001    0.000    0.003    0.000 genericpath.py:39(isdir)
+      246    0.002    0.000    0.003    0.000 codecs.py:318(decode)
+       19    0.001    0.000    0.003    0.000 _pslinux.py:1260(memory_info)
        20    0.001    0.000    0.003    0.000 sre_compile.py:412(_compile_info)
-       82    0.002    0.000    0.003    0.000 {method 'readline' of '_io.TextIOWrapper' objects}
-       38    0.001    0.000    0.003    0.000 __init__.py:458(oneshot)
+       38    0.000    0.000    0.003    0.000 {built-in method builtins.next}
+       38    0.001    0.000    0.002    0.000 __init__.py:458(oneshot)
       877    0.002    0.000    0.002    0.000 {built-in method builtins.hasattr}
        40    0.001    0.000    0.002    0.000 sre_compile.py:221(_compile_charset)
-       54    0.002    0.000    0.002    0.000 {built-in method builtins.sorted}
 1168/1118    0.002    0.000    0.002    0.000 {built-in method builtins.len}
-      233    0.001    0.000    0.002    0.000 codecs.py:318(decode)
-        3    0.000    0.000    0.002    0.001 argparse.py:1308(add_argument)
-      107    0.001    0.000    0.002    0.000 genericpath.py:16(exists)
-      312    0.001    0.000    0.002    0.000 sre_parse.py:157(__getitem__)
+        1    0.000    0.000    0.002    0.002 __init__.py:182(dumps)
+       54    0.002    0.000    0.002    0.000 {built-in method builtins.sorted}
+        1    0.000    0.000    0.002    0.002 encoder.py:181(encode)
+        1    0.002    0.002    0.002    0.002 encoder.py:203(iterencode)
        63    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap>:406(cached)
+      312    0.001    0.000    0.002    0.000 sre_parse.py:157(__getitem__)
         3    0.000    0.000    0.002    0.001 gettext.py:620(gettext)
-        3    0.000    0.000    0.002    0.001 gettext.py:582(dgettext)
-        3    0.000    0.000    0.002    0.001 gettext.py:516(translation)
-        3    0.000    0.000    0.002    0.001 gettext.py:461(find)
-        3    0.000    0.000    0.002    0.001 argparse.py:1227(__init__)
        22    0.000    0.000    0.002    0.000 _common.py:246(wrapper)
-        1    0.000    0.000    0.002    0.002 lzma.py:9(<module>)
-        1    0.000    0.000    0.002    0.002 selectors.py:5(<module>)
+        3    0.000    0.000    0.002    0.001 gettext.py:582(dgettext)
+      106    0.001    0.000    0.002    0.000 genericpath.py:16(exists)
+        3    0.000    0.000    0.002    0.001 argparse.py:1227(__init__)
+        3    0.000    0.000    0.002    0.001 gettext.py:516(translation)
       165    0.001    0.000    0.002    0.000 <frozen importlib._bootstrap_external>:75(_path_stat)
-     1020    0.002    0.000    0.002    0.000 {method 'rstrip' of 'str' objects}
-       34    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap_external>:350(_get_cached)
+        3    0.000    0.000    0.002    0.001 gettext.py:461(find)
+        1    0.000    0.000    0.002    0.002 selectors.py:5(<module>)
        29    0.000    0.000    0.002    0.000 _pslinux.py:1077(wrap_exceptions)
+     1020    0.002    0.000    0.002    0.000 {method 'rstrip' of 'str' objects}
+        1    0.000    0.000    0.002    0.002 lzma.py:9(<module>)
+       34    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap_external>:350(_get_cached)
        43    0.000    0.000    0.002    0.000 <frozen importlib._bootstrap>:163(__enter__)
-       19    0.000    0.000    0.002    0.000 contextlib.py:63(__exit__)
+        3    0.000    0.000    0.002    0.001 argparse.py:1308(add_argument)
       360    0.001    0.000    0.002    0.000 {built-in method builtins.setattr}
-      249    0.001    0.000    0.002    0.000 sre_parse.py:247(get)
+       19    0.000    0.000    0.002    0.000 contextlib.py:63(__exit__)
        40    0.001    0.000    0.002    0.000 sre_compile.py:248(_optimize_charset)
-       64    0.001    0.000    0.002    0.000 genericpath.py:39(isdir)
+      249    0.001    0.000    0.002    0.000 sre_parse.py:247(get)
+      143    0.001    0.000    0.002    0.000 _bootlocale.py:23(getpreferredencoding)
        11    0.000    0.000    0.002    0.000 abc.py:132(__new__)
+      173    0.001    0.000    0.002    0.000 posixpath.py:39(_get_sep)
+      145    0.001    0.000    0.002    0.000 codecs.py:308(__init__)
        19    0.000    0.000    0.002    0.000 __init__.py:627(name)
+        1    0.000    0.000    0.002    0.002 _pslinux.py:254(set_scputimes_ntuple)
         1    0.000    0.000    0.002    0.002 glob.py:1(<module>)
-   142/76    0.001    0.000    0.002    0.000 sre_parse.py:167(getwidth)
-        3    0.000    0.000    0.001    0.000 argparse.py:2353(_get_formatter)
-      148    0.001    0.000    0.001    0.000 enum.py:301(__setattr__)
-        3    0.000    0.000    0.001    0.000 argparse.py:160(__init__)
+   142/76    0.001    0.000    0.001    0.000 sre_parse.py:167(getwidth)
       198    0.001    0.000    0.001    0.000 __init__.py:424(<genexpr>)
-        1    0.000    0.000    0.001    0.001 _pslinux.py:254(set_scputimes_ntuple)
-       38    0.001    0.000    0.001    0.000 _pslinux.py:1233(cpu_times)
+      198    0.001    0.000    0.001    0.000 __init__.py:422(<genexpr>)
+      148    0.001    0.000    0.001    0.000 enum.py:301(__setattr__)
        88    0.001    0.000    0.001    0.000 enum.py:8(_is_descriptor)
-      143    0.001    0.000    0.001    0.000 _bootlocale.py:23(getpreferredencoding)
        29    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:824(get_data)
       736    0.001    0.000    0.001    0.000 {method 'isupper' of 'str' objects}
        43    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:321(__exit__)
        29    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:427(_validate_bytecode_header)
-      198    0.001    0.000    0.001    0.000 __init__.py:422(<genexpr>)
-      145    0.001    0.000    0.001    0.000 codecs.py:308(__init__)
+        3    0.000    0.000    0.001    0.000 argparse.py:2353(_get_formatter)
+        3    0.000    0.000    0.001    0.000 argparse.py:160(__init__)
        19    0.000    0.000    0.001    0.000 contextlib.py:57(__enter__)
        19    0.001    0.000    0.001    0.000 __init__.py:1108(memory_percent)
-        5    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:911(create_module)
-      173    0.001    0.000    0.001    0.000 posixpath.py:39(_get_sep)
-      481    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:374(_verbose_message)
         9    0.001    0.000    0.001    0.000 datetime.py:338(__new__)
+      481    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:374(_verbose_message)
         1    0.000    0.000    0.001    0.001 enum.py:1(<module>)
+        5    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:911(create_module)
+      186    0.001    0.000    0.001    0.000 {built-in method __new__ of type object at 0x561b494a9e80}
+       57    0.001    0.000    0.001    0.000 <frozen importlib._bootstrap>:176(_get_module_lock)
         5    0.001    0.000    0.001    0.000 {built-in method _imp.create_dynamic}
-      186    0.001    0.000    0.001    0.000 {built-in method __new__ of type object at 0x5621d1eafe80}
-        1    0.000    0.000    0.001    0.001 __init__.py:340(Process)
-       57    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:176(_get_module_lock)
+      145    0.001    0.000    0.001    0.000 {method 'split' of 'bytes' objects}
+      246    0.001    0.000    0.001    0.000 {built-in method _codecs.utf_8_decode}
       119    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:1072(_path_importer_cache)
+        1    0.000    0.000    0.001    0.001 __init__.py:340(Process)
         9    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:737(create_module)
       313    0.001    0.000    0.001    0.000 sre_parse.py:226(__next)
         1    0.000    0.000    0.001    0.001 argparse.py:62(<module>)
-      133    0.001    0.000    0.001    0.000 _common.py:305(cache_deactivate)
-       73    0.001    0.000    0.001    0.000 signal.py:10(<lambda>)
       149    0.001    0.000    0.001    0.000 sre_parse.py:165(append)
+       73    0.001    0.000    0.001    0.000 signal.py:10(<lambda>)
        52    0.000    0.000    0.001    0.000 {built-in method builtins.any}
        40    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:94(_path_isfile)
-      233    0.001    0.000    0.001    0.000 {built-in method _codecs.utf_8_decode}
+      133    0.001    0.000    0.001    0.000 _common.py:305(cache_deactivate)
+        9    0.001    0.000    0.001    0.000 {built-in method _imp.create_builtin}
        34    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:1218(_get_spec)
       140    0.001    0.000    0.001    0.000 sre_parse.py:153(__len__)
-        9    0.001    0.000    0.001    0.000 {built-in method _imp.create_builtin}
        20    0.000    0.000    0.001    0.000 sre_parse.py:90(closegroup)
+      143    0.001    0.000    0.001    0.000 {built-in method _locale.nl_langinfo}
        42    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:85(_path_is_mode_type)
       117    0.000    0.000    0.001    0.000 sre_parse.py:276(tell)
-      111    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:856(__exit__)
-      111    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:852(__enter__)
        43    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:170(__exit__)
-       19    0.000    0.000    0.001    0.000 __init__.py:696(status)
-       58    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:63(_path_split)
+      246    0.001    0.000    0.001    0.000 {method 'endswith' of 'str' objects}
+      111    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:852(__enter__)
+      111    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:856(__exit__)
        43    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:716(find_spec)
-       19    0.000    0.000    0.001    0.000 _pslinux.py:1150(oneshot_exit)
-      107    0.001    0.000    0.001    0.000 {method 'split' of 'bytes' objects}
-       11    0.000    0.000    0.001    0.000 abc.py:135(<setcomp>)
-      303    0.001    0.000    0.001    0.000 {method 'rpartition' of 'str' objects}
-       29    0.001    0.000    0.001    0.000 {method 'read' of '_io.FileIO' objects}
-      189    0.000    0.000    0.001    0.000 sre_parse.py:242(match)
+       58    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:63(_path_split)
        19    0.000    0.000    0.001    0.000 _pslinux.py:1155(name)
-      143    0.001    0.000    0.001    0.000 {built-in method _locale.nl_langinfo}
-       22    0.001    0.000    0.001    0.000 {method 'close' of '_io.BufferedReader' objects}
+      303    0.001    0.000    0.001    0.000 {method 'rpartition' of 'str' objects}
+       19    0.000    0.000    0.001    0.000 __init__.py:696(status)
+       11    0.000    0.000    0.001    0.000 abc.py:135(<setcomp>)
+       19    0.000    0.000    0.001    0.000 _pslinux.py:1150(oneshot_exit)
+      189    0.000    0.000    0.001    0.000 sre_parse.py:242(match)
        36    0.000    0.000    0.001    0.000 sre_compile.py:386(_simple)
        57    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:94(acquire)
-       38    0.000    0.000    0.001    0.000 __init__.py:1010(timer)
+       29    0.001    0.000    0.001    0.000 {method 'read' of '_io.FileIO' objects}
         1    0.000    0.000    0.001    0.001 token.py:1(<module>)
-       19    0.000    0.000    0.001    0.000 contextlib.py:134(helper)
-       22    0.001    0.000    0.001    0.000 {method 'readline' of '_io.BufferedReader' objects}
-        1    0.000    0.000    0.001    0.001 systemd_service_mon.py:287(load_services)
        57    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:119(release)
-        2    0.000    0.000    0.001    0.000 __init__.py:692(cmdline)
+       22    0.001    0.000    0.001    0.000 {method 'close' of '_io.BufferedReader' objects}
+       38    0.000    0.000    0.001    0.000 __init__.py:1010(timer)
+      145    0.001    0.000    0.001    0.000 codecs.py:259(__init__)
        43    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:74(__init__)
+       14    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:195(_lock_unlock_module)
+       19    0.000    0.000    0.001    0.000 contextlib.py:134(helper)
         1    0.000    0.000    0.001    0.001 token.py:74(<dictcomp>)
-      246    0.001    0.000    0.001    0.000 {method 'endswith' of 'str' objects}
         7    0.000    0.000    0.000    0.000 _common.py:264(memoize_when_activated)
-        2    0.000    0.000    0.000    0.000 _pslinux.py:1182(cmdline)
-       14    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:195(_lock_unlock_module)
+        1    0.000    0.000    0.000    0.000 systemd_service_mon.py:288(load_services)
+        2    0.000    0.000    0.000    0.000 __init__.py:692(cmdline)
       122    0.000    0.000    0.000    0.000 enum.py:16(_is_dunder)
         2    0.000    0.000    0.000    0.000 __init__.py:1600(cpu_times)
+       22    0.000    0.000    0.000    0.000 {method 'readline' of '_io.BufferedReader' objects}
        29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:834(path_stats)
+       13    0.000    0.000    0.000    0.000 posixpath.py:145(dirname)
        80    0.000    0.000    0.000    0.000 sre_parse.py:75(groups)
-        9    0.000    0.000    0.000    0.000 gettext.py:205(_expand_lang)
       201    0.000    0.000    0.000    0.000 {built-in method builtins.min}
        20    0.000    0.000    0.000    0.000 sre_parse.py:78(opengroup)
-       13    0.000    0.000    0.000    0.000 posixpath.py:145(dirname)
-       19    0.000    0.000    0.000    0.000 __init__.py:609(ppid)
-        6    0.000    0.000    0.000    0.000 __init__.py:328(_assert_pid_not_reused)
-       58    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:52(_r_long)
-       34    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:521(spec_from_file_location)
-        1    0.000    0.000    0.000    0.000 base64.py:3(<module>)
-      145    0.000    0.000    0.000    0.000 codecs.py:259(__init__)
-       38    0.000    0.000    0.000    0.000 <string>:12(__new__)
-        1    0.000    0.000    0.000    0.000 __init__.py:1862(virtual_memory)
+        9    0.000    0.000    0.000    0.000 gettext.py:205(_expand_lang)
        10    0.000    0.000    0.000    0.000 enum.py:406(_find_new_)
-       38    0.000    0.000    0.000    0.000 __init__.py:1449(remove)
-        1    0.000    0.000    0.000    0.000 _pslinux.py:344(virtual_memory)
-       19    0.000    0.000    0.000    0.000 _pslinux.py:1145(oneshot_enter)
-       19    0.000    0.000    0.000    0.000 _pslinux.py:1544(status)
+        2    0.000    0.000    0.000    0.000 _pslinux.py:1182(cmdline)
+       19    0.000    0.000    0.000    0.000 __init__.py:609(ppid)
+        1    0.000    0.000    0.000    0.000 __init__.py:1862(virtual_memory)
        19    0.000    0.000    0.000    0.000 _pslinux.py:199(decode)
-       19    0.000    0.000    0.000    0.000 contextlib.py:37(__init__)
-        2    0.000    0.000    0.000    0.000 argparse.py:1355(add_argument_group)
-      148    0.000    0.000    0.000    0.000 {method 'get' of 'mappingproxy' objects}
+        1    0.000    0.000    0.000    0.000 base64.py:3(<module>)
+       58    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:52(_r_long)
+        1    0.000    0.000    0.000    0.000 _pslinux.py:344(virtual_memory)
+       34    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:521(spec_from_file_location)
+        6    0.000    0.000    0.000    0.000 __init__.py:328(_assert_pid_not_reused)
+       37    0.000    0.000    0.000    0.000 {built-in method posix.close}
+       19    0.000    0.000    0.000    0.000 _pslinux.py:1544(status)
+       19    0.000    0.000    0.000    0.000 _pslinux.py:1145(oneshot_enter)
+       38    0.000    0.000    0.000    0.000 <string>:12(__new__)
       198    0.000    0.000    0.000    0.000 {method 'isidentifier' of 'str' objects}
       198    0.000    0.000    0.000    0.000 {method '__contains__' of 'frozenset' objects}
-        2    0.000    0.000    0.000    0.000 argparse.py:1534(__init__)
-      133    0.000    0.000    0.000    0.000 _common.py:301(cache_activate)
+      148    0.000    0.000    0.000    0.000 {method 'get' of 'mappingproxy' objects}
+       19    0.000    0.000    0.000    0.000 contextlib.py:37(__init__)
+       89    0.000    0.000    0.000    0.000 {method 'rfind' of 'bytes' objects}
       183    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        2    0.000    0.000    0.000    0.000 argparse.py:1355(add_argument_group)
       172    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:324(<genexpr>)
        29    0.000    0.000    0.000    0.000 {built-in method builtins.round}
         1    0.000    0.000    0.000    0.000 enum.py:453(Enum)
+      133    0.000    0.000    0.000    0.000 _common.py:301(cache_activate)
+       10    0.000    0.000    0.000    0.000 enum.py:361(_get_mixins_)
         1    0.000    0.000    0.000    0.000 _compression.py:1(<module>)
       168    0.000    0.000    0.000    0.000 {built-in method _imp.release_lock}
-      133    0.000    0.000    0.000    0.000 {method 'clear' of 'dict' objects}
-        1    0.000    0.000    0.000    0.000 __init__.py:243(load)
-       10    0.000    0.000    0.000    0.000 enum.py:361(_get_mixins_)
       146    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
         9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:436(spec_from_loader)
-       37    0.000    0.000    0.000    0.000 {built-in method posix.close}
+        2    0.000    0.000    0.000    0.000 argparse.py:1534(__init__)
         1    0.000    0.000    0.000    0.000 __init__.py:1393(<listcomp>)
-        1    0.000    0.000    0.000    0.000 datetime.py:1815(timezone)
        20    0.000    0.000    0.000    0.000 sre_parse.py:217(__init__)
+       41    0.000    0.000    0.000    0.000 {method 'decode' of 'bytes' objects}
+        1    0.000    0.000    0.000    0.000 __init__.py:243(load)
+      133    0.000    0.000    0.000    0.000 {method 'clear' of 'dict' objects}
+      113    0.000    0.000    0.000    0.000 enum.py:24(_is_sunder)
        24    0.000    0.000    0.000    0.000 sre_parse.py:312(_class_escape)
-       19    0.000    0.000    0.000    0.000 _compat.py:26(b)
        43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:419(parent)
        13    0.000    0.000    0.000    0.000 subprocess.py:1286(_handle_exitstatus)
-      113    0.000    0.000    0.000    0.000 enum.py:24(_is_sunder)
+       82    0.000    0.000    0.000    0.000 codecs.py:330(getstate)
        34    0.000    0.000    0.000    0.000 _weakrefset.py:36(__init__)
        50    0.000    0.000    0.000    0.000 {built-in method posix.getcwd}
-        1    0.000    0.000    0.000    0.000 {built-in method builtins.print}
-       24    0.000    0.000    0.000    0.000 {built-in method posix.pipe}
-        1    0.000    0.000    0.000    0.000 __init__.py:271(loads)
+       40    0.000    0.000    0.000    0.000 sre_compile.py:513(isstring)
        13    0.000    0.000    0.000    0.000 os.py:851(fsencode)
         3    0.000    0.000    0.000    0.000 datetime.py:1319(__new__)
-       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:390(_check_name_wrapper)
-       34    0.000    0.000    0.000    0.000 argparse.py:1279(register)
-        1    0.000    0.000    0.000    0.000 _pslinux.py:516(per_cpu_times)
-        2    0.000    0.000    0.000    0.000 _pslinux.py:184(open_text)
-       40    0.000    0.000    0.000    0.000 sre_compile.py:513(isstring)
-       86    0.000    0.000    0.000    0.000 sre_parse.py:105(__init__)
-        1    0.000    0.000    0.000    0.000 decoder.py:334(decode)
+        1    0.000    0.000    0.000    0.000 datetime.py:1815(timezone)
        13    0.000    0.000    0.000    0.000 subprocess.py:1105(_get_handles)
-        3    0.000    0.000    0.000    0.000 _common.py:232(memoize)
+        1    0.000    0.000    0.000    0.000 _pslinux.py:516(per_cpu_times)
+        1    0.000    0.000    0.000    0.000 __init__.py:271(loads)
+       86    0.000    0.000    0.000    0.000 sre_parse.py:105(__init__)
+       24    0.000    0.000    0.000    0.000 {built-in method posix.pipe}
         9    0.000    0.000    0.000    0.000 sre_compile.py:374(_mk_bitmap)
-       41    0.000    0.000    0.000    0.000 {method 'decode' of 'bytes' objects}
-        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1055(_path_hooks)
-      104    0.000    0.000    0.000    0.000 {method 'find' of 'bytearray' objects}
-       34    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:789(find_spec)
-       56    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
-       26    0.000    0.000    0.000    0.000 sre_parse.py:362(_escape)
-      101    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
       115    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
-        3    0.000    0.000    0.000    0.000 argparse.py:1714(_add_action)
-        1    0.000    0.000    0.000    0.000 _pslinux.py:500(cpu_times)
-        3    0.000    0.000    0.000    0.000 {built-in method builtins.dir}
-       38    0.000    0.000    0.000    0.000 {built-in method time.monotonic}
-        1    0.000    0.000    0.000    0.000 decoder.py:345(raw_decode)
+        3    0.000    0.000    0.000    0.000 _common.py:232(memoize)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1055(_path_hooks)
+       34    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:789(find_spec)
+      104    0.000    0.000    0.000    0.000 {method 'find' of 'bytearray' objects}
+       34    0.000    0.000    0.000    0.000 argparse.py:1279(register)
+        1    0.000    0.000    0.000    0.000 decoder.py:334(decode)
+       56    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 _pslinux.py:184(open_text)
+       76    0.000    0.000    0.000    0.000 {method 'find' of 'bytes' objects}
+       26    0.000    0.000    0.000    0.000 sre_parse.py:362(_escape)
       111    0.000    0.000    0.000    0.000 {built-in method _imp.acquire_lock}
-       51    0.000    0.000    0.000    0.000 {method 'rfind' of 'bytes' objects}
+      101    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.dir}
+       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:390(_check_name_wrapper)
+        1    0.000    0.000    0.000    0.000 _pslinux.py:500(cpu_times)
+       38    0.000    0.000    0.000    0.000 {built-in method time.monotonic}
         1    0.000    0.000    0.000    0.000 _pslinux.py:99(IOPriority)
-       99    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
-       35    0.000    0.000    0.000    0.000 datetime.py:247(_check_int_field)
-        1    0.000    0.000    0.000    0.000 argparse.py:1734(parse_args)
-        1    0.000    0.000    0.000    0.000 _pslinux.py:240(get_sector_size)
-        3    0.000    0.000    0.000    0.000 argparse.py:1556(_add_action)
         1    0.000    0.000    0.000    0.000 os.py:40(_get_exports_list)
-       38    0.000    0.000    0.000    0.000 {method 'encode' of 'str' objects}
-       19    0.000    0.000    0.000    0.000 _pslinux.py:1275(<listcomp>)
+       35    0.000    0.000    0.000    0.000 datetime.py:247(_check_int_field)
+        1    0.000    0.000    0.000    0.000 _pslinux.py:240(get_sector_size)
+       99    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
         2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1309(path_hook_for_FileFinder)
-       82    0.000    0.000    0.000    0.000 codecs.py:330(getstate)
+       19    0.000    0.000    0.000    0.000 _compat.py:26(b)
+       94    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:41(_relax_case)
+        1    0.000    0.000    0.000    0.000 argparse.py:1734(parse_args)
+        1    0.000    0.000    0.000    0.000 decoder.py:345(raw_decode)
+       19    0.000    0.000    0.000    0.000 _pslinux.py:1275(<listcomp>)
         1    0.000    0.000    0.000    0.000 argparse.py:1741(parse_known_args)
         1    0.000    0.000    0.000    0.000 socket.py:123(socket)
-       94    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:41(_relax_case)
-       30    0.000    0.000    0.000    0.000 {built-in method builtins.repr}
-        1    0.000    0.000    0.000    0.000 _pslinux.py:1049(boot_time)
-       19    0.000    0.000    0.000    0.000 _pslinux.py:1602(ppid)
-        4    0.000    0.000    0.000    0.000 {method 'read' of '_io.TextIOWrapper' objects}
-       85    0.000    0.000    0.000    0.000 {method 'items' of 'collections.OrderedDict' objects}
        13    0.000    0.000    0.000    0.000 subprocess.py:711(__exit__)
-       96    0.000    0.000    0.000    0.000 {built-in method builtins.ord}
-       58    0.000    0.000    0.000    0.000 {built-in method from_bytes}
-        6    0.000    0.000    0.000    0.000 os.py:720(__getitem__)
-        5    0.000    0.000    0.000    0.000 datetime.py:277(_check_time_fields)
-        1    0.000    0.000    0.000    0.000 _common.py:117(NicDuplex)
-       62    0.000    0.000    0.000    0.000 {method 'update' of 'dict' objects}
-       20    0.000    0.000    0.000    0.000 sre_parse.py:797(fix_flags)
-        3    0.000    0.000    0.000    0.000 argparse.py:1445(_get_optional_kwargs)
        52    0.000    0.000    0.000    0.000 functools.py:73(wraps)
-       75    0.000    0.000    0.000    0.000 signal.py:22(<lambda>)
-       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:372(__init__)
-       76    0.000    0.000    0.000    0.000 {method 'setdefault' of 'dict' objects}
-        5    0.000    0.000    0.000    0.000 datetime.py:264(_check_date_fields)
-       11    0.000    0.000    0.000    0.000 subprocess.py:330(__init__)
-       74    0.000    0.000    0.000    0.000 signal.py:17(<lambda>)
-        1    0.000    0.000    0.000    0.000 threading.py:1188(__init__)
+        4    0.000    0.000    0.000    0.000 {method 'read' of '_io.TextIOWrapper' objects}
+       19    0.000    0.000    0.000    0.000 _pslinux.py:1602(ppid)
+       62    0.000    0.000    0.000    0.000 {method 'update' of 'dict' objects}
+       96    0.000    0.000    0.000    0.000 {built-in method builtins.ord}
+       60    0.000    0.000    0.000    0.000 {built-in method _stat.S_ISDIR}
+        5    0.000    0.000    0.000    0.000 datetime.py:277(_check_time_fields)
+       85    0.000    0.000    0.000    0.000 {method 'items' of 'collections.OrderedDict' objects}
+        1    0.000    0.000    0.000    0.000 _common.py:117(NicDuplex)
        10    0.000    0.000    0.000    0.000 enum.py:121(<setcomp>)
+        1    0.000    0.000    0.000    0.000 _pslinux.py:1049(boot_time)
+       30    0.000    0.000    0.000    0.000 {built-in method builtins.repr}
+       76    0.000    0.000    0.000    0.000 {method 'setdefault' of 'dict' objects}
+       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:372(__init__)
+        5    0.000    0.000    0.000    0.000 datetime.py:264(_check_date_fields)
+        1    0.000    0.000    0.000    0.000 threading.py:1188(__init__)
+        6    0.000    0.000    0.000    0.000 os.py:720(__getitem__)
+       58    0.000    0.000    0.000    0.000 {built-in method from_bytes}
+       38    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+       75    0.000    0.000    0.000    0.000 signal.py:22(<lambda>)
+       20    0.000    0.000    0.000    0.000 sre_parse.py:797(fix_flags)
+       74    0.000    0.000    0.000    0.000 signal.py:17(<lambda>)
         2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1268(_fill_cache)
        59    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
-       61    0.000    0.000    0.000    0.000 {built-in method _stat.S_ISDIR}
-       38    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
-        1    0.000    0.000    0.000    0.000 argparse.py:1776(_parse_known_args)
-       72    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+        3    0.000    0.000    0.000    0.000 argparse.py:1445(_get_optional_kwargs)
+        1    0.000    0.000    0.000    0.000 <string>:5(scputimes)
+        3    0.000    0.000    0.000    0.000 argparse.py:1714(_add_action)
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.divmod}
+       34    0.000    0.000    0.000    0.000 {built-in method _imp.is_builtin}
         2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1186(__init__)
        43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:310(__init__)
-       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:159(__init__)
-        1    0.000    0.000    0.000    0.000 datetime.py:513(__neg__)
-       19    0.000    0.000    0.000    0.000 {built-in method fromkeys}
-       19    0.000    0.000    0.000    0.000 tokenize.py:111(group)
-       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:314(__enter__)
-        9    0.000    0.000    0.000    0.000 enum.py:260(__getattr__)
-        1    0.000    0.000    0.000    0.000 <string>:5(scputimes)
-        8    0.000    0.000    0.000    0.000 sre_compile.py:391(_generate_overlap_table)
-       34    0.000    0.000    0.000    0.000 {built-in method _imp.is_builtin}
-        3    0.000    0.000    0.000    0.000 _collections_abc.py:594(get)
-        3    0.000    0.000    0.000    0.000 argparse.py:1365(_add_action)
-        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:745(exec_module)
        13    0.000    0.000    0.000    0.000 subprocess.py:723(__del__)
+       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:314(__enter__)
+        1    0.000    0.000    0.000    0.000 argparse.py:1776(_parse_known_args)
+        1    0.000    0.000    0.000    0.000 datetime.py:513(__neg__)
+       19    0.000    0.000    0.000    0.000 tokenize.py:111(group)
        43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:225(_verbose_message)
-       44    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:159(__init__)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:745(exec_module)
+        8    0.000    0.000    0.000    0.000 sre_compile.py:391(_generate_overlap_table)
+       72    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+        3    0.000    0.000    0.000    0.000 argparse.py:1556(_add_action)
+       38    0.000    0.000    0.000    0.000 {method 'encode' of 'str' objects}
+        9    0.000    0.000    0.000    0.000 enum.py:260(__getattr__)
+        3    0.000    0.000    0.000    0.000 _collections_abc.py:594(get)
+       10    0.000    0.000    0.000    0.000 enum.py:84(__prepare__)
        29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:35(_new_module)
         2    0.000    0.000    0.000    0.000 datetime.py:1030(__new__)
-       11    0.000    0.000    0.000    0.000 subprocess.py:810(poll)
-       10    0.000    0.000    0.000    0.000 enum.py:84(__prepare__)
-        9    0.000    0.000    0.000    0.000 locale.py:375(normalize)
+       19    0.000    0.000    0.000    0.000 {built-in method fromkeys}
         1    0.000    0.000    0.000    0.000 <string>:1(<module>)
+        9    0.000    0.000    0.000    0.000 locale.py:375(normalize)
+        1    0.000    0.000    0.000    0.000 fnmatch.py:11(<module>)
         1    0.000    0.000    0.000    0.000 __future__.py:48(<module>)
        43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:190(cb)
+       11    0.000    0.000    0.000    0.000 subprocess.py:810(poll)
        20    0.000    0.000    0.000    0.000 {built-in method time.time}
-        1    0.000    0.000    0.000    0.000 fnmatch.py:11(<module>)
-       38    0.000    0.000    0.000    0.000 {method 'find' of 'bytes' objects}
-        3    0.000    0.000    0.000    0.000 argparse.py:581(_format_args)
-       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:427(has_location)
         5    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:919(exec_module)
-       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:794(__init__)
-       45    0.000    0.000    0.000    0.000 {built-in method builtins.divmod}
+       43    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:427(has_location)
         2    0.000    0.000    0.000    0.000 datetime.py:671(__new__)
-       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:819(get_filename)
-        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:235(_requires_builtin_wrapper)
-        6    0.000    0.000    0.000    0.000 os.py:796(encode)
-       36    0.000    0.000    0.000    0.000 sre_parse.py:161(__setitem__)
-       20    0.000    0.000    0.000    0.000 {built-in method _sre.compile}
-       20    0.000    0.000    0.000    0.000 sre_parse.py:70(__init__)
-       34    0.000    0.000    0.000    0.000 {built-in method _imp.is_frozen}
-       13    0.000    0.000    0.000    0.000 subprocess.py:193(_cleanup)
-        1    0.000    0.000    0.000    0.000 contextlib.py:106(contextmanager)
-        3    0.000    0.000    0.000    0.000 posixpath.py:136(basename)
-        9    0.000    0.000    0.000    0.000 sre_compile.py:376(<listcomp>)
-       31    0.000    0.000    0.000    0.000 {built-in method sys._getframe}
-        1    0.000    0.000    0.000    0.000 functools.py:422(decorating_function)
         1    0.000    0.000    0.000    0.000 _common.py:418(outer)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:235(_requires_builtin_wrapper)
+        3    0.000    0.000    0.000    0.000 argparse.py:581(_format_args)
+        3    0.000    0.000    0.000    0.000 argparse.py:1365(_add_action)
+       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:794(__init__)
+       36    0.000    0.000    0.000    0.000 sre_parse.py:161(__setitem__)
+       11    0.000    0.000    0.000    0.000 subprocess.py:330(__init__)
+       20    0.000    0.000    0.000    0.000 {built-in method _sre.compile}
+       31    0.000    0.000    0.000    0.000 {built-in method sys._getframe}
+        3    0.000    0.000    0.000    0.000 posixpath.py:136(basename)
+        1    0.000    0.000    0.000    0.000 contextlib.py:106(contextmanager)
+       34    0.000    0.000    0.000    0.000 {built-in method _imp.is_frozen}
+        1    0.000    0.000    0.000    0.000 functools.py:422(decorating_function)
+       20    0.000    0.000    0.000    0.000 sre_parse.py:70(__init__)
        29    0.000    0.000    0.000    0.000 {built-in method _imp._fix_co_filename}
-       27    0.000    0.000    0.000    0.000 enum.py:140(<genexpr>)
+        9    0.000    0.000    0.000    0.000 sre_compile.py:376(<listcomp>)
+        6    0.000    0.000    0.000    0.000 os.py:796(encode)
+       13    0.000    0.000    0.000    0.000 subprocess.py:193(_cleanup)
        32    0.000    0.000    0.000    0.000 {built-in method builtins.chr}
+       27    0.000    0.000    0.000    0.000 enum.py:140(<genexpr>)
         1    0.000    0.000    0.000    0.000 enum.py:556(IntEnum)
-        1    0.000    0.000    0.000    0.000 __init__.py:1579(cpu_count)
-       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:664(create_module)
         4    0.000    0.000    0.000    0.000 sre_parse.py:251(getwhile)
        27    0.000    0.000    0.000    0.000 {method 'find' of 'str' objects}
-       10    0.000    0.000    0.000    0.000 enum.py:99(<dictcomp>)
-        2    0.000    0.000    0.000    0.000 {built-in method now}
+       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:819(get_filename)
+       29    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:664(create_module)
         1    0.000    0.000    0.000    0.000 threading.py:510(set)
-        3    0.000    0.000    0.000    0.000 argparse.py:1481(_pop_action_class)
+       10    0.000    0.000    0.000    0.000 enum.py:99(<dictcomp>)
        24    0.000    0.000    0.000    0.000 subprocess.py:1301(_internal_poll)
-        3    0.000    0.000    0.000    0.000 {built-in method posix.sysconf}
-        1    0.000    0.000    0.000    0.000 _pslinux.py:536(cpu_count_logical)
-        7    0.000    0.000    0.000    0.000 argparse.py:1283(_registry_get)
+        2    0.000    0.000    0.000    0.000 {built-in method now}
        10    0.000    0.000    0.000    0.000 enum.py:47(__init__)
-        8    0.000    0.000    0.000    0.000 {method 'match' of '_sre.SRE_Pattern' objects}
         1    0.000    0.000    0.000    0.000 threading.py:755(__init__)
-        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:99(_path_isdir)
-       13    0.000    0.000    0.000    0.000 subprocess.py:708(__enter__)
-       11    0.000    0.000    0.000    0.000 {method 'count' of 'list' objects}
-       13    0.000    0.000    0.000    0.000 {built-in method posix.WIFSIGNALED}
+        3    0.000    0.000    0.000    0.000 argparse.py:1481(_pop_action_class)
        19    0.000    0.000    0.000    0.000 {method 'keys' of 'dict' objects}
+        7    0.000    0.000    0.000    0.000 argparse.py:1283(_registry_get)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:99(_path_isdir)
+       13    0.000    0.000    0.000    0.000 {built-in method posix.WIFSIGNALED}
+        1    0.000    0.000    0.000    0.000 __init__.py:1579(cpu_count)
         1    0.000    0.000    0.000    0.000 os.py:44(<listcomp>)
+        1    0.000    0.000    0.000    0.000 argparse.py:664(ArgumentDefaultsHelpFormatter)
         1    0.000    0.000    0.000    0.000 argparse.py:153(HelpFormatter)
-       13    0.000    0.000    0.000    0.000 {built-in method posix.WIFEXITED}
+        1    0.000    0.000    0.000    0.000 _pslinux.py:536(cpu_count_logical)
        15    0.000    0.000    0.000    0.000 {method 'startswith' of 'bytes' objects}
-       16    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1192(<genexpr>)
-       10    0.000    0.000    0.000    0.000 {method 'mro' of 'type' objects}
-        1    0.000    0.000    0.000    0.000 argparse.py:1055(_SubParsersAction)
+        3    0.000    0.000    0.000    0.000 {built-in method posix.sysconf}
        13    0.000    0.000    0.000    0.000 {method 'rstrip' of 'bytes' objects}
+       10    0.000    0.000    0.000    0.000 {method 'mro' of 'type' objects}
+       11    0.000    0.000    0.000    0.000 {method 'count' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 argparse.py:1055(_SubParsersAction)
+        8    0.000    0.000    0.000    0.000 {method 'match' of '_sre.SRE_Pattern' objects}
+       16    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1192(<genexpr>)
+       13    0.000    0.000    0.000    0.000 subprocess.py:708(__enter__)
         3    0.000    0.000    0.000    0.000 argparse.py:794(__init__)
-       11    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+        1    0.000    0.000    0.000    0.000 threading.py:736(Thread)
+       13    0.000    0.000    0.000    0.000 {built-in method posix.WIFEXITED}
+        1    0.000    0.000    0.000    0.000 datetime.py:1311(datetime)
        13    0.000    0.000    0.000    0.000 {built-in method posix.WEXITSTATUS}
-        1    0.000    0.000    0.000    0.000 <string>:5(pmmap_ext)
+        1    0.000    0.000    0.000    0.000 argparse.py:894(__init__)
         3    0.000    0.000    0.000    0.000 argparse.py:1485(_get_handler)
         1    0.000    0.000    0.000    0.000 threading.py:355(notify_all)
-        1    0.000    0.000    0.000    0.000 threading.py:736(Thread)
-        1    0.000    0.000    0.000    0.000 argparse.py:1921(consume_positionals)
-        1    0.000    0.000    0.000    0.000 selectors.py:79(BaseSelector)
-        2    0.000    0.000    0.000    0.000 types.py:120(__init__)
-        1    0.000    0.000    0.000    0.000 argparse.py:1012(__init__)
-        1    0.000    0.000    0.000    0.000 datetime.py:1311(datetime)
-        7    0.000    0.000    0.000    0.000 enum.py:285(__members__)
-        1    0.000    0.000    0.000    0.000 subprocess.py:520(Popen)
-        9    0.000    0.000    0.000    0.000 __future__.py:79(__init__)
-        1    0.000    0.000    0.000    0.000 threading.py:496(__init__)
-        1    0.000    0.000    0.000    0.000 <string>:5(pmmap_grouped)
-        3    0.000    0.000    0.000    0.000 argparse.py:574(format)
+        1    0.000    0.000    0.000    0.000 <string>:5(pmmap_ext)
         9    0.000    0.000    0.000    0.000 {method 'translate' of 'bytearray' objects}
+        2    0.000    0.000    0.000    0.000 types.py:120(__init__)
+        1    0.000    0.000    0.000    0.000 selectors.py:79(BaseSelector)
+        1    0.000    0.000    0.000    0.000 subprocess.py:520(Popen)
+       11    0.000    0.000    0.000    0.000 {built-in method builtins.max}
         3    0.000    0.000    0.000    0.000 os.py:800(decode)
+        1    0.000    0.000    0.000    0.000 <string>:5(pmmap_grouped)
+        1    0.000    0.000    0.000    0.000 threading.py:496(__init__)
+        1    0.000    0.000    0.000    0.000 argparse.py:1921(consume_positionals)
+        1    0.000    0.000    0.000    0.000 _common.py:220(usage_percent)
+        7    0.000    0.000    0.000    0.000 enum.py:285(__members__)
+        3    0.000    0.000    0.000    0.000 argparse.py:574(format)
         2    0.000    0.000    0.000    0.000 tokenize.py:113(maybe)
         1    0.000    0.000    0.000    0.000 <string>:5(svmem)
-        1    0.000    0.000    0.000    0.000 argparse.py:894(__init__)
+        9    0.000    0.000    0.000    0.000 __future__.py:79(__init__)
+        1    0.000    0.000    0.000    0.000 argparse.py:871(__init__)
+       10    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 threading.py:891(_set_tstate_lock)
         1    0.000    0.000    0.000    0.000 <string>:5(pfullmem)
+        1    0.000    0.000    0.000    0.000 <string>:5(snic)
         3    0.000    0.000    0.000    0.000 datetime.py:1838(_create)
         9    0.000    0.000    0.000    0.000 {built-in method _imp.exec_builtin}
-        1    0.000    0.000    0.000    0.000 argparse.py:836(__init__)
-       10    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
-        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:762(is_package)
-        1    0.000    0.000    0.000    0.000 <string>:5(sswap)
-        1    0.000    0.000    0.000    0.000 datetime.py:641(date)
-        1    0.000    0.000    0.000    0.000 argparse.py:2287(_get_value)
-        2    0.000    0.000    0.000    0.000 _pslinux.py:530(<listcomp>)
-        5    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:900(__init__)
-        9    0.000    0.000    0.000    0.000 {method 'reverse' of 'list' objects}
         1    0.000    0.000    0.000    0.000 <string>:5(sconn)
-        1    0.000    0.000    0.000    0.000 <string>:5(sdiskio)
-        1    0.000    0.000    0.000    0.000 <string>:5(pmem)
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:762(is_package)
+        2    0.000    0.000    0.000    0.000 __init__.py:1449(remove)
         1    0.000    0.000    0.000    0.000 <string>:5(snetio)
+        1    0.000    0.000    0.000    0.000 <string>:5(sswap)
+        8    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+        5    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:900(__init__)
+        1    0.000    0.000    0.000    0.000 datetime.py:641(date)
+        2    0.000    0.000    0.000    0.000 _pslinux.py:530(<listcomp>)
+        1    0.000    0.000    0.000    0.000 <string>:5(pmem)
         1    0.000    0.000    0.000    0.000 threading.py:332(notify)
-        1    0.000    0.000    0.000    0.000 <string>:5(TokenInfo)
-        1    0.000    0.000    0.000    0.000 threading.py:891(_set_tstate_lock)
-        1    0.000    0.000    0.000    0.000 _common.py:220(usage_percent)
-        1    0.000    0.000    0.000    0.000 <string>:5(pconn)
-        1    0.000    0.000    0.000    0.000 <string>:5(SelectorKey)
-        1    0.000    0.000    0.000    0.000 datetime.py:1005(time)
-        1    0.000    0.000    0.000    0.000 <string>:5(snic)
-        1    0.000    0.000    0.000    0.000 <string>:5(usage)
-        3    0.000    0.000    0.000    0.000 argparse.py:205(__init__)
-        7    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
-        1    0.000    0.000    0.000    0.000 subprocess.py:60(CalledProcessError)
-        5    0.000    0.000    0.000    0.000 datetime.py:292(_check_tzinfo_arg)
-        1    0.000    0.000    0.000    0.000 <string>:5(sdiskusage)
-        1    0.000    0.000    0.000    0.000 argparse.py:871(__init__)
-        1    0.000    0.000    0.000    0.000 _pslinux.py:512(<listcomp>)
-        1    0.000    0.000    0.000    0.000 <string>:5(suser)
-        1    0.000    0.000    0.000    0.000 <string>:5(pcputimes)
-        1    0.000    0.000    0.000    0.000 tokenize.py:112(any)
-        4    0.000    0.000    0.000    0.000 {method 'setter' of 'property' objects}
-        3    0.000    0.000    0.000    0.000 argparse.py:565(_metavar_formatter)
-        1    0.000    0.000    0.000    0.000 <string>:5(sdiskpart)
-        1    0.000    0.000    0.000    0.000 <string>:5(scpustats)
-        5    0.000    0.000    0.000    0.000 {built-in method builtins.vars}
-        1    0.000    0.000    0.000    0.000 <string>:5(pio)
         1    0.000    0.000    0.000    0.000 <string>:5(snicstats)
-        1    0.000    0.000    0.000    0.000 lzma.py:37(LZMAFile)
-        5    0.000    0.000    0.000    0.000 datetime.py:45(_days_in_month)
-        1    0.000    0.000    0.000    0.000 datetime.py:319(timedelta)
-        1    0.000    0.000    0.000    0.000 threading.py:213(__init__)
+        1    0.000    0.000    0.000    0.000 argparse.py:2287(_get_value)
+        1    0.000    0.000    0.000    0.000 argparse.py:1012(__init__)
+        1    0.000    0.000    0.000    0.000 <string>:5(sdiskio)
+        1    0.000    0.000    0.000    0.000 <string>:5(puids)
+        1    0.000    0.000    0.000    0.000 <string>:5(TokenInfo)
+        1    0.000    0.000    0.000    0.000 subprocess.py:60(CalledProcessError)
         1    0.000    0.000    0.000    0.000 decoder.py:283(__init__)
         1    0.000    0.000    0.000    0.000 <string>:5(pthread)
-        5    0.000    0.000    0.000    0.000 {built-in method _imp.exec_dynamic}
-        6    0.000    0.000    0.000    0.000 {built-in method builtins.globals}
-        1    0.000    0.000    0.000    0.000 <string>:5(puids)
+        1    0.000    0.000    0.000    0.000 <string>:5(SelectorKey)
+        1    0.000    0.000    0.000    0.000 <string>:5(pconn)
+        7    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
+        1    0.000    0.000    0.000    0.000 argparse.py:836(__init__)
+        1    0.000    0.000    0.000    0.000 datetime.py:1005(time)
+        1    0.000    0.000    0.000    0.000 <string>:5(usage)
+        1    0.000    0.000    0.000    0.000 _pslinux.py:512(<listcomp>)
+        9    0.000    0.000    0.000    0.000 {method 'reverse' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 <string>:5(pio)
+        1    0.000    0.000    0.000    0.000 datetime.py:319(timedelta)
+        1    0.000    0.000    0.000    0.000 <string>:5(sdiskpart)
         1    0.000    0.000    0.000    0.000 <string>:5(pgids)
+        1    0.000    0.000    0.000    0.000 <string>:5(scpustats)
+        1    0.000    0.000    0.000    0.000 <string>:5(suser)
+        1    0.000    0.000    0.000    0.000 <string>:5(pcputimes)
+        5    0.000    0.000    0.000    0.000 datetime.py:292(_check_tzinfo_arg)
+        4    0.000    0.000    0.000    0.000 {method 'setter' of 'property' objects}
+        1    0.000    0.000    0.000    0.000 <string>:5(sdiskusage)
+        1    0.000    0.000    0.000    0.000 threading.py:213(__init__)
+        1    0.000    0.000    0.000    0.000 tokenize.py:112(any)
+        6    0.000    0.000    0.000    0.000 {built-in method builtins.globals}
+        1    0.000    0.000    0.000    0.000 lzma.py:37(LZMAFile)
         1    0.000    0.000    0.000    0.000 enum.py:82(EnumMeta)
-        3    0.000    0.000    0.000    0.000 argparse.py:1494(_check_conflict)
-        3    0.000    0.000    0.000    0.000 {method 'lstrip' of 'str' objects}
-        4    0.000    0.000    0.000    0.000 sre_parse.py:155(__delitem__)
         1    0.000    0.000    0.000    0.000 <string>:5(popenfile)
-        1    0.000    0.000    0.000    0.000 <string>:5(pctxsw)
-        1    0.000    0.000    0.000    0.000 _compression.py:33(DecompressReader)
+        5    0.000    0.000    0.000    0.000 datetime.py:45(_days_in_month)
+        5    0.000    0.000    0.000    0.000 {built-in method builtins.vars}
         1    0.000    0.000    0.000    0.000 _pslinux.py:634(__init__)
-        1    0.000    0.000    0.000    0.000 bz2.py:31(BZ2File)
         1    0.000    0.000    0.000    0.000 <string>:5(pionice)
-        1    0.000    0.000    0.000    0.000 subprocess.py:88(TimeoutExpired)
-        1    0.000    0.000    0.000    0.000 argparse.py:1586(ArgumentParser)
-        1    0.000    0.000    0.000    0.000 threading.py:240(__exit__)
-        3    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
-        3    0.000    0.000    0.000    0.000 datetime.py:40(_days_before_year)
+        5    0.000    0.000    0.000    0.000 {built-in method _imp.exec_dynamic}
         4    0.000    0.000    0.000    0.000 abc.py:9(abstractmethod)
+        3    0.000    0.000    0.000    0.000 datetime.py:40(_days_before_year)
+        3    0.000    0.000    0.000    0.000 argparse.py:205(__init__)
+        1    0.000    0.000    0.000    0.000 subprocess.py:88(TimeoutExpired)
+        1    0.000    0.000    0.000    0.000 bz2.py:31(BZ2File)
+        1    0.000    0.000    0.000    0.000 <string>:5(pctxsw)
+        1    0.000    0.000    0.000    0.000 argparse.py:1586(ArgumentParser)
+        1    0.000    0.000    0.000    0.000 _compression.py:33(DecompressReader)
+        4    0.000    0.000    0.000    0.000 sre_parse.py:155(__delitem__)
+        3    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
+        3    0.000    0.000    0.000    0.000 argparse.py:1494(_check_conflict)
         1    0.000    0.000    0.000    0.000 argparse.py:1726(_get_positional_actions)
-        1    0.000    0.000    0.000    0.000 functools.py:391(lru_cache)
-        1    0.000    0.000    0.000    0.000 threading.py:237(__enter__)
-        1    0.000    0.000    0.000    0.000 argparse.py:2072(_match_arguments_partial)
-        1    0.000    0.000    0.000    0.000 _weakrefset.py:81(add)
+        3    0.000    0.000    0.000    0.000 argparse.py:565(_metavar_formatter)
+        1    0.000    0.000    0.000    0.000 threading.py:240(__exit__)
         1    0.000    0.000    0.000    0.000 threading.py:564(Barrier)
+        1    0.000    0.000    0.000    0.000 _weakrefset.py:81(add)
+        1    0.000    0.000    0.000    0.000 argparse.py:2072(_match_arguments_partial)
+        1    0.000    0.000    0.000    0.000 threading.py:237(__enter__)
+        1    0.000    0.000    0.000    0.000 threading.py:888(_set_ident)
+        1    0.000    0.000    0.000    0.000 __init__.py:193(<listcomp>)
+        2    0.000    0.000    0.000    0.000 {built-in method posix.getpid}
+        1    0.000    0.000    0.000    0.000 threading.py:201(Condition)
         1    0.000    0.000    0.000    0.000 threading.py:252(_is_owned)
+        1    0.000    0.000    0.000    0.000 _pslinux.py:622(Connections)
         1    0.000    0.000    0.000    0.000 socket.py:533(SocketIO)
         1    0.000    0.000    0.000    0.000 argparse.py:1225(_ActionsContainer)
-        1    0.000    0.000    0.000    0.000 _pslinux.py:622(Connections)
-        1    0.000    0.000    0.000    0.000 __init__.py:193(<listcomp>)
-        1    0.000    0.000    0.000    0.000 threading.py:201(Condition)
-        2    0.000    0.000    0.000    0.000 {built-in method posix.getpid}
-        1    0.000    0.000    0.000    0.000 selectors.py:290(SelectSelector)
-        1    0.000    0.000    0.000    0.000 __init__.py:1307(Popen)
+        3    0.000    0.000    0.000    0.000 {method 'lstrip' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 functools.py:391(lru_cache)
         1    0.000    0.000    0.000    0.000 threading.py:85(_RLock)
-        1    0.000    0.000    0.000    0.000 traceback.py:223(FrameSummary)
         2    0.000    0.000    0.000    0.000 _pslinux.py:1191(<listcomp>)
-        1    0.000    0.000    0.000    0.000 traceback.py:403(TracebackException)
-        1    0.000    0.000    0.000    0.000 systemd_service_mon.py:338(ProcMon)
-        1    0.000    0.000    0.000    0.000 selectors.py:205(_BaseSelectorImpl)
-        2    0.000    0.000    0.000    0.000 {built-in method maketrans}
-        1    0.000    0.000    0.000    0.000 encoder.py:104(__init__)
-        1    0.000    0.000    0.000    0.000 traceback.py:310(StackSummary)
-        1    0.000    0.000    0.000    0.000 tokenize.py:98(TokenInfo)
-        1    0.000    0.000    0.000    0.000 threading.py:888(_set_ident)
         1    0.000    0.000    0.000    0.000 threading.py:485(Event)
-        1    0.000    0.000    0.000    0.000 __init__.py:225(Error)
-        1    0.000    0.000    0.000    0.000 selectors.py:394(EpollSelector)
-        1    0.000    0.000    0.000    0.000 datetime.py:935(tzinfo)
-        1    0.000    0.000    0.000    0.000 tokenize.py:224(Untokenizer)
-        2    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.lock' objects}
-        2    0.000    0.000    0.000    0.000 {method 'end' of '_sre.SRE_Match' objects}
-        1    0.000    0.000    0.000    0.000 selectors.py:59(_SelectorMapping)
-        1    0.000    0.000    0.000    0.000 argparse.py:743(Action)
+        1    0.000    0.000    0.000    0.000 selectors.py:290(SelectSelector)
+        1    0.000    0.000    0.000    0.000 traceback.py:403(TracebackException)
+        2    0.000    0.000    0.000    0.000 {built-in method maketrans}
+        1    0.000    0.000    0.000    0.000 traceback.py:223(FrameSummary)
         1    0.000    0.000    0.000    0.000 encoder.py:73(JSONEncoder)
-        1    0.000    0.000    0.000    0.000 argparse.py:926(_AppendAction)
-        1    0.000    0.000    0.000    0.000 selectors.py:343(PollSelector)
-        1    0.000    0.000    0.000    0.000 decoder.py:253(JSONDecoder)
-        1    0.000    0.000    0.000    0.000 _compression.py:9(BaseStream)
-        1    0.000    0.000    0.000    0.000 argparse.py:1151(FileType)
-        1    0.000    0.000    0.000    0.000 enum.py:40(_EnumDict)
-        2    0.000    0.000    0.000    0.000 argparse.py:596(<listcomp>)
-        1    0.000    0.000    0.000    0.000 threading.py:1156(Timer)
+        1    0.000    0.000    0.000    0.000 traceback.py:310(StackSummary)
         1    0.000    0.000    0.000    0.000 threading.py:367(Semaphore)
+        1    0.000    0.000    0.000    0.000 encoder.py:104(__init__)
+        1    0.000    0.000    0.000    0.000 __init__.py:225(Error)
+        1    0.000    0.000    0.000    0.000 __init__.py:1307(Popen)
+        1    0.000    0.000    0.000    0.000 decoder.py:253(JSONDecoder)
+        1    0.000    0.000    0.000    0.000 tokenize.py:98(TokenInfo)
         1    0.000    0.000    0.000    0.000 subprocess.py:319(CompletedProcess)
+        1    0.000    0.000    0.000    0.000 argparse.py:834(_StoreAction)
+        1    0.000    0.000    0.000    0.000 systemd_service_mon.py:339(ProcMon)
+        1    0.000    0.000    0.000    0.000 selectors.py:394(EpollSelector)
+        2    0.000    0.000    0.000    0.000 argparse.py:596(<listcomp>)
+        1    0.000    0.000    0.000    0.000 argparse.py:118(_AttributeHolder)
+        1    0.000    0.000    0.000    0.000 _compression.py:9(BaseStream)
+        1    0.000    0.000    0.000    0.000 selectors.py:205(_BaseSelectorImpl)
+        1    0.000    0.000    0.000    0.000 enum.py:40(_EnumDict)
+        2    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 tokenize.py:224(Untokenizer)
+        1    0.000    0.000    0.000    0.000 argparse.py:1205(Namespace)
+        2    0.000    0.000    0.000    0.000 {method 'end' of '_sre.SRE_Match' objects}
+        1    0.000    0.000    0.000    0.000 __future__.py:78(_Feature)
+        1    0.000    0.000    0.000    0.000 argparse.py:1151(FileType)
         1    0.000    0.000    0.000    0.000 threading.py:1205(_DummyThread)
         1    0.000    0.000    0.000    0.000 argparse.py:1532(_ArgumentGroup)
-        1    0.000    0.000    0.000    0.000 argparse.py:834(_StoreAction)
-        1    0.000    0.000    0.000    0.000 {method 'strip' of 'bytes' objects}
-        1    0.000    0.000    0.000    0.000 argparse.py:203(_Section)
-        1    0.000    0.000    0.000    0.000 __init__.py:241(NoSuchProcess)
-        1    0.000    0.000    0.000    0.000 argparse.py:1212(__init__)
-        1    0.000    0.000    0.000    0.000 argparse.py:1566(_MutuallyExclusiveGroup)
-        1    0.000    0.000    0.000    0.000 argparse.py:714(ArgumentError)
-        1    0.000    0.000    0.000    0.000 argparse.py:1727(<listcomp>)
-        1    0.000    0.000    0.000    0.000 shutil.py:61(SpecialFileError)
-        1    0.000    0.000    0.000    0.000 argparse.py:989(_CountAction)
-        1    0.000    0.000    0.000    0.000 argparse.py:909(_StoreFalseAction)
-        1    0.000    0.000    0.000    0.000 tokenize.py:221(StopTokenizing)
-        1    0.000    0.000    0.000    0.000 _pslinux.py:618(_Ipv6UnsupportedError)
+        1    0.000    0.000    0.000    0.000 datetime.py:935(tzinfo)
         1    0.000    0.000    0.000    0.000 threading.py:447(BoundedSemaphore)
-        1    0.000    0.000    0.000    0.000 argparse.py:869(_StoreConstAction)
-        1    0.000    0.000    0.000    0.000 argparse.py:1010(_HelpAction)
-        1    0.000    0.000    0.000    0.000 shutil.py:71(RegistryError)
-        1    0.000    0.000    0.000    0.000 __init__.py:283(AccessDenied)
-        1    0.000    0.000    0.000    0.000 threading.py:718(BrokenBarrierError)
-        1    0.000    0.000    0.000    0.000 decoder.py:20(JSONDecodeError)
-        1    0.000    0.000    0.000    0.000 shutil.py:68(ReadError)
-        1    0.000    0.000    0.000    0.000 _common.py:414(deprecated_method)
-        1    0.000    0.000    0.000    0.000 __init__.py:259(ZombieProcess)
-        1    0.000    0.000    0.000    0.000 argparse.py:963(_AppendConstAction)
-        1    0.000    0.000    0.000    0.000 argparse.py:118(_AttributeHolder)
-        1    0.000    0.000    0.000    0.000 argparse.py:642(RawDescriptionHelpFormatter)
+        1    0.000    0.000    0.000    0.000 selectors.py:59(_SelectorMapping)
+        1    0.000    0.000    0.000    0.000 argparse.py:1566(_MutuallyExclusiveGroup)
         1    0.000    0.000    0.000    0.000 argparse.py:892(_StoreTrueAction)
-        1    0.000    0.000    0.000    0.000 __init__.py:300(TimeoutExpired)
-        1    0.000    0.000    0.000    0.000 tokenize.py:219(TokenError)
+        1    0.000    0.000    0.000    0.000 decoder.py:20(JSONDecodeError)
         1    0.000    0.000    0.000    0.000 argparse.py:1029(_VersionAction)
-        1    0.000    0.000    0.000    0.000 threading.py:1186(_MainThread)
-        1    0.000    0.000    0.000    0.000 argparse.py:1205(Namespace)
-        1    0.000    0.000    0.000    0.000 __future__.py:78(_Feature)
-        1    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.lock' objects}
-        1    0.000    0.000    0.000    0.000 argparse.py:1057(_ChoicesPseudoAction)
-        1    0.000    0.000    0.000    0.000 _psposix.py:24(TimeoutExpired)
-        1    0.000    0.000    0.000    0.000 argparse.py:653(RawTextHelpFormatter)
-        1    0.000    0.000    0.000    0.000 {built-in method sys.getfilesystemencoding}
-        1    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
-        1    0.000    0.000    0.000    0.000 argparse.py:664(ArgumentDefaultsHelpFormatter)
+        1    0.000    0.000    0.000    0.000 argparse.py:743(Action)
+        1    0.000    0.000    0.000    0.000 argparse.py:203(_Section)
+        1    0.000    0.000    0.000    0.000 argparse.py:909(_StoreFalseAction)
         1    0.000    0.000    0.000    0.000 socket.py:120(_GiveupOnSendfile)
-        1    0.000    0.000    0.000    0.000 argparse.py:681(MetavarTypeHelpFormatter)
+        1    0.000    0.000    0.000    0.000 argparse.py:963(_AppendConstAction)
+        1    0.000    0.000    0.000    0.000 threading.py:1186(_MainThread)
+        1    0.000    0.000    0.000    0.000 __init__.py:241(NoSuchProcess)
+        1    0.000    0.000    0.000    0.000 argparse.py:1010(_HelpAction)
+        1    0.000    0.000    0.000    0.000 argparse.py:869(_StoreConstAction)
+        1    0.000    0.000    0.000    0.000 _common.py:414(deprecated_method)
+        1    0.000    0.000    0.000    0.000 __init__.py:283(AccessDenied)
+        1    0.000    0.000    0.000    0.000 selectors.py:343(PollSelector)
+        1    0.000    0.000    0.000    0.000 argparse.py:989(_CountAction)
+        1    0.000    0.000    0.000    0.000 argparse.py:1057(_ChoicesPseudoAction)
+        1    0.000    0.000    0.000    0.000 shutil.py:68(ReadError)
+        1    0.000    0.000    0.000    0.000 argparse.py:714(ArgumentError)
         1    0.000    0.000    0.000    0.000 {built-in method _thread._set_sentinel}
-        1    0.000    0.000    0.000    0.000 {method '__enter__' of '_thread.lock' objects}
-        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 argparse.py:926(_AppendAction)
+        1    0.000    0.000    0.000    0.000 argparse.py:1212(__init__)
+        1    0.000    0.000    0.000    0.000 __init__.py:300(TimeoutExpired)
         1    0.000    0.000    0.000    0.000 shutil.py:58(SameFileError)
+        1    0.000    0.000    0.000    0.000 threading.py:1156(Timer)
+        1    0.000    0.000    0.000    0.000 argparse.py:1727(<listcomp>)
+        1    0.000    0.000    0.000    0.000 tokenize.py:219(TokenError)
+        1    0.000    0.000    0.000    0.000 {method 'strip' of 'bytes' objects}
+        1    0.000    0.000    0.000    0.000 argparse.py:681(MetavarTypeHelpFormatter)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {method '__enter__' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 shutil.py:61(SpecialFileError)
+        1    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 __init__.py:259(ZombieProcess)
         1    0.000    0.000    0.000    0.000 subprocess.py:57(SubprocessError)
-        1    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
-        1    0.000    0.000    0.000    0.000 shutil.py:65(ExecError)
-        1    0.000    0.000    0.000    0.000 shutil.py:55(Error)
         1    0.000    0.000    0.000    0.000 argparse.py:734(ArgumentTypeError)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        1    0.000    0.000    0.000    0.000 _pslinux.py:618(_Ipv6UnsupportedError)
+        1    0.000    0.000    0.000    0.000 tokenize.py:221(StopTokenizing)
+        1    0.000    0.000    0.000    0.000 {built-in method sys.getfilesystemencoding}
+        1    0.000    0.000    0.000    0.000 shutil.py:71(RegistryError)
+        1    0.000    0.000    0.000    0.000 shutil.py:65(ExecError)
+        1    0.000    0.000    0.000    0.000 argparse.py:642(RawDescriptionHelpFormatter)
+        1    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 shutil.py:55(Error)
+        1    0.000    0.000    0.000    0.000 _psposix.py:24(TimeoutExpired)
+        1    0.000    0.000    0.000    0.000 threading.py:718(BrokenBarrierError)
+        1    0.000    0.000    0.000    0.000 argparse.py:653(RawTextHelpFormatter)
 
 
