@@ -233,6 +233,7 @@ def build_monjson(service_info, service, output):
         name="Service limit: Memory limit",
         type="int",
         value=service_info["memory_limit"],
+        units="B",
         descr="",
         timestamp=timestamp_v
     )
@@ -611,7 +612,7 @@ def main():
                     output["applications"][service]["items"][key]["triggers"] = value["triggers"]
 
 
-    #print(json.dumps(output))
+    print(json.dumps(output))
 
     if args.benchmark:
         print("Time ran: {}".format(datetime.datetime.now() - start_time), file=sys.stderr)

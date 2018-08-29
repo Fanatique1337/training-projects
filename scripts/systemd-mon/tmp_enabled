@@ -60,6 +60,7 @@ dm-event.socket                            enabled
 lvm2-lvmetad.socket                        enabled  
 lvm2-lvmpolld.socket                       enabled  
 pcscd.socket                               enabled  
+machines.target                            enabled  
 remote-fs.target                           enabled  
 anacron.timer                              enabled  
 apt-daily-upgrade.timer                    enabled  
