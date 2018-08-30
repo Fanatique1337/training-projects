@@ -194,14 +194,17 @@ def setup():
 
 def load_schema(schema):
 
+	config_dict = {}
+
 	config = configparser.ConfigParser()
 	config.optionxform = str
 	config.read(schema)
 	config = dict(config._sections)
-	config_unit = dict(config['Unit'])
-	config_service = dict(config['Service'])
-	config_install = dict(config['Install'])
+	config_dict["Unit"] = dict(config['Unit'])
+	config_dict["Service"] = dict(config['Service'])
+	config_dict["Install"] = dict(config['Install'])
 
+	print(config_dict)
 
 def main():
 
