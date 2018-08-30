@@ -17,7 +17,7 @@ import time
 
 # DEFINING CONSTANTS:
 
-VERSION = "0.1"
+VERSION = "0.1+debian-stretch"
 MAINTAINER_NICKNAME = "fanatique"
 MAINTAINER_EMAIL = "forcigner@gmail.com"
 TRACE = True
@@ -31,8 +31,11 @@ ARGPARSE_ERR = 6
 CONFIGURATION_ERR = 7
 GLOBAL_ERR = 8
 SCHEMA_ERR = 9
+SYSTEMD_ERR = 10
 
 # DEFAULTS:
+
+DEFAULT_EDITOR = "vim"
 
 DEFAULT_DESCRIPTION      = "Example"
 DEFAULT_AFTER            = "network.target"
@@ -150,7 +153,10 @@ def parse_arg():
 							default=SCHEMA)
 		parser.add_argument("--edit",
 							help="Directly edit a systemd unit file.",
-							type=bool,
+							action="store_true",
+							default=False)
+		parser.add_argument("--info",
+							help="Show information about the script.",
 							action="store_true",
 							default=False)
 		parser.add_argument("service_name",
@@ -163,9 +169,50 @@ def parse_arg():
 		print("Error: An error occured while parsing your arguments.", file=sys.stderr)
 		sys.exit(ARGPARSE_ERR)
 
+	return args
+
+def edit(service):
+	"""Open the service's systemd service unit configuration file for editing."""
+
+	file = subprocess.check_output("systemctl show {} -p FragmentPath".format(service), shell=True)
+	file = file.decode('utf-8').strip().split('=')[1]
+
+	with subprocess.Popen(["{} {}".format(DEFAULT_EDITOR, file)], shell=True) as command:
+		subprocess.Popen.wait(command)	
+
+def setup():
+	"""Check systemd version available on the host to confirm compability."""
+
+	try:
+		systemd_version = subprocess.check_output('systemd --version', shell=True)
+		systemd_version = int(systemd_version.strip().split()[1])
+	except subprocess.CalledProcessError:
+		print("Systemd isn't working on your system. Why even use this script?", file=sys.stderr)
+		sys.exit(SYSTEMD_ERR)
+
+	return systemd_version
+
+def load_schema(schema):
+
+	config = configparser.ConfigParser()
+	config.optionxform = str
+	config.read(schema)
+	config = dict(config._sections)
+	config_unit = dict(config['Unit'])
+	config_service = dict(config['Service'])
+	config_install = dict(config['Install'])
+
+
 def main():
-	print("Hello")
-	print_info()
+
+	systemd_version = setup()
+	args = parse_arg()
+	if args.info:
+		print_info()
+	if args.edit:
+		edit(args.service_name)
+
+	load_schema(SCHEMA)
 
 if __name__ == "__main__":
 	if TRACE:
