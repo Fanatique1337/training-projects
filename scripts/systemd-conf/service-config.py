@@ -56,11 +56,11 @@ DEFAULT_STANDARD_OUTPUT  = "journal"
 DEFAULT_STANDARD_ERROR   = "journal"
 DEFAULT_WANTED_BY        = "multi-user.target"
 
-# COLORS AND FORMATTING:
+# COLORS AND Formatting:
 
-class formatting:
+class Formatting:
 	"""
-	A class containing constants with most formatting/basic colors
+	A class containing constants with most Formatting/basic colors
 	for Unix-based terminals and vtys.
 	Does NOT work on Windows cmd, PowerShell, and their varieties!
 	"""
@@ -111,60 +111,59 @@ class formatting:
 
 # Code starts from here:
 
-def printf(text, f=formatting.RESET):
+def printf(text, f=Formatting.RESET, **kwargs):
 	"""
-	A print function with formatting.
+	A print function with Formatting.
 	Always prints on stdout.
 	"""
 
 	if f == 'bold':
-		f = formatting.BOLD
+		f = Formatting.BOLD
 	elif f == 'dim':
-		f = formatting.DIM
+		f = Formatting.DIM
 	elif f == 'italic':
-		f = formatting.ITALIC
+		f = Formatting.ITALIC
 	elif f == 'underline':
-		f = formatting.UNDERLINE
+		f = Formatting.UNDERLINE
 	elif f == 'blink':
-		f = formatting.BLINK
+		f = Formatting.BLINK
 	elif f == 'invert':
-		f = formatting.INVERT
+		f = Formatting.INVERT
 	elif f == 'hidden':
-		f = formatting.HIDDEN
+		f = Formatting.HIDDEN
 
-	print("{}{}".format(f, text), file=sys.stdout)
+	print("{}{}".format(f, text), file=sys.stdout, **kwargs)
 
 
 def print_info():
 	"""Print information about the script."""
 	printf("This is a helper script for configuring systemd services.", f="bold")
-	printf("{}Maintainer: {}{}".format(formatting.FG_GREEN, formatting.RESET, MAINTAINER_NICKNAME))
-	printf("{}Email: {}{}".format(formatting.FG_GREEN, formatting.RESET, MAINTAINER_EMAIL))
+	printf("{}Maintainer: {}{}".format(Formatting.FG_GREEN, Formatting.RESET, MAINTAINER_NICKNAME))
+	printf("{}Email: {}{}".format(Formatting.FG_GREEN, Formatting.RESET, MAINTAINER_EMAIL))
 
 def parse_arg():
 	"""Get user arguments and configure them."""
 
+	parser = argparse.ArgumentParser(description="Systemd services configuration script")
+	parser.add_argument("-s",
+						"--schema",
+						help="Choose a custom schema and load defaults from it.",
+						type=str,
+						default=SCHEMA)
+	parser.add_argument("--edit",
+						help="Directly edit a systemd unit file.",
+						action="store_true",
+						default=False)
+	parser.add_argument("--info",
+						help="Show information about the script.",
+						action="store_true",
+						default=False)
+	parser.add_argument("service_name",
+						help="The name of the service to configure/edit.",
+						type=str)
+
 	try:
-		parser = argparse.ArgumentParser(description="Systemd services configuration script")
-		parser.add_argument("-s",
-							"--schema",
-							help="Choose a custom schema and load defaults from it.",
-							type=str,
-							default=SCHEMA)
-		parser.add_argument("--edit",
-							help="Directly edit a systemd unit file.",
-							action="store_true",
-							default=False)
-		parser.add_argument("--info",
-							help="Show information about the script.",
-							action="store_true",
-							default=False)
-		parser.add_argument("service_name",
-							help="The name of the service to configure/edit.",
-							type=str)
-
 		args = parser.parse_args()
-
 	except argparse.ArgumentError:
 		print("Error: An error occured while parsing your arguments.", file=sys.stderr)
 		sys.exit(ARGPARSE_ERR)
@@ -199,23 +198,91 @@ def load_schema(schema):
 	config = configparser.ConfigParser()
 	config.optionxform = str
 	config.read(schema)
-	config = dict(config._sections)
-	config_dict["Unit"] = dict(config['Unit'])
-	config_dict["Service"] = dict(config['Service'])
-	config_dict["Install"] = dict(config['Install'])
 
-	print(config_dict)
+	return config
+
+def parse_config(cfg):
+
+	config = argparse.Namespace(**dict(cfg))
+	config.Unit = dict(config.Unit)
+	config.Service = dict(config.Service)
+	config.Install = dict(config.Install)
+
+	return config
+
+def write_config(cfg, destination):
+	config = configparser.ConfigParser()
+	config.optionxform = str
+	config['Unit'] = cfg.Unit
+	config['Service'] = cfg.Service
+	if cfg.Install:
+		config['Install'] = cfg.Install
+	with open(destination, 'w') as unitfile:
+		config.write(unitfile)
+
+def user_configuration(config):
+
+	user_config = config
+
+	printf("{}[Unit] section configuration:".format(Formatting.FG_YELLOW), f="bold")
+	for key in config.Unit:
+		printf("{}{}={}".format(Formatting.FG_GREEN, key, Formatting.RESET), f="bold", end="")
+		value = input()
+		user_config.Unit[key] = value
+
+	printf("{}[Service] section configuration:".format(Formatting.FG_BLUE), f="bold")
+	for key in config.Service:
+		printf("{}{}={}".format(Formatting.FG_GREEN, key, Formatting.RESET), f="bold", end="")
+		value = input()
+		user_config.Service[key] = value
+
+	printf("{}[Install] section configuration:".format(Formatting.FG_MAGENTA), f="bold")
+	for key in config.Install:
+		printf("{}{}={}".format(Formatting.FG_GREEN, key, Formatting.RESET), f="bold", end="")
+		value = input()
+		user_config.Install[key] = value
+
+	user_config.Unit = {k: v for k, v in user_config.Unit.items() if v}
+	user_config.Service = {k: v for k, v in user_config.Service.items() if v}
+	user_config.Install = {k: v for k, v in user_config.Install.items() if v}
+
+	return user_config
+
+def enable_service(service):
+	subprocess.call('systemctl daemon-reload', shell=True)
+	subprocess.call('systemctl enable {}'.format(service), shell=True)
+
+def start_service(service):
+	subprocess.call('systemctl daemon-reload', shell=True)
+	subprocess.call('systemctl start {}'.format(service), shell=True)
 
 def main():
 
 	systemd_version = setup()
 	args = parse_arg()
+
 	if args.info:
 		print_info()
 	if args.edit:
 		edit(args.service_name)
+		sys.exit()
 
-	load_schema(SCHEMA)
+	schema = load_schema(args.schema)
+	config = parse_config(schema)
+	user_config = user_configuration(config)
+
+	destination = os.path.join(OUTPUT_DIR, '{}.service'.format(args.service_name))
+	write_config(user_config, destination)
+
+	print("Do you want to enable the service? [y/N]: ")
+	enable = input()
+	if enable:
+		if enable.lower() == "y":
+			enable_service(args.service_name)
+	print("Do you want to start the service? [Y/n]: ")
+	start = input()
+	if not start or (start and start.lower() == "y"):
+		start_service(args.service_name)
 
 if __name__ == "__main__":
 	if TRACE:
