@@ -3,15 +3,10 @@ Description=
 After=
 
 [Service]
-Type=
-User=
-Group=
+Type=simple
 ExecStart=
+User=
 Restart=
-PIDFile=
-StandardOutput=
-StandardError=
 
 [Install]
 WantedBy=
-Alias=

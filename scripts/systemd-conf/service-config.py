@@ -15,13 +15,17 @@ import subprocess
 import sys
 import time
 
+from collections import OrderedDict
+
 # DEFINING CONSTANTS:
 
-VERSION = "0.1+debian-stretch"
+VERSION = "0.2"
 MAINTAINER_NICKNAME = "fanatique"
 MAINTAINER_EMAIL = "forcigner@gmail.com"
 TRACE = True
 SCHEMA = "schemas/service-config"
+SCHEMA_SHORT = "schemas/short_service-config"
+SCHEMA_EXTENDED = "schemas/extended_service-config"
 CONFIG = None
 OUTPUT_DIR = "/etc/systemd/system"
 
@@ -32,10 +36,13 @@ CONFIGURATION_ERR = 7
 GLOBAL_ERR = 8
 SCHEMA_ERR = 9
 SYSTEMD_ERR = 10
+UID_ERROR = 11
+FINISH_ERROR = 12
 
 # DEFAULTS:
 
 DEFAULT_EDITOR = "vim"
+DEFAULT_BUILD_SCHEMA = "schemas/default-schema"
 
 DEFAULT_DESCRIPTION      = "Example"
 DEFAULT_AFTER            = "network.target"
@@ -46,12 +53,12 @@ DEFAULT_EXEC_START       = "/bin/true"
 DEFAULT_EXEC_STOP        = "/bin/true"
 DEFAULT_KILL_MODE        = "control-group"
 DEFAULT_KILL_SIGNAL      = "SIGTERM"
-DEFAULT_PID_FILE         = None
+DEFAULT_PID_FILE         = "/run/service.pid"
 DEFAULT_RESTART          = "on-failure"
 DEFAULT_RESTART_SEC      = "2"
 DEFAULT_TIMEOUT_STOP_SEC = "5"
 DEFAULT_DYNAMIC_USER     = "no"
-DEFAULT_ENVIRONMENT_FILE = None
+DEFAULT_ENVIRONMENT_FILE = "/etc/service/env"
 DEFAULT_STANDARD_OUTPUT  = "journal"
 DEFAULT_STANDARD_ERROR   = "journal"
 DEFAULT_WANTED_BY        = "multi-user.target"
@@ -141,11 +148,14 @@ def print_info():
 	printf("{}Maintainer: {}{}".format(Formatting.FG_GREEN, Formatting.RESET, MAINTAINER_NICKNAME))
 	printf("{}Email: {}{}".format(Formatting.FG_GREEN, Formatting.RESET, MAINTAINER_EMAIL))
 
+	sys.exit(0)
+
 def parse_arg():
 	"""Get user arguments and configure them."""
 
 	parser = argparse.ArgumentParser(description="Systemd services configuration script")
-	parser.add_argument("-s",
+	schema = parser.add_mutually_exclusive_group()
+	parser.add_argument("-c",
 						"--schema",
 						help="Choose a custom schema and load defaults from it.",
 						type=str,
@@ -158,6 +168,26 @@ def parse_arg():
 						help="Show information about the script.",
 						action="store_true",
 						default=False)
+	parser.add_argument("-b",
+						"--build",
+						help="Builds a default schema in schemas/default-schema",
+						action="store_true",
+						default=False)
+	schema.add_argument("-s",
+						"--short",
+						help="Use a short configuration schema.",
+						action="store_true",
+						default=False)
+	schema.add_argument("-x",
+						"--extended",
+						help="Use a long configuration schema.",
+						action="store_true",
+						default=False)
+	parser.add_argument("-d",
+						"--directory",
+						help="Output directory for the service unit file.",
+						type=str,
+						default=OUTPUT_DIR)
 	parser.add_argument("service_name",
 						help="The name of the service to configure/edit.",
 						type=str)
@@ -170,16 +200,22 @@ def parse_arg():
 
 	return args
 
-def edit(service):
+def edit(service, manual=False, finish=True):
 	"""Open the service's systemd service unit configuration file for editing."""
 
-	file = subprocess.check_output("systemctl show {} -p FragmentPath".format(service), shell=True)
-	file = file.decode('utf-8').strip().split('=')[1]
+	if manual:
+		file = service
+	else:
+		file = subprocess.check_output("systemctl show {} -p FragmentPath".format(service), shell=True)
+		file = file.decode('utf-8').strip().split('=')[1]
 
 	with subprocess.Popen(["{} {}".format(DEFAULT_EDITOR, file)], shell=True) as command:
-		subprocess.Popen.wait(command)	
+		subprocess.Popen.wait(command)
 
-def setup():
+	if finish: 
+		finish(file, mode="edit")
+
+def setup(args):
 	"""Check systemd version available on the host to confirm compability."""
 
 	try:
@@ -189,7 +225,50 @@ def setup():
 		print("Systemd isn't working on your system. Why even use this script?", file=sys.stderr)
 		sys.exit(SYSTEMD_ERR)
 
+	if os.getuid() > 0 and not args.build and args.directory == OUTPUT_DIR:
+		printf("{}Insufficient permissions. You have to run the script as root (with sudo).".format(Formatting.FG_LIGHT_RED), f="bold")
+		sys.exit(UID_ERROR)
+
 	return systemd_version
+
+def build():
+	if os.path.exists(DEFAULT_BUILD_SCHEMA):
+		print("Error: {} already exists.".format(DEFAULT_BUILD_SCHEMA), file=sys.stderr)
+		sys.exit(SCHEMA_ERR)
+	else:
+		schema = configparser.ConfigParser()
+		schema.optionxform = str
+		schema['Unit'] = OrderedDict(
+			Description=DEFAULT_DESCRIPTION,
+			After=DEFAULT_AFTER
+		)
+
+		schema['Service'] = OrderedDict(
+			Type=DEFAULT_TYPE,
+			ExecStart=DEFAULT_EXEC_START,
+			ExecStop=DEFAULT_EXEC_STOP,
+			Restart=DEFAULT_RESTART,
+			RestartSec=DEFAULT_RESTART_SEC,
+			User=DEFAULT_USER,
+			Group=DEFAULT_GROUP,
+			PIDFile=DEFAULT_PID_FILE,
+			EnvironmentFile=DEFAULT_ENVIRONMENT_FILE,
+			KillMode=DEFAULT_KILL_MODE,
+			KillSignal=DEFAULT_KILL_SIGNAL,
+			TimeoutStopSec=DEFAULT_TIMEOUT_STOP_SEC,
+			StandardOutput=DEFAULT_STANDARD_OUTPUT,
+			StandardError=DEFAULT_STANDARD_ERROR,
+			DynamicUser=DEFAULT_DYNAMIC_USER
+		)
+
+		schema['Install'] = OrderedDict(
+			WantedBy=DEFAULT_WANTED_BY
+		)
+
+		with open(DEFAULT_BUILD_SCHEMA, 'w+') as schemafile:
+			schema.write(schemafile)
+
+		finish(DEFAULT_BUILD_SCHEMA, mode="build")
 
 def load_schema(schema):
 
@@ -256,33 +335,60 @@ def start_service(service):
 	subprocess.call('systemctl daemon-reload', shell=True)
 	subprocess.call('systemctl start {}'.format(service), shell=True)
 
+def finish(destination, mode="create"):
+	if os.path.exists(destination):
+		if mode == "create":
+			print("{}Service created successfully.".format(Formatting.FG_GREEN))
+		elif mode == "edit":
+			print("{}Service edited successfully.".format(Formatting.FG_YELLOW))
+		elif mode == "build":
+			print("{}Default schema built successfully.".format(Formatting.FG_BLUE))
+		sys.exit(0)
+	else:
+		print("The script failed to finish successfully.")
+		sys.exit(FINISH_ERROR)
+
+
 def main():
 
-	systemd_version = setup()
 	args = parse_arg()
+	systemd_version = setup(args)
 
 	if args.info:
 		print_info()
+	if args.build:
+		build()
 	if args.edit:
 		edit(args.service_name)
-		sys.exit()
+	if args.short:
+		args.schema = SCHEMA_SHORT
+		print("Using short schema configuration.")
+	if args.extended:
+		args.schema = SCHEMA_EXTENDED
+		print("Using extended schema configuration.")
 
 	schema = load_schema(args.schema)
 	config = parse_config(schema)
 	user_config = user_configuration(config)
 
-	destination = os.path.join(OUTPUT_DIR, '{}.service'.format(args.service_name))
+	destination = os.path.join(args.directory, '{}.service'.format(args.service_name))
 	write_config(user_config, destination)
 
-	print("Do you want to enable the service? [y/N]: ")
+	print("Do you want to manually edit the new configuration? [y/N]: ", end="")
+	manual = input()
+	if manual and manual.lower() == "y":
+		edit(destination, manual=True, finish=False)
+
+	print("Do you want to enable the service? [y/N]: ", end="")
 	enable = input()
-	if enable:
-		if enable.lower() == "y":
-			enable_service(args.service_name)
-	print("Do you want to start the service? [Y/n]: ")
+	if enable and enable.lower() == "y":
+		enable_service(args.service_name)
+	print("Do you want to start the service? [Y/n]: ", end="")
 	start = input()
 	if not start or (start and start.lower() == "y"):
 		start_service(args.service_name)
+
+	finish(destination)
 
 if __name__ == "__main__":
 	if TRACE:

@@ -1,0 +1,24 @@
+[Unit]
+Description = Example
+After = network.target
+
+[Service]
+KillSignal = SIGTERM
+EnvironmentFile = /etc/service/env
+StandardError = journal
+Group = root
+DynamicUser = no
+User = root
+PIDFile = /run/service.pid
+Restart = on-failure
+KillMode = control-group
+StandardOutput = journal
+ExecStop = /bin/true
+TimeoutStopSec = 5
+ExecStart = /bin/true
+RestartSec = 2
+Type = simple
+
+[Install]
+WantedBy = multi-user.target
+
