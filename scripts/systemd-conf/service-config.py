@@ -282,10 +282,10 @@ def load_schema(schema):
 
 def parse_config(cfg):
 
-	config = argparse.Namespace(**dict(cfg))
-	config.Unit = dict(config.Unit)
-	config.Service = dict(config.Service)
-	config.Install = dict(config.Install)
+	config = argparse.Namespace(**OrderedDict(cfg))
+	config.Unit = OrderedDict(config.Unit)
+	config.Service = OrderedDict(config.Service)
+	config.Install = OrderedDict(config.Install)
 
 	return config
 
