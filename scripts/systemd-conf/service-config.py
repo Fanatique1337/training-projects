@@ -5,6 +5,14 @@ NOTE:
 This script requires root privileges to run.
 """
 
+#TODOs:
+#HANDLE EOFError
+#HANDLE Keyboard interrupt
+#HANDLE output directory/service names
+#DELETE SERVICES
+#FIX ARGPARSE
+#IGNORE USELESS ARGUMENTS, PRINT WARNING
+
 # IMPORTS:
 
 import argparse
