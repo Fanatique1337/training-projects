@@ -117,7 +117,7 @@ class Formatting:
 
 # Code starts from here:
 
-def tty_supports_ansi():
+def tty_supports_ansi(): # TO DO - implement it so it disables formatting if not supported
 
 	for handle in [sys.stdout, sys.stderr]:
 		if ((hasattr(handle, "isatty") and handle.isatty()) or
@@ -163,6 +163,7 @@ def parse_arg():
 
 	parser = argparse.ArgumentParser(description="Systemd services configuration script")
 	schema = parser.add_mutually_exclusive_group()
+	build = parser.add_mutually_exclusive_group()
 	parser.add_argument("-c",
 						"--schema",
 						help="Choose a custom schema and load defaults from it.",
@@ -176,7 +177,7 @@ def parse_arg():
 						help="Show information about the script.",
 						action="store_true",
 						default=False)
-	parser.add_argument("-b",
+	build.add_argument("-b",
 						"--build",
 						help="Builds a default schema in schemas/default-schema",
 						action="store_true",
@@ -191,17 +192,22 @@ def parse_arg():
 						help="Use a long configuration schema.",
 						action="store_true",
 						default=False)
-	parser.add_argument("-d",
+	schema.add_argument("-d",
 						"--directory",
 						help="Output directory for the service unit file.",
 						type=str,
 						default=OUTPUT_DIR)
-	parser.add_argument("service_name",
+	build.add_argument("service_name",
 						help="The name of the service to configure/edit.",
-						type=str)
+						type=str,
+						nargs='?')
 
 	try:
 		args = parser.parse_args()
+		if not args.service_name and not args.build:
+			print("You need to supply a positional argument: service name.")
+			parser.print_usage()
+			sys.exit(ARGPARSE_ERR)
 	except argparse.ArgumentError:
 		print("Error: An error occured while parsing your arguments.", file=sys.stderr)
 		sys.exit(ARGPARSE_ERR)
@@ -237,8 +243,8 @@ def setup(args):
 		printf("{}Insufficient permissions. You have to run the script as root (with sudo).".format(Formatting.FG_LIGHT_RED), f="bold")
 		sys.exit(UID_ERROR)
 
-	if tty_supports_ansi():
-		print("supports ansi")
+	#if tty_supports_ansi():
+		#print("supports ansi") # TO DO
 
 	return systemd_version
 
@@ -392,14 +398,17 @@ def main():
 	if manual and manual.lower() == "y":
 		edit(destination, manual=True, finish=False)
 
-	print("Do you want to enable the service? [y/N]: ", end="")
-	enable = input()
-	if enable and enable.lower() == "y":
-		enable_service(args.service_name)
-	print("Do you want to start the service? [Y/n]: ", end="")
-	start = input()
-	if not start or (start and start.lower() == "y"):
-		start_service(args.service_name)
+	if os.getuid() == 0:
+		print("Do you want to enable the service? [y/N]: ", end="")
+		enable = input()
+		if enable and enable.lower() == "y":
+			enable_service(args.service_name)
+		print("Do you want to start the service? [Y/n]: ", end="")
+		start = input()
+		if not start or (start and start.lower() == "y"):
+			start_service(args.service_name)
+	elif os.getuid() > 0:
+		print("{}No permissions to enable/start service. Need to run with root privileges.".format(Formatting.FG_RED))
 
 	finish(destination)
 
