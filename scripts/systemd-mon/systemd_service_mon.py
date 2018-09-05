@@ -331,7 +331,7 @@ def setup():
         content = enabledf.readlines()
 
     for line in content:
-        line = line.strip().split()
+        line = line.strip().split() # no strip and split for \s TODO
         enabled_services.append(line[0])
 
     return exit_code, source, enabled_services
@@ -411,7 +411,7 @@ class ProcMon:
             
         return swap_usage
 
-    def get_io_usage(self, source):
+    def get_io_usage(self, source): # TODO - parse only once for all services we need
         """
         Get the total I/O usage of all processes, as well as the I/O usage
         for the specified process. I am aware that getting the total I/O usage
