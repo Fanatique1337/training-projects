@@ -6,10 +6,6 @@ This script requires root privileges to run.
 """
 
 #TODOs:
-#HANDLE EOFError
-#HANDLE Keyboard interrupt
-#HANDLE output directory/service names
-#DELETE SERVICES
 #FIX ARGPARSE
 #IGNORE USELESS ARGUMENTS, PRINT WARNING
 
@@ -39,6 +35,7 @@ OUTPUT_DIR          = "/etc/systemd/system"
 
 # ERRORS:
 
+USER_ABORT          = 5
 ARGPARSE_ERR        = 6
 CONFIGURATION_ERR   = 7
 GLOBAL_ERR          = 8
@@ -72,6 +69,15 @@ DEFAULT_STANDARD_ERROR   = "journal"
 DEFAULT_WANTED_BY        = "multi-user.target"
 
 # COLORS AND Formatting:
+
+def tty_supports_ansi(): # TODO - implement it so it disables formatting if not supported
+
+	for handle in [sys.stdout, sys.stderr]:
+		if ((hasattr(handle, "isatty") and handle.isatty()) or
+		    ('TERM' in os.environ and os.environ['TERM'] == "ANSI")):
+		    return True
+		else:
+			return False
 
 class Formatting:
 	"""
@@ -123,37 +129,29 @@ class Formatting:
 	BG_LIGHT_CYAN    = "\033[106m"
 	BG_WHITE         = "\033[107m"
 
+	def __init__(self):
+		self.is_supported = tty_supports_ansi()
+
+	def ansi(self, ansi_key):
+		if self.is_supported:
+			return getattr(self, ansi_key)
+		else:
+			return ""
+
+# The class handler variable
+
+FTY = Formatting()
+
 # Code starts from here:
 
-def tty_supports_ansi(): # TO DO - implement it so it disables formatting if not supported
 
-	for handle in [sys.stdout, sys.stderr]:
-		if ((hasattr(handle, "isatty") and handle.isatty()) or
-		    ('TERM' in os.environ and os.environ['TERM'] == "ANSI")):
-		    return True
-		else:
-			return False
-
-def printf(text, f=Formatting.RESET, **kwargs):
+def printf(text, f="RESET", **kwargs):
 	"""
-	A print function with Formatting.
+	A print function with formatting.
 	Always prints on stdout.
 	"""
 
-	if f == 'bold':
-		f = Formatting.BOLD
-	elif f == 'dim':
-		f = Formatting.DIM
-	elif f == 'italic':
-		f = Formatting.ITALIC
-	elif f == 'underline':
-		f = Formatting.UNDERLINE
-	elif f == 'blink':
-		f = Formatting.BLINK
-	elif f == 'invert':
-		f = Formatting.INVERT
-	elif f == 'hidden':
-		f = Formatting.HIDDEN
+	f = FTY.ansi(f.upper())
 
 	print("{}{}".format(f, text), file=sys.stdout, **kwargs)
 
@@ -161,8 +159,8 @@ def printf(text, f=Formatting.RESET, **kwargs):
 def print_info():
 	"""Print information about the script."""
 	printf("This is a helper script for configuring systemd services.", f="bold")
-	printf("{}Maintainer: {}{}".format(Formatting.FG_GREEN, Formatting.RESET, MAINTAINER_NICKNAME))
-	printf("{}Email: {}{}".format(Formatting.FG_GREEN, Formatting.RESET, MAINTAINER_EMAIL))
+	printf("{}Maintainer: {}{}".format(FTY.ansi("FG_GREEN"), FTY.ansi("RESET"), MAINTAINER_NICKNAME))
+	printf("{}Email: {}{}".format(FTY.ansi("FG_GREEN"), FTY.ansi("RESET"), MAINTAINER_EMAIL))
 
 	sys.exit(0)
 
@@ -205,6 +203,10 @@ def parse_arg():
 						help="Output directory for the service unit file.",
 						type=str,
 						default=OUTPUT_DIR)
+	parser.add_argument("--delete",
+						help="Delete the specified service's configuration file.",
+						action="store_true",
+						default=False)
 	build.add_argument("service_name",
 						help="The name of the service to configure/edit.",
 						type=str,
@@ -222,20 +224,43 @@ def parse_arg():
 
 	return args
 
+def get_fragment_path(service):
+
+	systemctl_out = subprocess.check_output("systemctl show {} -p FragmentPath".format(service), shell=True)
+	filename = systemctl_out.decode('utf-8').strip().split('=')[1]
+
+	return filename
+
 def edit(service, manual=False, finish=True):
 	"""Open the service's systemd service unit configuration file for editing."""
 
 	if manual:
 		file = service
 	else:
-		file = subprocess.check_output("systemctl show {} -p FragmentPath".format(service), shell=True)
-		file = file.decode('utf-8').strip().split('=')[1]
+		file = get_fragment_path(service)
 
 	with subprocess.Popen(["{} {}".format(DEFAULT_EDITOR, file)], shell=True) as command:
 		subprocess.Popen.wait(command)
 
 	if finish: 
 		finish(file, mode="edit")
+
+def delete(service):
+	
+	destination = get_fragment_path(service)
+
+	if destination.startswith("/lib/systemd/system"):
+		print("This is not an user-configured service, do you want to delete it anyway? [y/N]: ")
+		force_delete = input()
+		if not (force_delete and (force_delete.lower() == 'y' or force_delete.lower() == 'yes')):
+			print("Aborting...")
+			sys.exit(0)
+	else:
+		print("Deleting service...")
+		sysctl_service(service, "stop")
+		sysctl_service(service, "disable")
+		os.remove(destination)
+		print("Deleted service.")
 
 def setup(args):
 	"""Check systemd version available on the host to confirm compability."""
@@ -248,11 +273,11 @@ def setup(args):
 		sys.exit(SYSTEMD_ERR)
 
 	if os.getuid() > 0 and not args.build and args.directory == OUTPUT_DIR:
-		printf("{}Insufficient permissions. You have to run the script as root (with sudo).".format(Formatting.FG_LIGHT_RED), f="bold")
+		printf("{}Insufficient permissions. You have to run the script as root (with sudo).".format(FTY.ansi("FG_LIGHT_RED")), f="bold")
 		sys.exit(UID_ERROR)
 
 	#if tty_supports_ansi():
-		#print("supports ansi") # TO DO
+		#print("supports ansi") # TODO
 
 	return systemd_version
 
@@ -329,23 +354,23 @@ def user_configuration(config):
 
 	user_config = config
 
-	printf("{}[Unit] section configuration:".format(Formatting.FG_YELLOW), f="bold")
+	printf("{}[Unit] section configuration:".format(FTY.ansi("FG_YELLOW")), f="bold")
 	for key in config.Unit:
-		printf("{}{}={}".format(Formatting.FG_GREEN, key, Formatting.RESET), f="bold", end="")
+		printf("{}{}={}".format(FTY.ansi("FG_GREEN"), key, FTY.ansi("RESET")), f="bold", end="")
 		value = input()
 		user_config.Unit[key] = value
 
 	print()
-	printf("{}[Service] section configuration:".format(Formatting.FG_BLUE), f="bold")
+	printf("{}[Service] section configuration:".format(FTY.ansi("FG_BLUE")), f="bold")
 	for key in config.Service:
-		printf("{}{}={}".format(Formatting.FG_GREEN, key, Formatting.RESET), f="bold", end="")
+		printf("{}{}={}".format(FTY.ansi("FG_GREEN"), key, FTY.ansi("RESET")), f="bold", end="")
 		value = input()
 		user_config.Service[key] = value
 
 	print()
-	printf("{}[Install] section configuration:".format(Formatting.FG_MAGENTA), f="bold")
+	printf("{}[Install] section configuration:".format(FTY.ansi("FG_MAGENTA")), f="bold")
 	for key in config.Install:
-		printf("{}{}={}".format(Formatting.FG_GREEN, key, Formatting.RESET), f="bold", end="")
+		printf("{}{}={}".format(FTY.ansi("FG_GREEN"), key, FTY.ansi("RESET")), f="bold", end="")
 		value = input()
 		user_config.Install[key] = value
 
@@ -355,22 +380,20 @@ def user_configuration(config):
 
 	return user_config
 
-def enable_service(service):
+def service_reload():
 	subprocess.call('systemctl daemon-reload', shell=True)
-	subprocess.call('systemctl enable {}'.format(service), shell=True)
 
-def start_service(service):
-	subprocess.call('systemctl daemon-reload', shell=True)
-	subprocess.call('systemctl start {}'.format(service), shell=True)
+def sysctl_service(service, action):
+	subprocess.call('systemctl {} {}'.format(action, service), shell=True)
 
 def finish(destination, mode="create"):
 	if os.path.exists(destination):
 		if mode == "create":
-			print("{}Service created successfully.".format(Formatting.FG_GREEN))
+			print("{}Service created successfully.".format(FTY.ansi("FG_GREEN")))
 		elif mode == "edit":
-			print("{}Service edited successfully.".format(Formatting.FG_YELLOW))
+			print("{}Service edited successfully.".format(FTY.ansi("FG_YELLOW")))
 		elif mode == "build":
-			print("{}Default schema built successfully.".format(Formatting.FG_BLUE))
+			print("{}Default schema built successfully.".format(FTY.ansi("FG_BLUE")))
 		sys.exit(0)
 	else:
 		print("The script failed to finish successfully.")
@@ -381,8 +404,15 @@ def main():
 	args = parse_arg()
 	systemd_version = setup(args)
 
+	if '\x00' in args.service_name or '/' in args.service_name:
+		print("Service name contains symbols that are not allowed.")
+		sys.exit(ARGPARSE_ERR)
+	if args.delete:
+		delete(args.service_name)
+		sys.exit(0)
 	if args.info:
 		print_info()
+		sys.exit(0)
 	if args.build:
 		build()
 	if args.edit:
@@ -394,9 +424,15 @@ def main():
 		args.schema = SCHEMA_EXTENDED
 		print("Using extended schema configuration.")
 
+
 	schema = load_schema(args.schema)
 	config = parse_config(schema)
-	user_config = user_configuration(config)
+
+	try:
+		user_config = user_configuration(config)
+	except (EOFError, KeyboardInterrupt):
+		print("\nAborting.")
+		sys.exit(USER_ABORT)
 
 	destination = os.path.join(args.directory, '{}.service'.format(args.service_name))
 	write_config(user_config, destination)
@@ -404,19 +440,32 @@ def main():
 	print("Do you want to manually edit the new configuration? [y/N]: ", end="")
 	manual = input()
 	if manual and manual.lower() == "y":
+		print("Opening editor...")
 		edit(destination, manual=True, finish=False)
+	else:
+		print("The configuration file won't be edited.")
 
 	if os.getuid() == 0:
 		print("Do you want to enable the service? [y/N]: ", end="")
 		enable = input()
 		if enable and enable.lower() == "y":
-			enable_service(args.service_name)
+			print("Enabling service...")
+			service_reload()
+			sysctl_service(args.service_name, "enable")
+			print("Service enabled.")
+		else:
+			print("Service won't be enabled.")
 		print("Do you want to start the service? [Y/n]: ", end="")
 		start = input()
 		if not start or (start and start.lower() == "y"):
-			start_service(args.service_name)
+			print("Starting service...")
+			service_reload()
+			sysctl_service(args.service_name, "start")
+			print("Service started.")
+		else:
+			print("Service won't be started.")
 	elif os.getuid() > 0:
-		print("{}No permissions to enable/start service. Need to run with root privileges.".format(Formatting.FG_RED))
+		print("{}No permissions to enable/start service. Need to run with root privileges.".format(FTY.ansi("FG_RED")))
 
 	finish(destination)
 
