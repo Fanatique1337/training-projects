@@ -23,14 +23,14 @@ from collections import OrderedDict
 
 # DEFINING CONSTANTS:
 
-VERSION             = "0.2"
+VERSION             = "0.3"
 MAINTAINER_NICKNAME = "fanatique"
 MAINTAINER_EMAIL    = "forcigner@gmail.com"
 TRACE               = True
 SCHEMA              = "schemas/service-config"
 SCHEMA_SHORT        = "schemas/short_service-config"
 SCHEMA_EXTENDED     = "schemas/extended_service-config"
-CONFIG              = None
+CONFIG              = None # for future uses
 OUTPUT_DIR          = "/etc/systemd/system"
 
 # ERRORS:
@@ -70,7 +70,7 @@ DEFAULT_WANTED_BY        = "multi-user.target"
 
 # COLORS AND Formatting:
 
-def tty_supports_ansi(): # TODO - implement it so it disables formatting if not supported
+def tty_supports_ansi():
 
 	for handle in [sys.stdout, sys.stderr]:
 		if ((hasattr(handle, "isatty") and handle.isatty()) or
@@ -276,9 +276,6 @@ def setup(args):
 		printf("{}Insufficient permissions. You have to run the script as root (with sudo).".format(FTY.ansi("FG_LIGHT_RED")), f="bold")
 		sys.exit(UID_ERROR)
 
-	#if tty_supports_ansi():
-		#print("supports ansi") # TODO
-
 	return systemd_version
 
 def build():
@@ -423,7 +420,6 @@ def main():
 	if args.extended:
 		args.schema = SCHEMA_EXTENDED
 		print("Using extended schema configuration.")
-
 
 	schema = load_schema(args.schema)
 	config = parse_config(schema)
