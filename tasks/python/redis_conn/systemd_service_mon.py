@@ -375,10 +375,10 @@ class ProcMon:
                 self.memory_swap_p += self._get_swap(child.pid, 'percent')
                 self.memory_rss_b  += self.meminfo_c.rss
                 self.memory_swap_b += self._get_swap(child.pid, 'bytes')
-        self.cpu_usage = self.process.cpu_percent(interval=0.1)
+        self.cpu_usage = self.process.cpu_percent(interval=0.03)
         self.memory_rss_p = self.process.memory_percent(memtype="rss")
         for child in self.childs:
-        	self.cpu_usage += child.cpu_percent(interval=0.1)
+        	self.cpu_usage += child.cpu_percent(interval=0.03)
         	self.memory_rss_p += child.memory_percent(memtype="rss")
 
     def _get_swap(self, pid, r_type):
