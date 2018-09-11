@@ -257,7 +257,7 @@ def check_parser_opts(args):
 
     if args.build:
         for arg in all_args:
-            if arg is not 'build':
+            if arg is not 'build' and arg is not 'directory' and arg is not 'schema':
                 value = getattr(args, arg)
             else:
                 value = None
@@ -265,9 +265,19 @@ def check_parser_opts(args):
                 print("The argument -b/--build cannot be used with {}.".format(arg))
                 error = True
 
+    if args.info:
+        for arg in all_args:
+            if arg is not 'info' and arg is not 'directory' and arg is not 'schema':
+                value = getattr(args, arg)
+            else:
+                value = None
+            if value:
+                print("The argument --info cannot be used with {}.".format(arg))
+                error = True
+                
 
     if error:
-        print("Wrong argument usage, aborting.")
+        printf("{}Error:{} wrong argument usage, aborting.".format(FTY.ansi("FG_RED"), FTY.ansi("RESET")), f="bold")
         sys.exit(ARGPARSE_ERR)
 
 def get_fragment_path(service):
