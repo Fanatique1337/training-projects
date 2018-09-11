@@ -223,24 +223,6 @@ def parse_arg():
     return args
 
 def check_parser_opts(args):
-    no_pos = [
-        'build',
-        'service_name',
-        'info'
-    ]
-
-    schema = [
-        'short',
-        'extended'
-    ]
-
-    parser = [
-        'delete',
-        'directory',
-        'edit',
-        'schema'
-    ]
-
     all_args = [
         'build',
         'service_name',
@@ -274,7 +256,26 @@ def check_parser_opts(args):
             if value:
                 print("The argument --info cannot be used with {}.".format(arg))
                 error = True
-                
+
+    if args.delete:
+        for arg in all_args:
+            if arg is not 'delete' and arg is not 'directory' and arg is not 'schema' and arg is not 'service_name':
+                value = getattr(args, arg)
+            else:
+                value = None
+            if value:
+                print("The argument --delete cannot be used with {}.".format(arg))
+                error = True
+
+    if args.edit:
+        for arg in all_args:
+            if arg is not 'edit' and arg is not 'directory' and arg is not 'schema' and arg is not 'service_name':
+                value = getattr(args, arg)
+            else:
+                value = None
+            if value:
+                print("The argument --edit cannot be used with {}.".format(arg))
+                error = True
 
     if error:
         printf("{}Error:{} wrong argument usage, aborting.".format(FTY.ansi("FG_RED"), FTY.ansi("RESET")), f="bold")
