@@ -41,9 +41,9 @@ from collections import OrderedDict
 
 # DEFINING CONSTANTS:
 
-VERSION             = "0.3"
-MAINTAINER_NICK     = "fanatique"
-MAINTAINER_EMAIL    = "forcigner@gmail.com"
+VERSION             = "0.4"
+MAINTAINER_NICK     = "..."
+MAINTAINER_EMAIL    = "...@gmail.com"
 TRACE               = True
 SCHEMA              = "schemas/service-config"
 SCHEMA_SHORT        = "schemas/short_service-config"
@@ -339,6 +339,7 @@ def get_fragment_path(service):
     Returns the path of the systemd service's unit configuration file.
     """
 
+    # Extremely ugly (imo) multiline statement
     sysctl_out = subprocess.check_output("systemctl show {} -p FragmentPath".format(service), 
         shell=True)
     filename = sysctl_out.decode('utf-8').strip().split('=')[1]
@@ -405,6 +406,7 @@ def setup(args):
         sys.exit(SYSTEMD_ERR)
 
     if os.getuid() > 0 and not args.build and args.directory == OUTPUT_DIR:
+        # Extremely ugly (imo) multiline statement
         printf("{}Insufficient permissions. "
                "You have to run the script as root (with sudo).".format(
                 FTY.ansi("FG_LIGHT_RED")), f="bold", file=sys.stderr)
@@ -654,6 +656,7 @@ def main():
             print("Service won't be started.")
 
     elif os.getuid() > 0:
+        # Extremely ugly (imo) multiline statement
         print("{}No permissions to enable/start service. "
               "Need to run with root privileges.".format(FTY.ansi("FG_RED")))
 
