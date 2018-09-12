@@ -32,7 +32,7 @@ while True:
 		print("Reached 1s delay, stopping.")
 		break
 	else:
-		pubstring = pubstring * 2
+		pubstring = pubstring * 2 # move out of the cycle - TODO
 
 # Test block ending here #
 
