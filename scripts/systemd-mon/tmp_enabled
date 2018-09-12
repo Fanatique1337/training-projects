@@ -5,9 +5,11 @@ apparmor.service                           enabled
 atd.service                                enabled  
 atop.service                               enabled  
 atopacct.service                           enabled  
+auditd.service                             enabled  
 autovt@.service                            enabled  
 avahi-daemon.service                       enabled  
 bluetooth.service                          enabled  
+collectd.service                           enabled  
 console-setup.service                      enabled  
 cron.service                               enabled  
 cups-browsed.service                       enabled  
@@ -52,7 +54,6 @@ syslog.service                             enabled
 systemd-timesyncd.service                  enabled  
 unattended-upgrades.service                enabled  
 zabbix-agent.service                       enabled  
-fanatique.slice                            enabled  
 limiter.slice                              enabled  
 avahi-daemon.socket                        enabled  
 cups.socket                                enabled  

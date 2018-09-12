@@ -334,7 +334,27 @@ def setup():
         line = line.strip().split() # no strip and split for \s TODO
         enabled_services.append(line[0])
 
-    return exit_code, source, enabled_services
+    proc_usage_write = {}
+    proc_usage_read = {}
+    totals = {'read': 0,
+              'write': 0
+    }
+    for proc_line in source:
+        if proc_line.startswith('PRD'):
+            proc_line = proc_line.strip().split(' ')
+            totals['read'] += int(proc_line[PRD_READ])
+            totals['write'] += int(proc_line[PRD_WRITE])
+            proc_name = proc_line[7][1:-1]
+            if proc_name not in proc_usage_read:
+                proc_usage_read[proc_name] = 0
+            else:
+                proc_usage_read[proc_name] += int(proc_line[PRD_READ])
+            if proc_name not in proc_usage_write:
+                proc_usage_write[proc_name] = 0
+            else:
+                proc_usage_write[proc_name] += int(proc_line[PRD_WRITE])
+
+    return exit_code, source, enabled_services, proc_usage_read, proc_usage_write, totals
 
 class ProcMon:
     """
@@ -411,7 +431,7 @@ class ProcMon:
             
         return swap_usage
 
-    def get_io_usage(self, source): # TODO - parse only once for all services we need
+    def get_io_usage(self, proc_usage_read, proc_usage_write, totals): # TODO - parse only once for all services we need
         """
         Get the total I/O usage of all processes, as well as the I/O usage
         for the specified process. I am aware that getting the total I/O usage
@@ -431,23 +451,11 @@ class ProcMon:
         count to those of the process as well.
         """
 
-        proc_reads = 0
-        proc_writes = 0
+        total_reads = totals['read']
+        total_writes = totals['write']
 
-        total_reads = 0
-        total_writes = 0
-
-        for line in source: 
-            is_current = False
-            if line.startswith('PRD'):
-                if '({})'.format(self.name) in line:
-                    is_current = True
-                line = line.strip().split(' ')
-                total_reads += int(line[PRD_READ])
-                total_writes += int(line[PRD_WRITE])
-                if is_current:
-                    proc_reads += int(line[PRD_READ])
-                    proc_writes += int(line[PRD_WRITE])
+        proc_reads = proc_usage_read[self.name]
+        proc_writes = proc_usage_write[self.name]
 
         if total_reads > 0:
             io_read  = (proc_reads / total_reads) * 100
@@ -544,7 +552,7 @@ def main():
     # Get arguments for minimal mode and for the configuration file.
     args = parse_arg() 
     services, conf_dict = load_services(args.config) # Get the services into the list by using the cfg file.
-    setup_code, parse_source, enabled_services = setup()
+    setup_code, parse_source, enabled_services, proc_usage_read, proc_usage_write, totals = setup()
 
     output = {
         "update_interval" : "{}".format(ZBX_INTERVAL),
@@ -576,7 +584,7 @@ def main():
             service_info[service]["cpu_shares"]    = cpu_shares
             service_info[service]["io_weight"]     = io_weight
             if setup_code == 0:
-                io_usage                                  = proc.get_io_usage(parse_source)
+                io_usage                                  = proc.get_io_usage(proc_usage_read, proc_usage_write, totals)
                 service_info[service]["io_read_usage"]    = io_usage[0]
                 service_info[service]["io_write_usage"]   = io_usage[1]
                 service_info[service]["read_count"]       = io_usage[2]
