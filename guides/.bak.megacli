@@ -1,0 +1,93 @@
+======================================================================
+=======================   COMMAND  REFERENCE   =======================
+======================================================================
+
+#1; Shows the Backup Battery Unit status, firmware, and other information:
+
+megacli -adpbbucmd -a0
+
+#2; Show information about all physical disks connected to the raid controller:
+
+megacli -pdlist -aall
+
+#3; Show rebuild status of a single physical drive.
+
+megacli -pdrbld -showprog -physdrv[<enclosure device id>:<slot number>] -aall
+
+#4; Disable/enable a physical drive.
+
+megacli -pdoffline -physdrv[<device id>:<slot number>] -aall
+megacli -pdonline -physdrv[<device id>:<slot number>] -aall
+
+#5; Set patrol read options.
+
+megacli -adppr -dsbl|enblauto|enblman|start|stop|info -aall
+
+#6; Patrol read info
+
+megacli -adppr -info -aall
+
+#7; Enable automatic patrol read.
+
+megacli -adppr -enblauto -aall
+
+#8; Set patrol read maximum resource usage.
+
+megacli -adpsetprop PatrolReadRate <percent> -aall
+
+#9; Correct media error during patrol read
+
+megacli -adpsetprop -prcorrectuncfgdAreas -1 -aall
+
+#10; Start a manual patrol read.
+
+megacli -adppr -start -aall
+
+#11; Stop a patrol read.
+
+megacli -adppr -stop -aall
+
+#12; Set Patrol read delay interval
+
+megacli -adpprsetdelay <hours> -aall
+
+#13; Show information about patrol read state
+
+megacli -adppr -info -aall
+
+#14; Disable automatic patrol read
+
+megacli -adppr -dsbl -aall
+
+#15; Find current patrol read rate
+
+megacli -adpgetprop PatrolReadRate -aall
+
+======================================================================
+=======================      PATROL  READ      =======================
+======================================================================
+
+Patrol read периодично проверява дисковете за лоши сектори, проблеми и т.н.,
+за да може да алармира и "спаси" данните от failure преди такъв да се е получил физически.
+
+Patrol read стартира само когато контролера е idle за определен период от време, но може
+да продължи и по време на heavy I/O.
+
+Patrol read е адаптивен процес, т.е., когато има друго I/O се намаля priority-то на patrol
+read-a.
+
+ref: http://fibrevillage.com/storage/176-megaraid-patrol-read-detail
+
+# COMMANDS:
+
+[5]: Set Patrol read options
+[6]: Patrol read info
+[7]: Enable automatic patrol read
+[8]: Set patrol read maximum resource usage
+[9]: Correct media error during patrol read
+[10]: Start a manual patrol read
+[11]: Stop a patrol read
+[12]: Set Patrol read delay interval
+[13]: Show information about the patrol read state
+[14]: Disable automatic patrol read
+[15]: Find current patrol read rate
