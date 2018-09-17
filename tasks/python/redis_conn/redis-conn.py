@@ -23,7 +23,7 @@ def timefunc(pubstring):
     connection.publish('benchmark_channel', pubstring)
 
 startstring = 'a'
-pubstring = 'a'
+pubstring = startstring * 32
 while True:
     result = timeit("timefunc('{}')".format(pubstring), setup="from __main__ import timefunc", number=1)
     redis_server = monitor.ProcMon(redis_pid)
@@ -31,8 +31,12 @@ while True:
     memory_vms = redis_server.memory_vms_b
     memory_rss = redis_server.memory_rss_b
     memory_swap = redis_server.memory_swap_b
-    print("String size: {:<10} [|] Time taken: {:<22} [|] CPU usage: {:<4} [|] RAM usage: {:<4}".format(len(pubstring), result, redis_server.cpu_usage, redis_server.memory_rss_b))
+    print("String size: {:<10} [|] Time taken: {:<22} [|] CPU usage: {:<4} [|] RAM usage (RSS): {:<10} [|] RAM usage (VMS): {:<10} [|] Swap usage: {:<10}".format(len(pubstring), result, redis_server.cpu_usage, memory_rss, memory_vms, memory_swap))
     results.append(result)
+    if result > 1:
+        print("Reached 1s, aborting.")
+        break
+    pubstring = pubstring * 2
 
 # Test block ending here #
 
