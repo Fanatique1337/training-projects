@@ -1,0 +1,59 @@
+String size: 1          [|] Time taken: 0.0005312690045684576  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 2          [|] Time taken: 0.0002573590027168393  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 4          [|] Time taken: 0.0002161540323868394  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 8          [|] Time taken: 0.0002014869824051857  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 16         [|] Time taken: 0.00026350398547947407 [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 32         [|] Time taken: 0.0003025450278073549  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 64         [|] Time taken: 0.0003034530091099441  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 128        [|] Time taken: 0.00029709702357649803 [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 256        [|] Time taken: 0.00031057599699124694 [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 512        [|] Time taken: 0.00030827196314930916 [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 1024       [|] Time taken: 0.0002937450190074742  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 2048       [|] Time taken: 0.00029856397304683924 [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 4096       [|] Time taken: 0.00032866501715034246 [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 8192       [|] Time taken: 0.0002817329950630665  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 16384      [|] Time taken: 0.0003812540089711547  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 32768      [|] Time taken: 0.0004890160053037107  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2719744   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 65536      [|] Time taken: 0.0007189280004240572  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2752512   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 131072     [|] Time taken: 0.0012613720027729869  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2834432   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 262144     [|] Time taken: 0.0012146490043960512  [|] CPU usage: 0.0 [|] RAM usage (RSS): 2965504   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 524288     [|] Time taken: 0.001809751964174211   [|] CPU usage: 0.0 [|] RAM usage (RSS): 3227648   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 1048576    [|] Time taken: 0.0038714140537194908  [|] CPU usage: 0.0 [|] RAM usage (RSS): 3751936   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 2097152    [|] Time taken: 0.006471540022175759   [|] CPU usage: 0.0 [|] RAM usage (RSS): 4800512   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 4194304    [|] Time taken: 0.012467122985981405   [|] CPU usage: 0.0 [|] RAM usage (RSS): 6918144   [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 8388608    [|] Time taken: 0.024894297996070236   [|] CPU usage: 0.0 [|] RAM usage (RSS): 11112448  [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 16777216   [|] Time taken: 0.10898227000143379    [|] CPU usage: 0.0 [|] RAM usage (RSS): 19480576  [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 33554432   [|] Time taken: 0.12600656202994287    [|] CPU usage: 0.0 [|] RAM usage (RSS): 36278272  [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 67108864   [|] Time taken: 0.9457207770319656     [|] CPU usage: 0.0 [|] RAM usage (RSS): 69832704  [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+String size: 134217728  [|] Time taken: 0.4883307759882882     [|] CPU usage: 0.0 [|] RAM usage (RSS): 136941568 [|] RAM usage (VMS): 1090416640 [|] Swap usage: 516  [|] Shared: 2101248
+Timeit result (total): 1.7268141541280784
+Timeit result (average): 0.0616719340760028
+All results:
+0.0005312690045684576
+0.0002573590027168393
+0.0002161540323868394
+0.0002014869824051857
+0.00026350398547947407
+0.0003025450278073549
+0.0003034530091099441
+0.00029709702357649803
+0.00031057599699124694
+0.00030827196314930916
+0.0002937450190074742
+0.00029856397304683924
+0.00032866501715034246
+0.0002817329950630665
+0.0003812540089711547
+0.0004890160053037107
+0.0007189280004240572
+0.0012613720027729869
+0.0012146490043960512
+0.001809751964174211
+0.0038714140537194908
+0.006471540022175759
+0.012467122985981405
+0.024894297996070236
+0.10898227000143379
+0.12600656202994287
+0.9457207770319656
+0.4883307759882882
