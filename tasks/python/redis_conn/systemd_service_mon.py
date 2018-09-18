@@ -369,12 +369,14 @@ class ProcMon:
             self.memory_swap_p   = self._get_swap(self.pid, 'percent')
             self.memory_rss_b    = self.meminfo.rss
             self.memory_swap_b   = self._get_swap(self.pid, 'bytes')
+            self.memory_shared   = self.meminfo.shared
             for child in self.childs: # Get total CPU/Memory usage for the process' children.
                 self.meminfo_c      = self.process.memory_info()
                 self.memory_vms_b  += self.meminfo_c.vms
                 self.memory_swap_p += self._get_swap(child.pid, 'percent')
                 self.memory_rss_b  += self.meminfo_c.rss
                 self.memory_swap_b += self._get_swap(child.pid, 'bytes')
+                self.memory_shared += self.meminfo_c.shared
         self.cpu_usage = self.process.cpu_percent(interval=0.03)
         self.memory_rss_p = self.process.memory_percent(memtype="rss")
         for child in self.childs:
