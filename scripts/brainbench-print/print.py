@@ -9,11 +9,11 @@ Default file used is 'links.txt', can
 be changed with the -f/--file argument.
 """
 
-#TODO: wkhtmltopdf, pdfkit, cups
-
 import argparse
+import importlib
 import os
 import sys
+import subprocess
 
 import cups
 import pdfkit
@@ -21,15 +21,16 @@ import pdfkit
 # # CONSTANTS # #
 
 # Error codes:
-ARGPARSE_ERROR = 5
-FILE_ERROR     = 6
-DOWNLOAD_ERROR = 7
-IP_ERROR       = 8
-CUPS_ERROR     = 9
-GLOBAL_ERROR   = 10
+DEPENDANCY_ERROR = 4
+ARGPARSE_ERROR   = 5
+FILE_ERROR       = 6
+DOWNLOAD_ERROR   = 7
+IP_ERROR         = 8
+CUPS_ERROR       = 9
+GLOBAL_ERROR     = 10
 
 # Maintainer constants:
-DEBUG = True
+DEBUG = False
 
 # Program constants:
 DEFAULT_SOURCE = "links.txt"
@@ -69,9 +70,42 @@ def get_args():
                         help="Specify the name of the printer to print to.",
                         type=str,
                         default=None)
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    return args
+def setup():
+    """
+    Check whether all dependancies are installed.
+    This includes wkhtmltopdf linux utility, cups utility,
+    and pdfkit module.
+    To install wkhtmltopdf on Debian-based distros:
+    sudo apt install wkhtmltopdf
+    To install cups on Debian-based distros:
+    sudo apt install cups
+    To install pdfkit module:
+    sudo apt install python3-pdfkit
+    or if it isn't in the repos:
+    sudo apt install python3-pip
+    sudo pip3 install pdfkit
+    """
+    missing = 0
+
+    if subprocess.call('wkhtmltopdf > /dev/null 2>&1', shell=True) == 127:
+        print("Missing dependancy: wkhtmltopdf is not installed.")
+        missing += 1
+
+    if subprocess.call('cupsctl > /dev/null', shell=True) == 127:
+        print("Missing dependancy: cupsctl is not installed.")
+        missing += 1
+
+    if importlib.util.find_spec("pdfkit") is None:
+        print("Missing dependancy: pdfkit python module is not installed.")
+        missing += 1
+
+    if missing > 0:
+        print("{} missing dependancies found. Aborting.", file=sys.stderr)
+        sys.exit(DEPENDANCY_ERROR)
+    else:
+        print("All dependancies found.")
 
 def get_urls(source):
     """
@@ -97,7 +131,9 @@ def download(links):
             output = '{}.pdf'.format(url.strip().split('=')[1])
         else:
             output = '{}.pdf'.format(url.strip().split('/')[-1])
-        print("Downloading {}...".format(output))
+        count = links.index(url) + 1
+        total = len(links)
+        print("Downloading {} [{}/{}]...".format(output, count, total))
         pdfkit.from_url(url, output, options=PDF_OPTIONS)
         print("Downloaded {}".format(output))
         downloaded.append(output)
@@ -117,44 +153,55 @@ def send_print(pdfs, printer):
     if printer:
         printers = connection.getPrinters()
         if printer not in printers:
-            print("The printer {} cannot be found.")
+            print("The printer {} cannot be found.", file=sys.stderr)
             print("List of available printers: {}".format(printers))
-            sys.exit(1)
+            sys.exit(CUPS_ERROR)
     elif not printer:
         printer = connection.getDefault()
 
     if printer:
         print("Sending files to printer...")
-        jid = connection.printFiles(printer, pdfs, 'Tests', PRINT_OPTIONS)
+        jid = connection.printFiles(printer, pdfs, "Tests", PRINT_OPTIONS)
         print("Job sent successfuly.")
-        print("Job ID/Priority: {}/{}".format(jid, PRINT_OPTIONS["job-priority"]))
+        print("Job ID: {}".format(jid))
+        print("Job Priority: {}".format(PRINT_OPTIONS["job-priority"]))
     else:
-        print("CUPS cannot find a default printer.")
+        print("CUPS cannot find a default printer.", file=sys.stderr)
         sys.exit(CUPS_ERROR)
 
 def main():
+    """
+    Handle errors and logic sequence.
+    """
+
+    setup()
+
     try:
         args = get_args()
-    except argparse.ArgumentError:
+    except argparse.ArgumentError as argerror:
         print("There was an error while handling your arguments.")
+        print(argerror)
         sys.exit(ARGPARSE_ERROR)
 
     try:
         links = get_urls(args.file)
-    except OSError:
+    except OSError as urlerror:
         print("No permissions or {} does not exist".format(args.file))
+        print(urlerror)
         sys.exit(FILE_ERROR)
 
     try:
         pdfs = download(links)
-    except OSError:
+    except OSError as downerror:
         print("A supplied URL is most likely wrong.")
+        print(downerror)
         sys.exit(DOWNLOAD_ERROR)
 
     try:
         send_print(pdfs, args.printer)
-    except cups.IPPError:
+    except cups.IPPError as cupserror:
         print("There was a problem with the networking socket.")
+        print(cupserror)
         sys.exit(IP_ERROR)
 
 if DEBUG:

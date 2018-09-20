@@ -1,0 +1,8 @@
+ A system-wide memory space overhead for the VMkernel and various host agents (hostd, vpxa, etc.).
+ESXi allows the use of a system swap file to reduce this memory overhead by up to 1GB when the host is
+under memory pressure. To use this feature, a system swap file must first be manually created. This can
+be accomplished by issuing the following command from the ESXi console:
+
+esxcli sched swap system set -d true -n <datastore name>
+
+

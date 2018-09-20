@@ -181,7 +181,7 @@ def printf(text, f="RESET", **kwargs):
 
     f = FTY.ansi(f.upper())
 
-    print("{}{}".format(f, text), file=sys.stdout, **kwargs)
+    print("{}{}".format(f, text), **kwargs)
 
 
 def print_info():
