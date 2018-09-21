@@ -529,10 +529,10 @@ def user_configuration(config):
         user_config.Install[key] = value
 
     # Clear the dictionaries from any empty keys.
-    user_config.Unit = {k: v for k, v in user_config.Unit.items() if v}
+    user_config.Unit    = {k: v for k, v in user_config.Unit.items() if v}
     user_config.Service = {k: v for k, v in user_config.Service.items() if v}
     user_config.Install = {k: v for k, v in user_config.Install.items() if v}
-
+    
     return user_config
 
 def service_reload():

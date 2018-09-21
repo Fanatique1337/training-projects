@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 :
 
 # Exit codes:
 # 6 :   Argparse Error. Probably wrong argument or misspell.
@@ -14,6 +15,14 @@ import sys
 import time
 
 import psutil
+
+"""
+NEXT VERSION TODO:
+atop в 12 часа смяна на файла
+process name от atop
+Цялата информация да се взима от atop
+systemctl навсякъде където мога
+"""
 
 # atop PRD constants
 
@@ -317,7 +326,7 @@ def setup():
     time_begin = '{}:{}'.format(time_delta.hour, time_delta.minute)
     time_end = '{}:{}'.format(time_now.hour, time_now.minute) 
 
-    exit_code = subprocess.call("atop -P PRD -b {} -e {} -r > {}".format(time_begin, time_end, ATOP_LOGFILE), shell=True)
+    exit_code = subprocess.call("/usr/bin/atop -P PRD -b {} -e {} -r > {}".format(time_begin, time_end, ATOP_LOGFILE), shell=True)
     if exit_code == 127:
         print("The atop tool most probably is not installed or cannot be found.", file=sys.stderr)
         sys.exit(CALL_ERR)
