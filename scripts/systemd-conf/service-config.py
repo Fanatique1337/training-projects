@@ -44,7 +44,7 @@ from collections import OrderedDict
 VERSION             = "0.4"
 MAINTAINER_NICK     = "..."
 MAINTAINER_EMAIL    = "...@gmail.com"
-TRACE               = True
+TRACE               = False
 SCHEMA              = "schemas/service-config"
 SCHEMA_SHORT        = "schemas/short_service-config"
 SCHEMA_EXTENDED     = "schemas/extended_service-config"
@@ -532,7 +532,7 @@ def user_configuration(config):
     user_config.Unit    = {k: v for k, v in user_config.Unit.items() if v}
     user_config.Service = {k: v for k, v in user_config.Service.items() if v}
     user_config.Install = {k: v for k, v in user_config.Install.items() if v}
-    
+
     return user_config
 
 def service_reload():
