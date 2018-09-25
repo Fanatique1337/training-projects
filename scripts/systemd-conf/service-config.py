@@ -20,6 +20,7 @@ sudo ./service-config.py --edit some_service_name
 3. Add a configuration file for the script for 
    some of the default values and options. (?)
 4. Allow the user to choose an editor.
+5. Check whether systemd version supports everything needed.
 
 NOTES:
 1. This script requires root privileges for most use-cases.

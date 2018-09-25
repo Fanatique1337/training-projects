@@ -20,7 +20,7 @@ import pdfkit
 
 # # CONSTANTS # #
 
-# Error codes:
+# Exit codes:
 DEPENDANCY_ERROR = 4
 ARGPARSE_ERROR   = 5
 FILE_ERROR       = 6
@@ -72,7 +72,7 @@ def get_args():
                         default=None)
     return parser.parse_args()
 
-def setup():
+def check_dependancies():
     """
     Check whether all dependancies are installed.
     This includes wkhtmltopdf linux utility, cups utility,
@@ -112,10 +112,8 @@ def get_urls(source):
     Opens the specified file and saves all the lines to a list.
     """
 
-    with open(source, 'r') as file:
-        links = file.readlines()
-
-    return links
+    with open(source, 'r', encoding="utf-8") as file:
+        return file.readlines()
 
 def download(links):
     """
@@ -126,14 +124,9 @@ def download(links):
 
     downloaded = []
 
-    for url in links:
-        if '=' in url:
-            output = '{}.pdf'.format(url.strip().split('=')[1])
-        else:
-            output = '{}.pdf'.format(url.strip().split('/')[-1])
-        count = links.index(url) + 1
-        total = len(links)
-        print("Downloading {} [{}/{}]...".format(output, count, total))
+    for count, url in enumerate(links):
+        output = '{}.pdf'.format(url.strip().split('=')[1])
+        print("Downloading {} [{}/{}]...".format(output, count+1, len(links)))
         pdfkit.from_url(url, output, options=PDF_OPTIONS)
         print("Downloaded {}".format(output))
         downloaded.append(output)
@@ -174,7 +167,7 @@ def main():
     Handle errors and logic sequence.
     """
 
-    setup()
+    check_dependancies()
 
     try:
         args = get_args()
@@ -204,12 +197,13 @@ def main():
         print(cupserror)
         sys.exit(IP_ERROR)
 
-if DEBUG:
-    main()
-else:
-    try:
+if __name__ == "__main__":
+    if DEBUG:
         main()
-    except Exception as error:
-        print("A global exception has been caught.")
-        print(error)
-        sys.exit(GLOBAL_ERROR)
+    else:
+        try:
+            main()
+        except Exception as error:
+            print("A global exception has been caught.")
+            print(error)
+            sys.exit(GLOBAL_ERROR)
