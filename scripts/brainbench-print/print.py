@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 """
-A simple printing utility.
-Supply it with a file 'links.txt'
-containing an URL of the document
-you want to print on each new line.
+A simple printing utility for brainbench tests.
+Supply it with a file 'links.txt' containing an 
+URL of the document you want to print on each new line.
 Default file used is 'links.txt', can
 be changed with the -f/--file argument.
 """
@@ -40,7 +39,7 @@ PDF_OPTIONS = {
     "grayscale": None,
     "page-size": "A4",
     "no-background": None,
-    "enable-javascript": None
+    "disable-javascript": None
 }
 
 PRINT_OPTIONS = {
@@ -56,10 +55,12 @@ def get_args():
     -f/--file is to specify an input file containing all the URLs.
     -p/--printer is to specify the name of the printer to send the
     documents to (as defined by CUPS).
+    If no printer is specified by using -p/--printer, the default
+    CUPS printer is used. Sends CUPS printing options specified
+    in the PRINT_OPTIONS dictionary.
     """
 
-    parser = argparse.ArgumentParser(description="Printing utility",
-                                     epilog="Needs 'links.txt' to work.")
+    parser = argparse.ArgumentParser(description="Printing utility")
     parser.add_argument("-f",
                         "--file",
                         help="Specify the file to read the URLs from.",
@@ -86,6 +87,9 @@ def check_dependancies():
     or if it isn't in the repos:
     sudo apt install python3-pip
     sudo pip3 install pdfkit
+
+    If there are missing dependancies, the function
+    will raise an OSError which will be caught in main().
     """
     missing = 0
 
@@ -93,7 +97,7 @@ def check_dependancies():
         print("Missing dependancy: wkhtmltopdf is not installed.")
         missing += 1
 
-    if subprocess.call('cupsctl > /dev/null', shell=True) == 127:
+    if subprocess.call('cupsctl > /dev/null 2>&1', shell=True) == 127:
         print("Missing dependancy: cupsctl is not installed.")
         missing += 1
 
@@ -103,7 +107,7 @@ def check_dependancies():
 
     if missing > 0:
         print("{} missing dependancies found. Aborting.", file=sys.stderr)
-        sys.exit(DEPENDANCY_ERROR)
+        raise OSError("Dependancies missing.")
     else:
         print("All dependancies found.")
 
@@ -120,12 +124,21 @@ def download(links):
     Downloads all documents from the specified URL
     and saves them as PDFs. Processes them by using
     PDF_OPTIONS.
+    Now splits the link by using the query parameters
+    and parses all of them, to make sure that the script
+    won't break if brainbench added more query parameters.
     """
 
     downloaded = []
+    params = {}
 
     for count, url in enumerate(links):
-        output = '{}.pdf'.format(url.strip().split('=')[1])
+        queries = url.strip().split('?')[1:]
+        for query in queries:
+            query = query.split('=')
+            params[query[0]] = query[1]
+
+        output = '{}.pdf'.format(params["testid"])
         print("Downloading {} [{}/{}]...".format(output, count+1, len(links)))
         pdfkit.from_url(url, output, options=PDF_OPTIONS)
         print("Downloaded {}".format(output))
@@ -136,11 +149,10 @@ def download(links):
 def send_print(pdfs, printer):
     """
     Sends all the documents to the CUPS Printer to print them.
-    If no printer is specified by using -p/--printer, the default
-    CUPS printer is used. Sends CUPS printing options specified
-    in the PRINT_OPTIONS dictionary.
     Raises CUPSError if no printer can be found.
     """
+
+    #TODO: Error handling with assert, user/system error
 
     connection = cups.Connection()
     if printer:
@@ -166,35 +178,42 @@ def main():
     """
     Handle errors and logic sequence.
     """
-
-    check_dependancies()
+    try:
+        check_dependancies()
+    except OSError as dependancy_error:
+        print(dependancy_error)
+        sys.exit(DEPENDANCY_ERROR)
 
     try:
         args = get_args()
-    except argparse.ArgumentError as argerror:
+    except argparse.ArgumentError as argument_error:
         print("There was an error while handling your arguments.")
-        print(argerror)
+        print(argument_error)
         sys.exit(ARGPARSE_ERROR)
 
     try:
         links = get_urls(args.file)
-    except OSError as urlerror:
-        print("No permissions or {} does not exist".format(args.file))
-        print(urlerror)
+    except PermissionError as permission_error:
+        print("No permissions to open {}.".format(args.file))
+        print(permission_error)
+        sys.exit(FILE_ERROR)
+    except FileNotFoundError as not_found_error:
+        print("File {} cannot be found.".format(args.file))
+        print(not_found_error)
         sys.exit(FILE_ERROR)
 
     try:
         pdfs = download(links)
-    except OSError as downerror:
+    except OSError as wrong_url_error:
         print("A supplied URL is most likely wrong.")
-        print(downerror)
+        print(wrong_url_error)
         sys.exit(DOWNLOAD_ERROR)
 
     try:
         send_print(pdfs, args.printer)
-    except cups.IPPError as cupserror:
+    except cups.IPPError as cups_ip_error:
         print("There was a problem with the networking socket.")
-        print(cupserror)
+        print(cups_ip_error)
         sys.exit(IP_ERROR)
 
 if __name__ == "__main__":
