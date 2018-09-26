@@ -6,6 +6,8 @@ Supply it with a file 'links.txt' containing an
 URL of the document you want to print on each new line.
 Default file used is 'links.txt', can
 be changed with the -f/--file argument.
+
+VERSION: 1.3
 """
 
 import argparse
