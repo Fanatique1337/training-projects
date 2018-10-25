@@ -1,148 +1,72 @@
-2018-10-23 18:50:20 INF connection secret: fe7013b38a245aca1eb350a481a316da34c18927
-2018-10-23 18:50:20 INF listen on 31031
-2018-10-23 18:50:20 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '-H', '10.20.1.65', '-u', 'root', '-p', '********', '"[datastore1]', '/backup"', '--consolidate']
-2018-10-23 18:50:20 INF start backup "[datastore1] to /backup"
-2018-10-23 18:50:21 ERR backup error: unknown VM: "[datastore1]
-2018-10-23 18:51:52 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'vm2-deb8-restored', '[datastore1] /backup', '--consolidate']
-2018-10-23 18:51:52 INF start backup vm2-deb8-restored to [datastore1] /backup
-2018-10-23 18:51:55 INF consolidate 1 snapshots
-2018-10-23 18:51:55 INF delete snapshots: /vm_vmid-8-snap
-2018-10-23 18:52:06 INF snapshot consolidation finished
-2018-10-23 18:52:06 INF vmx: /vmfs/volumes/datastore2/vm2-deb8-restored/vm2-deb8.vmx
-2018-10-23 18:52:07 INF vm pre-backup status is POWERED ON
-2018-10-23 18:52:07 INF backup using vmkfstools
-2018-10-23 18:52:07 INF temporary destination: /vmfs/volumes/datastore1/backup/vm2-deb8-restored-20181023185152.new
-2018-10-23 18:52:07 INF create snapshot: bazaar_vm2-deb8-restored_20181023185152
-2018-10-23 18:52:15 INF copy vmx: vm2-deb8.vmx
-2018-10-23 18:52:15 INF copy vmdk: /sbin/vmkfstools -i "/vmfs/volumes/datastore2/vm2-deb8-restored/vm2-deb8.vmdk"  "/vmfs/volumes/datastore1/backup/vm2-deb8-restored-20181023185152.new/vm2-deb8.vmdk"
-2018-10-23 18:52:15 INF # /sbin/vmkfstools -i "/vmfs/volumes/datastore2/vm2-deb8-restored/vm2-deb8.vmdk"  "/vmfs/volumes/datastore1/backup/vm2-deb8-restored-20181023185152.new/vm2-deb8.vmdk"
-2018-10-23 18:52:16 INF > Destination disk format: VMFS zeroedthick
-2018-10-23 18:52:16 INF > Cloning disk '/vmfs/volumes/datastore2/vm2-deb8-restored/vm2-deb8.vmdk'...
-2018-10-23 18:52:16 INF > 
-2018-10-23 18:52:17 INF > Clone: 6% done.
-2018-10-23 18:52:22 INF > Clone: 9% done.
-2018-10-23 18:52:30 INF > Clone: 10% done.
-2018-10-23 18:52:33 INF > Clone: 11% done.
-2018-10-23 18:52:33 INF > Clone: 12% done.
-2018-10-23 18:52:33 INF > Clone: 13% done.
-2018-10-23 18:52:34 INF > Clone: 14% done.
-2018-10-23 18:52:34 INF > Clone: 15% done.
-2018-10-23 18:52:34 INF > Clone: 16% done.
-2018-10-23 18:52:34 INF > Clone: 17% done.
-2018-10-23 18:52:34 INF > Clone: 18% done.
-2018-10-23 18:52:34 INF > Clone: 19% done.
-2018-10-23 18:52:34 INF > Clone: 20% done.
-2018-10-23 18:52:41 INF > Clone: 21% done.
-2018-10-23 18:52:50 INF > Clone: 22% done.
-2018-10-23 18:52:50 INF > Clone: 23% done.
-2018-10-23 18:52:50 INF > Clone: 24% done.
-2018-10-23 18:52:50 INF > Clone: 25% done.
-2018-10-23 18:52:50 INF > Clone: 26% done.
-2018-10-23 18:52:50 INF > Clone: 27% done.
-2018-10-23 18:52:50 INF > Clone: 28% done.
-2018-10-23 18:52:50 INF > Clone: 29% done.
-2018-10-23 18:52:50 INF > Clone: 30% done.
-2018-10-23 18:52:50 INF > Clone: 31% done.
-2018-10-23 18:52:54 INF > Clone: 32% done.
-2018-10-23 18:53:00 INF > Clone: 33% done.
-2018-10-23 18:53:00 INF > Clone: 34% done.
-2018-10-23 18:53:00 INF > Clone: 35% done.
-2018-10-23 18:53:00 INF > Clone: 36% done.
-2018-10-23 18:53:00 INF > Clone: 37% done.
-2018-10-23 18:53:00 INF > Clone: 38% done.
-2018-10-23 18:53:00 INF > Clone: 39% done.
-2018-10-23 18:53:00 INF > Clone: 40% done.
-2018-10-23 18:53:00 INF > Clone: 41% done.
-2018-10-23 18:53:00 INF > Clone: 42% done.
-2018-10-23 18:53:04 INF > Clone: 43% done.
-2018-10-23 18:53:18 INF > Clone: 44% done.
-2018-10-23 18:53:22 INF > Clone: 45% done.
-2018-10-23 18:53:22 INF > Clone: 46% done.
-2018-10-23 18:53:22 INF > Clone: 47% done.
-2018-10-23 18:53:22 INF > Clone: 48% done.
-2018-10-23 18:53:22 INF > Clone: 49% done.
-2018-10-23 18:53:22 INF > Clone: 50% done.
-2018-10-23 18:53:22 INF > Clone: 51% done.
-2018-10-23 18:53:22 INF > Clone: 52% done.
-2018-10-23 18:53:22 INF > Clone: 53% done.
-2018-10-23 18:53:25 INF > Clone: 54% done.
-2018-10-23 18:53:27 INF > Clone: 55% done.
-2018-10-23 18:53:28 INF > Clone: 56% done.
-2018-10-23 18:53:28 INF > Clone: 57% done.
-2018-10-23 18:53:28 INF > Clone: 58% done.
-2018-10-23 18:53:28 INF > Clone: 59% done.
-2018-10-23 18:53:28 INF > Clone: 60% done.
-2018-10-23 18:53:28 INF > Clone: 61% done.
-2018-10-23 18:53:28 INF > Clone: 62% done.
-2018-10-23 18:53:28 INF > Clone: 63% done.
-2018-10-23 18:53:28 INF > Clone: 64% done.
-2018-10-23 18:53:28 INF > Clone: 65% done.
-2018-10-23 18:53:32 INF > Clone: 66% done.
-2018-10-23 18:53:32 INF > Clone: 67% done.
-2018-10-23 18:53:32 INF > Clone: 68% done.
-2018-10-23 18:53:32 INF > Clone: 69% done.
-2018-10-23 18:53:32 INF > Clone: 70% done.
-2018-10-23 18:53:32 INF > Clone: 71% done.
-2018-10-23 18:53:32 INF > Clone: 72% done.
-2018-10-23 18:53:32 INF > Clone: 73% done.
-2018-10-23 18:53:32 INF > Clone: 74% done.
-2018-10-23 18:53:32 INF > Clone: 75% done.
-2018-10-23 18:53:32 INF > Clone: 76% done.
-2018-10-23 18:53:36 INF > Clone: 77% done.
-2018-10-23 18:53:53 INF > Clone: 78% done.
-2018-10-23 18:54:13 INF > Clone: 79% done.
-2018-10-23 18:54:30 INF > Clone: 80% done.
-2018-10-23 18:54:49 INF > Clone: 81% done.
-2018-10-23 18:55:05 INF > Clone: 82% done.
-2018-10-23 18:55:21 INF > Clone: 83% done.
-2018-10-23 18:55:37 INF > Clone: 84% done.
-2018-10-23 18:55:50 INF > Clone: 85% done.
-2018-10-23 18:55:50 INF > Clone: 86% done.
-2018-10-23 18:55:50 INF > Clone: 87% done.
-2018-10-23 18:55:53 INF > Clone: 88% done.
-2018-10-23 18:55:54 INF > Clone: 89% done.
-2018-10-23 18:55:54 INF > Clone: 90% done.
-2018-10-23 18:55:54 INF > Clone: 91% done.
-2018-10-23 18:55:54 INF > Clone: 92% done.
-2018-10-23 18:55:54 INF > Clone: 93% done.
-2018-10-23 18:55:54 INF > Clone: 94% done.
-2018-10-23 18:55:55 INF > Clone: 95% done.
-2018-10-23 18:56:13 INF > Clone: 96% done.
-2018-10-23 18:56:33 INF > Clone: 97% done.
-2018-10-23 18:56:54 INF > Clone: 98% done.
-2018-10-23 18:57:11 INF > Clone: 99% done.
-2018-10-23 18:57:11 INF > Clone: 100% done.
-2018-10-23 18:57:11 INF > exit_code=0
-2018-10-23 18:57:13 INF remove snapshot: bazaar_vm2-deb8-restored_20181023185152
-2018-10-23 18:57:19 INF backup finished
-2018-10-23 18:57:19 INF renaming destination to /vmfs/volumes/datastore1/backup/vm2-deb8-restored-20181023185152
-2018-10-23 18:57:19 INF backup success
-2018-10-23 18:57:24 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '[datastore1] /backup', '--consolidate']
-2018-10-23 18:57:24 INF start backup debian-test-2 to [datastore1] /backup
-2018-10-23 18:57:26 INF consolidate 1 snapshots
-2018-10-23 18:57:26 INF delete snapshots: /bazaar_debian-test-2_20181019174329
-2018-10-23 18:57:33 INF snapshot consolidation finished
-2018-10-23 18:57:33 INF vmx: /vmfs/volumes/datastore2/debian-test-2/debian-test-2.vmx
-2018-10-23 18:57:33 INF vm pre-backup status is POWERED OFF
-2018-10-23 18:57:34 INF backup using vmkfstools
-2018-10-23 18:57:34 INF temporary destination: /vmfs/volumes/datastore1/backup/debian-test-2-20181023185724.new
-2018-10-23 18:57:34 INF create snapshot: bazaar_debian-test-2_20181023185724
-2018-10-23 18:57:37 INF copy vmx: debian-test-2.vmx
-2018-10-23 18:57:38 INF copy vmdk: /sbin/vmkfstools -i "/vmfs/volumes/datastore2/debian-test-2/debian-test-20.vmdk"  "/vmfs/volumes/datastore1/backup/debian-test-2-20181023185724.new/debian-test-20.vmdk"
-2018-10-23 18:57:38 INF # /sbin/vmkfstools -i "/vmfs/volumes/datastore2/debian-test-2/debian-test-20.vmdk"  "/vmfs/volumes/datastore1/backup/debian-test-2-20181023185724.new/debian-test-20.vmdk"
-2018-10-23 18:57:39 INF > Destination disk format: VMFS zeroedthick
-2018-10-23 18:57:39 INF > Cloning disk '/vmfs/volumes/datastore2/debian-test-2/debian-test-20.vmdk'...
-2018-10-23 18:57:39 INF > 
-2018-10-23 18:57:39 INF > Clone: 8% done.
-2018-10-23 18:57:43 INF > Clone: 9% done.
-2018-10-23 18:57:47 INF > Clone: 10% done.
-2018-10-23 18:58:01 INF > Clone: 11% done.
-2018-10-23 18:58:15 INF > Clone: 12% done.
-2018-10-23 18:58:32 INF > Clone: 13% done.
-2018-10-23 18:58:57 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'vm2-deb8-restored', '[datastore1] /backup', '--consolidate']
-2018-10-23 18:58:57 INF start backup vm2-deb8-restored to [datastore1] /backup
-2018-10-23 18:58:59 INF vmx: /vmfs/volumes/datastore2/vm2-deb8-restored/vm2-deb8.vmx
-2018-10-23 18:58:59 INF vm pre-backup status is POWERED ON
-2018-10-23 18:59:00 INF backup using vmkfstools
-2018-10-23 18:59:00 INF temporary destination: /vmfs/volumes/datastore1/backup/vm2-deb8-restored-20181023185857.new
-2018-10-23 18:59:00 INF create snapshot: bazaar_vm2-deb8-restored_20181023185857
+2018-10-25 17:17:24 INF connection secret: 1c72239739a4f357fefe7933a266654120a7ad63
+2018-10-25 17:17:24 INF listen on 31031
+2018-10-25 17:17:24 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '"[datastore1] /backup"', '--consolidate']
+2018-10-25 17:17:24 INF start backup debian-test-2 to "[datastore1] /backup"
+2018-10-25 17:18:12 INF connection secret: 1deb51c989dcc050b0c70c4cf15b7f64a18a9f0b
+2018-10-25 17:18:12 INF listen on 31031
+2018-10-25 17:18:12 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '"[datastore1] /backup"', '--consolidate']
+2018-10-25 17:18:12 INF start backup debian-test-2 to "[datastore1] /backup"
+2018-10-25 17:19:19 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '--consolidate', '-H', '10.20.1.65', '-p', '********', 'vm2-deb8-restored', '[datastore1] /backup']
+2018-10-25 17:19:19 INF start backup vm2-deb8-restored to [datastore1] /backup
+2018-10-25 17:20:13 INF connection secret: af7b4da7323860bb1b32de5f1614705f7e880905
+2018-10-25 17:20:13 INF listen on 31031
+2018-10-25 17:20:13 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '--consolidate', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '"[datastore1] /backup"']
+2018-10-25 17:20:13 INF start backup debian-test-2 to "[datastore1] /backup"
+2018-10-25 17:20:15 INF consolidate 1 snapshots
+2018-10-25 17:20:50 INF connection secret: bc64398ba95308a4ea58f44e9ca44867e8416e58
+2018-10-25 17:20:50 INF listen on 31031
+2018-10-25 17:20:50 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '--consolidate', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '"[datastore1] /backup"']
+2018-10-25 17:20:50 INF start backup debian-test-2 to "[datastore1] /backup"
+2018-10-25 17:20:52 INF consolidate 1 snapshots
+2018-10-25 17:20:53 INF delete snapshots: /bazaar_debian-test-2_20181025170448
+2018-10-25 17:20:59 INF snapshot consolidation finished
+2018-10-25 17:20:59 INF vmx: /vmfs/volumes/datastore2/debian-test-2/debian-test-2.vmx
+2018-10-25 17:21:00 INF vm pre-backup status is POWERED OFF
+2018-10-25 17:21:00 INF backup using download agent
+2018-10-25 17:21:00 INF temporary destination: "[datastore1] /backup"/debian-test-2-20181025172050.new
+2018-10-25 17:21:00 INF create snapshot: bazaar_debian-test-2_20181025172050
+2018-10-25 17:21:03 INF write vmx: debian-test-2.vmx
+2018-10-25 17:21:03 INF Upload agent as 336eab1dda2b8ccb2e0947910c1098441e283d98.pyc
+2018-10-25 17:21:03 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:03 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:03 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:04 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:04 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:04 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:04 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:04 WAR cannot open a fast data channel on 10.20.1.37:31031, fallback to ssh tunnel
+2018-10-25 17:21:04 INF write descriptor: debian-test-20.vmdk
+2018-10-25 17:21:04 INF download extend: /vmfs/volumes/datastore2/debian-test-2/debian-test-20-flat.vmdk
+2018-10-25 17:21:04 INF download 12884901888 bytes from /vmfs/volumes/datastore2/debian-test-2/debian-test-20-flat.vmdk
+2018-10-25 17:21:04 ERR Agent[1] "open" replied: 
+2018-10-25 17:21:04 ERR Agent[0] "open" replied: 
+2018-10-25 17:21:04 ERR Agent[2] "open" replied: 
+2018-10-25 17:21:04 ERR Agent[3] "open" replied: 
+2018-10-25 17:21:04 ERR Agent[6] "open" replied: 
+2018-10-25 17:21:04 ERR Agent[5] "open" replied: 
+2018-10-25 17:21:04 ERR Agent[4] "open" replied: 
+2018-10-25 17:21:04 ERR Agent[7] "open" replied: 
+2018-10-25 17:22:19 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '--consolidate', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '[datastore1] /backup']
+2018-10-25 17:22:19 INF start backup debian-test-2 to [datastore1] /backup
+2018-10-25 17:22:21 INF consolidate 1 snapshots
+2018-10-25 17:22:22 INF delete snapshots: /bazaar_debian-test-2_20181025172050
+2018-10-25 17:22:28 INF snapshot consolidation finished
+2018-10-25 17:22:28 INF vmx: /vmfs/volumes/datastore2/debian-test-2/debian-test-2.vmx
+2018-10-25 17:22:29 INF vm pre-backup status is POWERED OFF
+2018-10-25 17:22:29 INF backup using vmkfstools
+2018-10-25 17:22:29 INF temporary destination: /vmfs/volumes/datastore1/backup/debian-test-2-20181025172219.new
+2018-10-25 17:22:30 INF create snapshot: bazaar_debian-test-2_20181025172219
+2018-10-25 17:22:33 INF copy vmx: debian-test-2.vmx
+2018-10-25 17:22:33 INF copy vmdk: /sbin/vmkfstools -i "/vmfs/volumes/datastore2/debian-test-2/debian-test-20.vmdk"  "/vmfs/volumes/datastore1/backup/debian-test-2-20181025172219.new/debian-test-20.vmdk"
+2018-10-25 17:22:33 INF # /sbin/vmkfstools -i "/vmfs/volumes/datastore2/debian-test-2/debian-test-20.vmdk"  "/vmfs/volumes/datastore1/backup/debian-test-2-20181025172219.new/debian-test-20.vmdk"
+2018-10-25 17:22:35 INF > Destination disk format: VMFS zeroedthick
+2018-10-25 17:22:35 INF > Cloning disk '/vmfs/volumes/datastore2/debian-test-2/debian-test-20.vmdk'...
+2018-10-25 17:22:35 INF > 
+2018-10-25 17:22:35 INF > Clone: 8% done.
+2018-10-25 17:22:42 INF remove snapshot: bazaar_debian-test-2_20181025172219
+2018-10-25 17:23:15 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '--consolidate', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '[datastore1] /backup']
+2018-10-25 17:23:15 INF start backup debian-test-2 to [datastore1] /backup
+2018-10-25 17:26:05 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '--consolidate', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '[datastore1] /backup']
+2018-10-25 17:26:05 INF start backup debian-test-2 to [datastore1] /backup
+2018-10-25 17:26:34 INF start version=0.9.7b cmd=['/usr/bin/bazaarvcb', 'backup', '--consolidate', '-H', '10.20.1.65', '-u', 'root', '-p', '********', 'debian-test-2', '[datastore1] /backup']
+2018-10-25 17:26:34 INF start backup debian-test-2 to [datastore1] /backup

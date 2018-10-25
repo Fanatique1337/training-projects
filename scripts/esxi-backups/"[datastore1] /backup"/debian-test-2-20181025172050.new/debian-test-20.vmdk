@@ -1,0 +1,23 @@
+# Disk DescriptorFile
+version=1
+encoding="UTF-8"
+CID=15c80436
+parentCID=ffffffff
+isNativeSnapshot="no"
+createType="vmfs"
+
+# Extent description
+RW 25165824 VMFS "debian-test-20-flat.vmdk"
+
+# The Disk Data Base 
+#DDB
+
+ddb.adapterType = "lsilogic"
+ddb.geometry.cylinders = "1566"
+ddb.geometry.heads = "255"
+ddb.geometry.sectors = "63"
+ddb.longContentID = "5ea9b43b8640e37c17443b5a15c80436"
+ddb.thinProvisioned = "1"
+ddb.toolsVersion = "2147483647"
+ddb.uuid = "60 00 C2 99 cf 4f 5f 59-9e a9 9b c1 c5 bc bc f1"
+ddb.virtualHWVersion = "11"
