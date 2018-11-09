@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-# TODO:
-# Use df with ssh on the virtual machine
-# Fix ssh to use esxi_ files.
+# To-do list:
+# 1. Use df with ssh on the virtual machine
+# 2. Fix ssh to use esxi_ files.
 
 PART_ONE="/home"
 PART_TWO="/"
@@ -25,15 +25,14 @@ echo ${DISK_TWO_FILENAME}
 echo ${DISK_ONE_DATASTORE}
 echo ${DISK_TWO_DATASTORE}
 
-
-DISK_ONE_DATASTORE_EXTENT=$(ssh root@10.20.1.65 "/bin/esxcli storage vmfs extent list" | grep ${DISK_ONE_DATASTORE} | awk '{print $4}')
-DISK_TWO_DATASTORE_EXTENT=$(ssh root@10.20.1.65 "/bin/esxcli storage vmfs extent list" | grep ${DISK_TWO_DATASTORE} | awk '{print $4}')
+DISK_ONE_DATASTORE_EXTENT=$(ssh `/bin/cat /etc/esxi_host_auth | grep username | cut -d '=' -f2`@`/bin/cat /etc/esxi_host_addr` "/bin/esxcli storage vmfs extent list" | grep ${DISK_ONE_DATASTORE} | awk '{print $4}')
+DISK_TWO_DATASTORE_EXTENT=$(ssh `/bin/cat /etc/esxi_host_auth | grep username | cut -d '=' -f2`@`/bin/cat /etc/esxi_host_addr` "/bin/esxcli storage vmfs extent list" | grep ${DISK_TWO_DATASTORE} | awk '{print $4}')
 
 echo ${DISK_ONE_DATASTORE_EXTENT}
 echo ${DISK_TWO_DATASTORE_EXTENT}
 
-DISK_ONE_RAID_LEVEL=$(ssh root@10.20.1.65 "/bin/esxcli storage core device list -d ${DISK_ONE_DATASTORE_EXTENT}" | grep "RAID Level: " | rev | cut -d ' ' -f1 | rev)
-DISK_TWO_RAID_LEVEL=$(ssh root@10.20.1.65 "/bin/esxcli storage core device list -d ${DISK_TWO_DATASTORE_EXTENT}" | grep "RAID Level: " | rev | cut -d ' ' -f1 | rev)
+DISK_ONE_RAID_LEVEL=$(ssh `/bin/cat /etc/esxi_host_auth | grep username | cut -d '=' -f2`@`/bin/cat /etc/esxi_host_addr` "/bin/esxcli storage core device list -d ${DISK_ONE_DATASTORE_EXTENT}" | grep "RAID Level: " | rev | cut -d ' ' -f1 | rev)
+DISK_TWO_RAID_LEVEL=$(ssh `/bin/cat /etc/esxi_host_auth | grep username | cut -d '=' -f2`@`/bin/cat /etc/esxi_host_addr` "/bin/esxcli storage core device list -d ${DISK_TWO_DATASTORE_EXTENT}" | grep "RAID Level: " | rev | cut -d ' ' -f1 | rev)
 
 echo ${DISK_ONE_RAID_LEVEL}
 echo ${DISK_TWO_RAID_LEVEL}
