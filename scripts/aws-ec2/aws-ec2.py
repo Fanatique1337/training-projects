@@ -8,7 +8,6 @@ import json
 import os
 import subprocess
 import sys
-import time
 from collections import OrderedDict
 
 # THIRD-PARTY IMPORTS:
@@ -30,20 +29,20 @@ def clear_dict(config):
 
     return {key: value for key, value in config.items() if value}
 
-def build_launch_configuration(data):
+    def build_launch_configuration(data):
 
-    configuration = OrderedDict(
-        LaunchConfigurationName      = data["LaunchConfigurationName"],
-        ImageId                      = data["ImageId"],
-        KeyName                      = data["KeyName"],
-        SecurityGroups               = data["SecurityGroups"],
-        ClassicLinkVPCSecurityGroups = data["ClassicLinkVPCSecurityGroups"],
-        InstanceType                 = data["InstanceType"],
-        BlockDeviceMappings          = data["BlockDeviceMappings"],
-        InstanceMonitoring           = data["InstanceMonitoring"],
-        )
+        configuration = OrderedDict(
+            LaunchConfigurationName      = data["LaunchConfigurationName"],
+            ImageId                      = data["ImageId"],
+            KeyName                      = data["KeyName"],
+            SecurityGroups               = data["SecurityGroups"],
+            ClassicLinkVPCSecurityGroups = data["ClassicLinkVPCSecurityGroups"],
+            InstanceType                 = data["InstanceType"],
+            BlockDeviceMappings          = data["BlockDeviceMappings"],
+            InstanceMonitoring           = data["InstanceMonitoring"],
+            )
 
-    return configuration
+        return configuration
 
 
 
