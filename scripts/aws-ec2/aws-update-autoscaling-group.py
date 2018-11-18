@@ -18,8 +18,9 @@ import botocore.exceptions
 
 # DEFINING CONSTANTS:
 
-DEBUG_TRACE = True
+DEBUG_TRACE                   = True
 DEFAULT_CREDENTIALS_FILE_PATH = "/home/pavlin/.aws/credentials"
+DEFAULT_REGION                = "eu-central-1"
 
 # ERROR EXIT CODES:
 
@@ -34,10 +35,12 @@ def get_arguments():
 
     parser.add_argument("--credentialsfile",
                         help="Select a custom credentials file.",
-                        type=str)
+                        type=str,
+                        default=DEFAULT_CREDENTIALS_FILE_PATH)
     parser.add_argument("--region",
                         help="Choose an AWS region.",
-                        type=str)
+                        type=str,
+                        default=DEFAULT_REGION)
 
     return parser.parse_args()
 
@@ -147,22 +150,51 @@ def update_auto_scaling_group(client, group_name, launch_config_name):
         LaunchConfigurationName = launch_config_name
     )
 
+def delete_image(client, image):
+
+    image_snapshots = []
+
+    image_data = client.describe_images(
+        ImageIds  = [image],
+        DryRun    = False
+    )
+
+    for device in image_data["Images"][0]["BlockDeviceMappings"]:
+        image_snapshots.append(device["Ebs"]["SnapshotId"])
+
+    deregister_response = client.deregister_image(
+        ImageId = image,
+        DryRun  = False
+    )
+
+    print(deregister_response)
+
+    for snapshot in image_snapshots:
+        snapshot_response = client.delete_snapshot(
+            SnapshotId = snapshot,
+            DryRun     = False
+        )
+
+        print(snapshot_response)
+
 def main():
 
-    credentials = get_credentials('/home/pavlin/.aws/credentials')
+    args = get_arguments()
+
+    credentials = get_credentials(args.credentialsfile)
 
     print(credentials.key_id)
 
     ec2_client = init_client(
         service     = "ec2", 
         credentials = credentials, 
-        region      = "eu-central-1"
+        region      = args.region
     )
 
     autoscaling_client = init_client(
         service     = "autoscaling",
         credentials = credentials,
-        region      = "eu-central-1"
+        region      = args.region
     )
 
     instance_map, instance_ids = get_instances(ec2_client)
@@ -188,10 +220,12 @@ def main():
         group_name         = "AutoScalingGroup1"
     )
 
-    deletion_response = ec2_client.delete_launch_configuration(
+    deletion_response = autoscaling_client.delete_launch_configuration(
         LaunchConfigurationName=launch_configuration_name)
 
     print(autoscaling_update)
     print(deletion_response)
+
+    delete_image(ec2_client, image_id)
 
 main()
