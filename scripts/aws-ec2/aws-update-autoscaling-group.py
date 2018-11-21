@@ -72,7 +72,6 @@ def init_client(service, credentials, region=None):
     )
 
 def get_instances(client):
-    instance_map = {}
     instance_ids = []
 
     describe_instances = client.describe_instances()
@@ -80,11 +79,8 @@ def get_instances(client):
     for reservation in describe_instances["Reservations"]:
         for instance in reservation["Instances"]:
             instance_ids.append(instance["InstanceId"])
-            for tag in instance["Tags"]:
-                if tag["Key"] == "Name":
-                    instance_map[tag["Value"]] = instance["InstanceId"]
 
-    return instance_map, instance_ids
+    return instance_ids
 
 def backup_image(client, instance):
 
@@ -109,10 +105,12 @@ def get_launch_configuration(client, name=None):
         for config in launch_configurations["LaunchConfigurations"]:
             if config["LaunchConfigurationName"] == name:
                 launch_configuration = config
+                image_to_delete      = config["ImageId"]
     else:
         launch_configuration = launch_configurations["LaunchConfigurations"][0]
+        image_to_delete      = launch_configuration["ImageId"]
 
-    return launch_configuration
+    return launch_configuration, image_to_delete
 
 def update_launch_configuration(client, launch_configuration, image):
 
@@ -126,7 +124,6 @@ def update_launch_configuration(client, launch_configuration, image):
     creation_response = client.create_launch_configuration(**new_configuration)
 
     return creation_response
-
 
 def build_launch_configuration(data):
 
@@ -167,7 +164,7 @@ def delete_image(client, image):
         DryRun  = False
     )
 
-    print(deregister_response)
+    print("Deregistered image: '{}'".format(image))
 
     for snapshot in image_snapshots:
         snapshot_response = client.delete_snapshot(
@@ -175,15 +172,13 @@ def delete_image(client, image):
             DryRun     = False
         )
 
-        print(snapshot_response)
+        print("Deleted snapshot: '{}'".format(snapshot))
 
 def main():
 
     args = get_arguments()
 
     credentials = get_credentials(args.credentialsfile)
-
-    print(credentials.key_id)
 
     ec2_client = init_client(
         service     = "ec2", 
@@ -197,10 +192,11 @@ def main():
         region      = args.region
     )
 
-    instance_map, instance_ids = get_instances(ec2_client)
-    image_id = backup_image(ec2_client, instance_map["instance_1"])
-    print(image_id)
-    launch_configuration = get_launch_configuration(autoscaling_client)
+    instance_ids = get_instances(ec2_client)
+    image_id = backup_image(ec2_client, instance_ids[0])
+    print("Created image: '{}'".format(image_id))
+
+    launch_configuration, image_d = get_launch_configuration(autoscaling_client)
     launch_configuration_name = launch_configuration["LaunchConfigurationName"]
 
     creation = update_launch_configuration(
@@ -208,11 +204,8 @@ def main():
         launch_configuration = launch_configuration, 
         image = image_id
     )
-
-    print(instance_map)
-    print(instance_ids)
-
-    print(creation)
+    print("Created new launch configuration: '{}'".format(
+        launch_configuration["LaunchConfigurationName"]))
 
     autoscaling_update = update_auto_scaling_group(
         client             = autoscaling_client,
@@ -223,9 +216,14 @@ def main():
     deletion_response = autoscaling_client.delete_launch_configuration(
         LaunchConfigurationName=launch_configuration_name)
 
-    print(autoscaling_update)
-    print(deletion_response)
+    print("Successfully updated autoscaling group.")
 
-    delete_image(ec2_client, image_id)
+    print("Successfully deleted launch configuration '{}'".format(
+        launch_configuration_name))
+
+    print("Image to be deleted: '{}'".format(image_d))
+    delete_image(ec2_client, image_d)
+    print("Image deleted: '{}'".format(image_d))
+
 
 main()
