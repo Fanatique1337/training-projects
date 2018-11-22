@@ -73,8 +73,15 @@ def init_client(service, credentials, region=None):
 
 def get_instances(client):
     instance_ids = []
+    allowed_states = ["running"]
+    filters_dict = OrderedDict(
+        Name   = "instance-state-name",
+        Values = allowed_states
+    )
 
-    describe_instances = client.describe_instances()
+    describe_instances = client.describe_instances(
+        Filters = [filters_dict]
+    )
 
     for reservation in describe_instances["Reservations"]:
         for instance in reservation["Instances"]:
@@ -89,7 +96,7 @@ def backup_image(client, instance):
         NoReboot    = True,
         InstanceId  = instance,
         DryRun      = False,
-        Name        = "Automated image {}".format(get_current_date())
+        Name        = "ami-{}-{}".format(instance, get_current_date())
     )
 
     return image_response["ImageId"]
@@ -98,32 +105,27 @@ def get_current_date():
 
     return datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
 
-def get_launch_configuration(client, name=None):
+def get_launch_configuration(client, instance):
     launch_configurations = client.describe_launch_configurations()
 
-    if name:
-        for config in launch_configurations["LaunchConfigurations"]:
-            if config["LaunchConfigurationName"] == name:
-                launch_configuration = config
-                image_to_delete      = config["ImageId"]
-    else:
-        launch_configuration = launch_configurations["LaunchConfigurations"][0]
-        image_to_delete      = launch_configuration["ImageId"]
+    for config in launch_configurations["LaunchConfigurations"]:
+        if instance in config["LaunchConfigurationName"]:
+            launch_configuration = config
+            image_to_delete      = config["ImageId"]
 
     return launch_configuration, image_to_delete
 
-def update_launch_configuration(client, launch_configuration, image):
+def update_launch_configuration(client, launch_configuration, image, instance):
 
     launch_configuration["ImageId"] = image
-    for_deletion_name = launch_configuration["LaunchConfigurationName"]
-    launch_configuration["LaunchConfigurationName"] = "LaunchConfig {}".format(
-        get_current_date())
+    launch_configuration["LaunchConfigurationName"] = "lc-{}-{}".format(
+        instance, get_current_date())
 
     new_configuration = build_launch_configuration(launch_configuration)
 
-    creation_response = client.create_launch_configuration(**new_configuration)
+    client.create_launch_configuration(**new_configuration)
 
-    return creation_response
+    return new_configuration
 
 def build_launch_configuration(data):
 
@@ -193,37 +195,45 @@ def main():
     )
 
     instance_ids = get_instances(ec2_client)
-    image_id = backup_image(ec2_client, instance_ids[0])
-    print("Created image: '{}'".format(image_id))
+    instance_map = {}
 
-    launch_configuration, image_d = get_launch_configuration(autoscaling_client)
-    launch_configuration_name = launch_configuration["LaunchConfigurationName"]
+    for instance in instance_ids:
+        print("Started backing up instance {}".format(instance))
+        image_id = backup_image(ec2_client, instance)
+        print("Created image: '{}'".format(image_id))
 
-    creation = update_launch_configuration(
-        client = autoscaling_client, 
-        launch_configuration = launch_configuration, 
-        image = image_id
-    )
-    print("Created new launch configuration: '{}'".format(
-        launch_configuration["LaunchConfigurationName"]))
+        instance_map[image_id] = instance
 
-    autoscaling_update = update_auto_scaling_group(
-        client             = autoscaling_client,
-        launch_config_name = launch_configuration["LaunchConfigurationName"],
-        group_name         = "AutoScalingGroup1"
-    )
+        launch_configuration, image_to_delete = get_launch_configuration(
+            client   = autoscaling_client,
+            instance = instance
+        )
 
-    deletion_response = autoscaling_client.delete_launch_configuration(
-        LaunchConfigurationName=launch_configuration_name)
+        old_launch_config = launch_configuration["LaunchConfigurationName"]
 
-    print("Successfully updated autoscaling group.")
+        new_launch_config = update_launch_configuration(
+            client               = autoscaling_client,
+            launch_configuration = launch_configuration,
+            image                = image_id,
+            instance             = instance
+        )
+        print("Created new launch configuration: '{}'".format(
+            new_launch_config["LaunchConfigurationName"])
+        )
 
-    print("Successfully deleted launch configuration '{}'".format(
-        launch_configuration_name))
+        autoscaling_update = update_auto_scaling_group(
+            client             = autoscaling_client,
+            launch_config_name = new_launch_config["LaunchConfigurationName"],
+            group_name         = "ac-{}".format(instance)
+        )
+        print("Updated autoscaling group: 'ac-{}'".format(instance))
 
-    print("Image to be deleted: '{}'".format(image_d))
-    delete_image(ec2_client, image_d)
-    print("Image deleted: '{}'".format(image_d))
+        autoscaling_client.delete_launch_configuration(
+            LaunchConfigurationName=old_launch_config
+        )
+        print("Deleted launch configuration: '{}'".format(old_launch_config))
 
+        delete_image(ec2_client, image_to_delete)
+        print("Deleted image: '{}'".format(image_to_delete))
 
 main()
