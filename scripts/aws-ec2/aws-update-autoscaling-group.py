@@ -18,7 +18,7 @@ import botocore.exceptions
 
 # DEFINING CONSTANTS:
 
-DEBUG_TRACE                   = True
+DEBUG_TRACE                   = False
 DEFAULT_CREDENTIALS_FILE_PATH = "/home/pavlin/.aws/credentials"
 DEFAULT_REGION                = "eu-central-1"
 
@@ -27,7 +27,8 @@ DEFAULT_REGION                = "eu-central-1"
 ARGPARSE_ERR    = 4
 BOTO3_API_ERR   = 5
 CREDENTIALS_ERR = 6
-GLOBAL_ERR      = 9
+GLOBAL_ERR      = 7
+USER_ABORT      = 8
 
 def get_arguments():
 
@@ -176,11 +177,23 @@ def delete_image(client, image):
 
         print("Deleted snapshot: '{}'".format(snapshot))
 
+def printerr(text):
+    print("Error: {}".format(text), file=sys.stderr)
+
 def main():
 
-    args = get_arguments()
+    try:
+        args = get_arguments()
+    except argparse.ArgumentError:
+        printerr("A problem occured while parsing your arguments.")
+        sys.exit(ARGPARSE_ERR)
 
-    credentials = get_credentials(args.credentialsfile)
+    try:
+        credentials = get_credentials(args.credentialsfile)
+    except KeyError as error:
+        printerr("There is a problem with the AWS credentials file.")
+        printerr("Either the file is missing or there is a syntax error in it.")
+        sys.exit(CREDENTIALS_ERR)
 
     ec2_client = init_client(
         service     = "ec2", 
@@ -236,4 +249,20 @@ def main():
         delete_image(ec2_client, image_to_delete)
         print("Deleted image: '{}'".format(image_to_delete))
 
-main()
+if __name__ == "__main__":
+    if DEBUG_TRACE:
+        main()
+    else:
+        try:
+            main()
+        except (EOFError, KeyboardInterrupt):
+            printerr("Caught EOF or Keyboard Interrupt, aborting...")
+            sys.exit(USER_ABORT)
+        except botocore.exceptions.ClientError as error:
+            printerr("AWS API error caught: ")
+            printerr(error)
+            sys.exit(BOTO3_API_ERR)
+        except Exception as error:
+            printerr("Global exception caught.")
+            printerr(error)
+            sys.exit(GLOBAL_ERR)
