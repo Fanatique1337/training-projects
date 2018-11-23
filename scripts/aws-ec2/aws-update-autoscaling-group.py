@@ -5,9 +5,6 @@
 import argparse
 import configparser
 import datetime
-import json
-import os
-import subprocess
 import sys
 from collections import OrderedDict, namedtuple
 
@@ -182,19 +179,9 @@ def printerr(text):
 
 def main():
 
-    try:
-        args = get_arguments()
-    except argparse.ArgumentError:
-        printerr("A problem occured while parsing your arguments.")
-        sys.exit(ARGPARSE_ERR)
-
-    try:
-        credentials = get_credentials(args.credentialsfile)
-    except KeyError as error:
-        printerr("There is a problem with the AWS credentials file.")
-        printerr("Either the file is missing or there is a syntax error in it.")
-        sys.exit(CREDENTIALS_ERR)
-
+    args = get_arguments()
+    credentials = get_credentials(args.credentialsfile)
+    
     ec2_client = init_client(
         service     = "ec2", 
         credentials = credentials, 
@@ -208,21 +195,19 @@ def main():
     )
 
     instance_ids = get_instances(ec2_client)
-    instance_map = {}
 
-    for instance in instance_ids:
+    for instance in instance_ids: # TODO: instance => instance_id
         print("Started backing up instance {}".format(instance))
+
         image_id = backup_image(ec2_client, instance)
         print("Created image: '{}'".format(image_id))
-
-        instance_map[image_id] = instance
 
         launch_configuration, image_to_delete = get_launch_configuration(
             client   = autoscaling_client,
             instance = instance
         )
 
-        old_launch_config = launch_configuration["LaunchConfigurationName"]
+        old_launch_cfg_name = launch_configuration["LaunchConfigurationName"]
 
         new_launch_config = update_launch_configuration(
             client               = autoscaling_client,
@@ -242,9 +227,9 @@ def main():
         print("Updated autoscaling group: 'ac-{}'".format(instance))
 
         autoscaling_client.delete_launch_configuration(
-            LaunchConfigurationName=old_launch_config
+            LaunchConfigurationName=old_launch_cfg_name
         )
-        print("Deleted launch configuration: '{}'".format(old_launch_config))
+        print("Deleted launch configuration: '{}'".format(old_launch_cfg_name))
 
         delete_image(ec2_client, image_to_delete)
         print("Deleted image: '{}'".format(image_to_delete))
@@ -258,6 +243,13 @@ if __name__ == "__main__":
         except (EOFError, KeyboardInterrupt):
             printerr("Caught EOF or Keyboard Interrupt, aborting...")
             sys.exit(USER_ABORT)
+        except argparse.ArgumentError:
+            printerr("A problem occured while parsing your arguments.")
+            sys.exit(ARGPARSE_ERR)
+        except KeyError as error:
+            printerr("There is a problem with the AWS credentials file.")
+            printerr("Syntax error or credentialsfile missing.")
+            sys.exit(CREDENTIALS_ERR)
         except botocore.exceptions.ClientError as error:
             printerr("AWS API error caught: ")
             printerr(error)

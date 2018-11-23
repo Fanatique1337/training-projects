@@ -360,7 +360,7 @@ def get_fragment_path(service):
     return filename
 
 def edit(service, manual=False, finito=True):
-    """
+    """ 
     Open the service's systemd service 
     unit configuration file for editing.
     """
