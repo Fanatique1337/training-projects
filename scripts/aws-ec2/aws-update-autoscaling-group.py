@@ -99,9 +99,12 @@ def backup_image(client, instance):
 
     return image_response["ImageId"]
 
-def get_current_date():
+def get_current_date(mode=1):
 
-    return datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+    if mode == 1:
+        return datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+    elif mode == 2:
+        return datetime.datetime.now().strftime("%Y-%m-%d")
 
 def get_launch_configuration(client, instance):
     launch_configurations = client.describe_launch_configurations()
@@ -147,32 +150,30 @@ def update_auto_scaling_group(client, group_name, launch_config_name):
         LaunchConfigurationName = launch_config_name
     )
 
-def delete_image(client, image):
-
-    image_snapshots = []
+def delete_images(client):
 
     image_data = client.describe_images(
-        ImageIds  = [image],
-        DryRun    = False
+        DryRun = False,
+        Owners = ['self']
     )
+    
+    for img in image_data["Images"]:
+        if get_current_date(mode = 2) not in img["Name"]:
+            for device in img["BlockDeviceMappings"]:
+                image_snapshots.append(device["Ebs"]["SnapshotId"])
 
-    for device in image_data["Images"][0]["BlockDeviceMappings"]:
-        image_snapshots.append(device["Ebs"]["SnapshotId"])
+            deregister_response = client.deregister_image(
+                ImageId = image,
+                DryRun  = False
+            )
+            print("Deregistered image: '{}'".format(image))
 
-    deregister_response = client.deregister_image(
-        ImageId = image,
-        DryRun  = False
-    )
-
-    print("Deregistered image: '{}'".format(image))
-
-    for snapshot in image_snapshots:
-        snapshot_response = client.delete_snapshot(
-            SnapshotId = snapshot,
-            DryRun     = False
-        )
-
-        print("Deleted snapshot: '{}'".format(snapshot))
+            for snapshot in image_snapshots:
+                snapshot_response = client.delete_snapshot(
+                    SnapshotId = snapshot,
+                    DryRun     = False
+                )
+                print("Deleted snapshot: '{}'".format(snapshot))
 
 def printerr(text):
     print("Error: {}".format(text), file=sys.stderr)
@@ -231,8 +232,7 @@ def main():
         )
         print("Deleted launch configuration: '{}'".format(old_launch_cfg_name))
 
-        delete_image(ec2_client, image_to_delete)
-        print("Deleted image: '{}'".format(image_to_delete))
+        delete_images(ec2_client)
 
 if __name__ == "__main__":
     if DEBUG_TRACE:
