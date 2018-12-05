@@ -102,7 +102,7 @@ def backup_image(client, instance):
 def get_current_date(mode=1):
 
     if mode == 1:
-        return datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+        return datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
     elif mode == 2:
         return datetime.datetime.now().strftime("%Y-%m-%d")
 
@@ -158,15 +158,16 @@ def delete_images(client):
     )
     
     for img in image_data["Images"]:
+        image_snapshots = []
         if get_current_date(mode = 2) not in img["Name"]:
             for device in img["BlockDeviceMappings"]:
                 image_snapshots.append(device["Ebs"]["SnapshotId"])
 
             deregister_response = client.deregister_image(
-                ImageId = image,
+                ImageId = img["ImageId"],
                 DryRun  = False
             )
-            print("Deregistered image: '{}'".format(image))
+            print("Deregistered image: '{}'".format(img["ImageId"]))
 
             for snapshot in image_snapshots:
                 snapshot_response = client.delete_snapshot(
@@ -174,6 +175,14 @@ def delete_images(client):
                     DryRun     = False
                 )
                 print("Deleted snapshot: '{}'".format(snapshot))
+
+def check_image_timedelta(name):
+
+    name = name.split('-')[3:]
+    name = '-'.join(name)
+
+    timedelta = datetime.datetime.strptime(name, '%Y-%m-%d-%H-%M')
+
 
 def printerr(text):
     print("Error: {}".format(text), file=sys.stderr)
