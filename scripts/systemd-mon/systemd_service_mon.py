@@ -53,11 +53,11 @@ NS = "ZBX_NOTSUPPORTED" # Value for values that cannot be gathered.
 
 # Other constants
 
-CGROUP_LIMITS_MEMORY_PATH = '/sys/fs/cgroup/memory/system.slice'
+CGROUP_LIMITS_MEMORY_PATH = '/sys/fs/cgroup/memory/'
 CGROUP_LIMITS_MEMORY_FILE = 'memory.limit_in_bytes'
-CGROUP_LIMITS_CPU_PATH = '/sys/fs/cgroup/cpu,cpuacct/system.slice'
+CGROUP_LIMITS_CPU_PATH = '/sys/fs/cgroup/cpu,cpuacct/'
 CGROUP_LIMITS_CPU_FILE = 'cpu.shares'
-CGROUP_LIMITS_IO_PATH = '/sys/fs/cgroup/blkio/system.slice'
+CGROUP_LIMITS_IO_PATH = '/sys/fs/cgroup/blkio/'
 CGROUP_LIMITS_IO_FILE = 'blkio.weight'
 CONFIG = '/etc/monithor/config.json' # Default configuration file.
 TRACE = True # Should we traceback errors | False to catch global exceptions
