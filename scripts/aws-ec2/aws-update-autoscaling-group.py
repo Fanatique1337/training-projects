@@ -15,7 +15,7 @@ import botocore.exceptions
 
 # DEFINING CONSTANTS:
 
-DEBUG_TRACE                   = False
+DEBUG_TRACE                   = True
 DEFAULT_CREDENTIALS_FILE_PATH = "/home/pavlin/.aws/credentials"
 DEFAULT_REGION                = "eu-central-1"
 
@@ -111,8 +111,8 @@ def get_launch_configuration(client, instance):
 
     for config in launch_configurations["LaunchConfigurations"]:
         if instance in config["LaunchConfigurationName"]:
-            launch_configuration = config
             image_to_delete      = config["ImageId"]
+            launch_configuration = config
 
     return launch_configuration, image_to_delete
 
@@ -159,7 +159,7 @@ def delete_images(client):
     
     for img in image_data["Images"]:
         image_snapshots = []
-        if get_current_date(mode = 2) not in img["Name"]:
+        if check_image_timedelta(img["Name"], hours=24):
             for device in img["BlockDeviceMappings"]:
                 image_snapshots.append(device["Ebs"]["SnapshotId"])
 
@@ -175,14 +175,17 @@ def delete_images(client):
                     DryRun     = False
                 )
                 print("Deleted snapshot: '{}'".format(snapshot))
+        else:
+            print("Image {} timedelta is less than 24h.".format(img["ImageId"]))
 
-def check_image_timedelta(name):
+def check_image_timedelta(name, hours):
 
     name = name.split('-')[3:]
     name = '-'.join(name)
 
-    timedelta = datetime.datetime.strptime(name, '%Y-%m-%d-%H-%M')
+    date = datetime.datetime.strptime(name, '%Y-%m-%d-%H-%M')
 
+    return (datetime.datetime.now() - date >= datetime.timedelta(1))
 
 def printerr(text):
     print("Error: {}".format(text), file=sys.stderr)
@@ -232,16 +235,16 @@ def main():
         autoscaling_update = update_auto_scaling_group(
             client             = autoscaling_client,
             launch_config_name = new_launch_config["LaunchConfigurationName"],
-            group_name         = "ac-{}".format(instance)
+            group_name         = "ag-{}".format(instance)
         )
-        print("Updated autoscaling group: 'ac-{}'".format(instance))
+        print("Updated autoscaling group: 'ag-{}'".format(instance))
 
         autoscaling_client.delete_launch_configuration(
             LaunchConfigurationName=old_launch_cfg_name
         )
         print("Deleted launch configuration: '{}'".format(old_launch_cfg_name))
 
-        delete_images(ec2_client)
+    delete_images(ec2_client)
 
 if __name__ == "__main__":
     if DEBUG_TRACE:
