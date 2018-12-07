@@ -99,12 +99,9 @@ def backup_image(client, instance):
 
     return image_response["ImageId"]
 
-def get_current_date(mode=1):
+def get_current_date():
 
-    if mode == 1:
-        return datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
-    elif mode == 2:
-        return datetime.datetime.now().strftime("%Y-%m-%d")
+    return datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
 
 def get_launch_configuration(client, instance):
     launch_configurations = client.describe_launch_configurations()
