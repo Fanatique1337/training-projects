@@ -5,11 +5,18 @@ import os
 import subprocess
 import sys
 
+sys.path.insert(0, "/usr/share/tbmon2/lib")
+
+import XUtils
+
+from XErrors import *
+
 # Define constants:
 
 SUBPROCESS_ERROR = 4
 ASSERT_ERROR     = 5
-GLOBAL_ERROR     = 6
+NAME_ERROR       = 6
+GLOBAL_ERROR     = 7
 
 ESXI_DEPOT  = "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"
 VIBS_SLICE  = 1 # This is the part of the split list where the VIB names are.
@@ -49,33 +56,36 @@ def main():
 
     args = get_args()
 
-    assert isinstance(args, argparse.Namespace), "Internal error: args is not an argparse Namespace"
+    ASSERT(isinstance(args, argparse.Namespace), "Internal error: args is not an argparse Namespace")
 
     command = "esxcli software profile update -p {} -d {} --dry-run --force".format(
         args.profile,
         args.depot
     )
 
+    TRACE5("Running command: {}".format(command))
     output = subprocess.check_output(['ssh {}@{} "{}"'.format(
         args.username,
         args.host,
         command)], shell=True)
 
     # Decode the output because check_output returns it in a bytes-like object.
+    TRACE5("Decoding output: {}".format(output))
     output = output.decode('utf-8').split('\n')
 
     # Get the info we need from the output.
+    TRACE5("Parsing the output: {}".format(output))
     for line in output:
         if "vibs installed" in line.lower():
             vibs_installed = line.strip().split(':')[VIBS_SLICE] # VIBs installed
-        if "vibs removed" in line.lower():
+        elif "vibs removed" in line.lower():
             vibs_removed = line.strip().split(':')[VIBS_SLICE] # VIBs removed
-        if "vibs skipped" in line.lower(): 
+        elif "vibs skipped" in line.lower(): 
             vibs_skipped = line.strip().split(':')[VIBS_SLICE] # VIBs skipped
 
-    vibs_installed_count = vibs_installed.count(',')
-    vibs_removed_count   = vibs_removed.count(',')
-    vibs_skipped_count   = vibs_skipped.count(',')
+    vibs_installed_count = vibs_installed.count(' ')
+    vibs_removed_count   = vibs_removed.count(' ')
+    vibs_skipped_count   = vibs_skipped.count(' ')
 
     if vibs_installed_count == 0:
         vibs_installed = "N/A"
@@ -100,9 +110,12 @@ if __name__ == "__main__":
             print(err)
             sys.exit(SUBPROCESS_ERROR)
         except AssertionError as err:
-            print("Assertion error caught:")
+            print("Error: Assertion error caught:")
             print(err)
             sys.exit(ASSERT_ERROR)
+        except NameError as err:
+            print("Error: esxcli command output is most likely wrong.")
+            sys.exit(NAME_ERROR)
         except Exception as err:
             print("Error: A global exception has been caught.")
             print(err)
